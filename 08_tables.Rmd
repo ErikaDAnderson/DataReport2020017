@@ -1,0 +1,56 @@
+# Tables
+
+Table of total tows, CTD, plankton, MOCNESS?  
+
+Table of vertebrate species table  
+All captured vertebrate fish species (or taxonomic group), ordered by total
+catch weight, showing number of tows in which the species occurred, total catch
+weight, maximum catch weight, and mean catch weight per tow for usable tows from
+the Integrated Pelagic Ecosystem Survey, June 15 to July 15, 2019 aboard the M.V.
+Nordic Pearl. Zero catch indicates specimens could not be weighed accurately with
+Marel platform scale.  
+Common Name, Scientific name, Tows, Totals, Max, Mean
+
+Table of Invertebrates  
+All captured invertebrate species (or taxonomic group), ordered by total catch
+weight, showing number of tows in which the species occurred, total catch weight,
+maximum catch weight, and mean catch weight per tow for usable tows from the
+Integrated Pelagic Ecosystem Survey, June 15 to July 15, 2019 aboard the M.V. Nordic
+Pearl. Zero catch indicates specimens could not be weighed accurately with Marel
+platform scale.
+
+Species Lengths and Weights  
+Sample size and statistics of lengths and weights for each species (listed
+alphabetically) sampled during the Integrated Pelagic Ecosystem Survey, June 15 to
+July 15, 2019 aboard the M.V. Nordic Pearl. (Sampled = number of tows, Measured =
+number of lengths, Weighed = number of weights).
+
+Stomach Table
+Number of samples (tows), number of stomachs examined, number empty
+stomachs, and percentage of stomachs that were empty for species sampled (listed
+alphabetically) during the Integrated Pelagic Ecosystem Survey, June 15 to July 15,
+2019 aboard the M.V. Nordic Pearl.  
+
+Prey Table  
+Prey items identified in the stomach contents of species sampled (listed
+alphabetically) during the Integrated Pelagic Ecosystem Survey, June 15 to July 15,
+2019 aboard the M.V. Nordic Pearl. The average prey volume is in cm3 and the count of
+stomachs is the number of stomachs examined.  
+  
+Example Table  
+```{r herring-simple, results='asis'}
+# d <- readr::read_csv(file.path("data", "herring-simple.csv"),
+#                      col_types = cols(
+#   Source = col_character(),
+#   `Data type` = col_character(),
+#   Data = col_character(),
+#   `Start year` = col_double(),
+#   `End year` = col_double()
+# ))
+
+  # csasdown::csas_table(d,
+  #                      #format = "latex" #use for pdf only
+  #                      )
+
+```
+
