@@ -1,0 +1,44 @@
+<!-- The following code should appear at the beginning of the first appendix.
+After that, all subsequent sections will be turned into appendices. -->
+
+`r if(knitr:::is_latex_output()) '% begin csasdown appendix'`
+`r if(!knitr:::is_latex_output()) '# (APPENDIX) Appendix {-}'`
+
+\clearpage
+
+# THE FIRST APPENDIX {#app:first-appendix}
+
+Bridge Log table (landscape hard to do in word)
+  
+Catch Table  
+
+
+(ref:test1) English version of the test1 figure caption
+
+```{r test1, fig.cap="(ref:test1)"}
+plot(1)
+```
+
+(ref:test1b) English version of the test1b figure caption
+
+```{r test1b, results='asis'}
+csasdown::csas_table(data.frame(x = c("a", "a", "b"),
+                                y = c(1, 2, 3)),
+                     caption = "English verion of the test2b table caption")
+```
+
+And references to them...
+
+See Figure \@ref(fig:test1) for the example appendix figure.
+
+See Table \@ref(tab:test1b) for the example appendix table.
+
+\clearpage
+
+# THE SECOND APPENDIX, FOR FUN {#app:second-appendix}
+
+Tow plots?
+
+
+<!-- At the end of your appendices add: -->
+`r if(knitr:::is_latex_output()) '% end csasdown appendix'`
