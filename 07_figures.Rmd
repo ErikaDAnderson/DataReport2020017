@@ -1,0 +1,208 @@
+# Figures
+
+(ref:mapfish) Fishing locations during the `r surveyName` from `r surveyDateRange` on the `r vessel`. The LFS 7742 coastal trawl net (red triangles) was used for 20 tows and the LFS 1142 offshore trawl net (orange circles) was used for 2 tows.
+
+```{r mapfish, fig.pos="H", fig.cap = "(ref:mapfish)", warning=FALSE}
+
+events_fish <- events %>%
+  mutate(Gear = str_extract(Type, "[0-9]+"),
+         Test = str_extract(Comments, "DO NOT USE")) %>%
+  filter(!(is.na(Gear))) %>%
+  filter(is.na(Test))
+  
+  basemap +
+    geom_point(data = events_fish,
+             aes(Start_Long_DD, Start_Lat_DD, shape = Type, color = Type),
+             size = 3) +
+    scale_color_manual(values = c("orange", "darkred")) +
+    theme(legend.position = "none")
+
+
+```
+
+(ref:mapctd) Oceanographic sampling locations during the `r surveyName` from `r surveyDateRange` on the `r vessel`. There were 19 Seabird 25 CTD casts (red circles) and 2 Seabird 911 rosette casts (orange triangles).
+
+```{r mapctd, fig.pos="H", fig.cap = "(ref:mapctd)", warning=FALSE}
+
+events_ctd <- events %>%
+  filter(Type == "ROS" | Type == "CTD")
+  
+  basemap +
+    geom_point(data = events_ctd,
+             aes(Start_Long_DD, Start_Lat_DD, shape = Type, color = Type),
+             size = 3) +
+    scale_color_manual(values = c("darkred", "orange")) +
+    theme(legend.position = "none")
+  
+
+```
+
+(ref:mapplankton) Zooplankton sampling locations during the `r surveyName` from `r surveyDateRange` on the `r vessel`. There were 21 vertical plankton tows (red triangles), 2 oblique plankton tows (yellow circles) and 3 MOCNESS tows (black squares).
+
+```{r mapplankton, fig.pos="H", fig.cap = "(ref:mapplankton)", warning=FALSE}
+
+events_bongoVert <- events %>%
+  filter(Type == "BongoVertical")
+
+events_bongoObliq <- events %>%
+  filter(Type == "BongoOblique")
+
+events_mocness <- events %>%
+  filter(Type == "MOCNESS")
+  
+  basemap +
+    geom_point(data = events_mocness,
+             aes(Start_Long_DD, Start_Lat_DD),
+             shape = 15,
+             color = "black",
+             size = 5) +
+    geom_point(data = events_bongoObliq,
+             aes(Start_Long_DD, Start_Lat_DD),
+             shape = 16,
+             color = "orange",
+             size = 4) +
+    geom_point(data = events_bongoVert,
+             aes(Start_Long_DD, Start_Lat_DD),
+             shape = 17,
+             color = "darkred",
+             size = 3)
+  
+```
+
+
+(ref:cmcpue) Juvenile chum salmon (*Oncorhynchus keta*) catch in thousand of individuals per km^3^ per tow. Red circles are proportional to catch abundance, and zero catches are shown with a cross (+).
+
+```{r cmcpue, fig.pos="H", fig.cap = "(ref:cmcpue)", warning=FALSE}
+
+# wrangle data for specific species
+cmcpue <- salmondf %>%
+    filter(CM_JUV != 0) %>%
+  select(EVENT, START_LAT, START_LONG, `ESTIMATED_CATCHES_ BY_WT`, CM_JUV_KM3)
+
+# df for zero catch
+cmzero <- salmondf %>%
+  filter(CM_JUV == 0) %>%
+    select(EVENT, START_LAT, START_LONG, CM_JUV_KM3)
+
+# map cpue
+basemap +
+  geom_point(data = cmcpue,
+             aes(START_LONG, START_LAT, size = CM_JUV_KM3),
+             color = "darkred") +
+    geom_point(data = cmzero,
+             aes(START_LONG, START_LAT),
+             shape = 3) +
+  labs(size = "Juveniles \n per km3") 
+
+```
+
+(ref:pkcpue) Juvenile pink salmon (*Oncorhynchus gorbusha*) catch in thousand of individuals per km^3^ per tow. Red circles are proportional to catch abundance, and zero catches are shown with a cross (+).
+
+```{r pkcpue, fig.pos="H", fig.cap = "(ref:pkcpue)", warning=FALSE}
+
+# wrangle data for specific species
+pkcpue <- salmondf %>%
+    filter(PK_JUV != 0) %>%
+  select(EVENT, START_LAT, START_LONG, `ESTIMATED_CATCHES_ BY_WT`, PK_JUV_KM3)
+
+# df for zero catch
+pkzero <- salmondf %>%
+  filter(PK_JUV == 0) %>%
+    select(EVENT, START_LAT, START_LONG, PK_JUV_KM3)
+
+# map cpue
+basemap +
+  geom_point(data = pkcpue,
+             aes(START_LONG, START_LAT, size = PK_JUV_KM3),
+             color = "darkred") +
+    geom_point(data = pkzero,
+             aes(START_LONG, START_LAT),
+             shape = 3) +
+  labs(size = "Juveniles \n per km3") 
+
+```
+
+
+(ref:secpue) Juvenile sockeye salmon (*Oncorhynchus nerka*) catch in thousand of individuals per km^3^ per tow. Red circles are proportional to catch abundance, and zero catches are shown with a cross (+).
+
+```{r secpue, fig.pos="H", fig.cap = "(ref:secpue)", warning=FALSE}
+
+# wrangle data for specific species
+secpue <- salmondf %>%
+    filter(SE_JUV != 0) %>%
+  select(EVENT, START_LAT, START_LONG, `ESTIMATED_CATCHES_ BY_WT`, SE_JUV_KM3)
+
+# df for zero catch
+sezero <- salmondf %>%
+  filter(SE_JUV == 0) %>%
+    select(EVENT, START_LAT, START_LONG, SE_JUV_KM3)
+
+# map cpue
+basemap +
+  geom_point(data = secpue,
+             aes(START_LONG, START_LAT, size = SE_JUV_KM3),
+             color = "darkred") +
+    geom_point(data = sezero,
+             aes(START_LONG, START_LAT),
+             shape = 3) +
+  labs(size = "Juveniles \n per km3") 
+
+```
+
+(ref:cocpue) Juvenile coho salmon (*Oncorhynchus kitsutch*) catch in thousand of individuals per km^3^ per tow. Red circles are proportional to catch abundance, and zero catches are shown with a cross (+).
+
+```{r cocpue, fig.pos="H", fig.cap = "(ref:cocpue)", warning=FALSE}
+
+# wrangle data for specific species
+cocpue <- salmondf %>%
+    filter(CO_JUV != 0) %>%
+  select(EVENT, START_LAT, START_LONG, `ESTIMATED_CATCHES_ BY_WT`, CO_JUV_KM3)
+
+# df for zero catch
+cozero <- salmondf %>%
+  filter(CO_JUV == 0) %>%
+    select(EVENT, START_LAT, START_LONG, CO_JUV_KM3)
+
+# map cpue
+basemap +
+  geom_point(data = cocpue,
+             aes(START_LONG, START_LAT, size = CO_JUV_KM3),
+             color = "darkred") +
+    geom_point(data = cozero,
+             aes(START_LONG, START_LAT),
+             shape = 3) +
+  labs(size = "Juveniles \n per km3") 
+
+``` 
+
+(ref:ckcpue) Juvenile chinook salmon (*Oncorhynchus tschawytscha*) catch in thousand of individuals per km^3^ per tow. Red circles are proportional to catch abundance, and zero catches are shown with a cross (+).
+
+```{r ckcpue, fig.pos="H", fig.cap = "(ref:ckcpue)", warning=FALSE}
+
+# wrangle data for specific species
+ckcpue <- salmondf %>%
+    filter(CK_JUV != 0) %>%
+  select(EVENT, START_LAT, START_LONG, `ESTIMATED_CATCHES_ BY_WT`, CK_JUV_KM3)
+
+# df for zero catch
+ckzero <- salmondf %>%
+  filter(CK_JUV == 0) %>%
+    select(EVENT, START_LAT, START_LONG, CK_JUV_KM3)
+
+# map cpue
+basemap +
+  geom_point(data = ckcpue,
+             aes(START_LONG, START_LAT, size = CK_JUV_KM3),
+             color = "darkred") +
+    geom_point(data = ckzero,
+             aes(START_LONG, START_LAT),
+             shape = 3) +
+  labs(size = "Juveniles \n per km3") +
+  scale_size_continuous(labels = c(420))
+
+```
+
+Length frequencies and log length to weight regression (all species?)     
+
+Bell diameters for > 100 individuals?    
+
