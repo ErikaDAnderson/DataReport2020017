@@ -1,25 +1,26 @@
 ---
-title: "Title Here (*Latin Species Name*)"
+title: "Ecosystem-Based Juvenile Salmon (*Oncorhynchus* spp.) Survey in Northern British Columbia, October 6-16, 2020"
 year: 20XX
 report_number: nnn
 author: |
-  First. M. Last^1^ and
-  Alex B. Smith^2^
-author_list: "Last, F.M. and Smith, A.B."
+  Erika Anderson^1^,
+  Jackie King^1^, and
+  Tyler Zubkowski^1^
+author_list: "Anderson, E., King, J. and Zubkowski, T."
 region: Pacific Region
 isbn: ""
 address: |
   ^1^Pacific Biological Station\
      Fisheries and Oceans Canada, 3190 Hammond Bay Road\
      Nanaimo, British Columbia, V9T 6N7, Canada\
-  ^2^Far, far away\
-     Another Galaxy
-phone: "(555) 555-5555"
-author_footnote: "Email: First.Author@dfo-mpo.gc.ca | telephone: (250) 756-5555"
+phone: "(250) 756-7067"
+author_footnote: "Email: Erika.Anderson@dfo-mpo.gc.ca | telephone: (250) 756-7067"
 abstract: |
-  Here is the abstract text. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  Fisheries and Oceans Canada conducted an ecosystem-based survey from October 6-16, 2020 on the CCGS Sir John Franklin targeting juvenile salmon from Queen Charlotte Sound to Dixon Entrance. The survey was designed to determine the distribution, abundance, and ecology of juvenile Pacific salmon (Oncorhynchus sp.) in northern British Columbia during the fall season. In addition, gear optimization occurred for the International Year of the Salmon Survey.
+    
+  Add french translation if printing in word (only displays in pdf)  
 abstract_other: |
-  Voici le résumé. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  Voici le résumé. 
 output:
  csasdown::techreport_word:
    french: false
@@ -71,7 +72,7 @@ opts_chunk$set(
   out.width = fig_out_width,
   echo = FALSE,
   #  autodep = TRUE,
-  #  cache = TRUE,
+  cache = FALSE,
   cache.comments = FALSE,
   dev = fig_out_type,
   dpi = fig_dpi,
@@ -80,9 +81,20 @@ opts_chunk$set(
 )
 options(xtable.comment = FALSE)
 options(kableExtra.latex.load_packages = FALSE)
+
+# EA added the options below
+
+# hide NAs within tables
+  options(knitr.kable.NA = '')
+
+# turn off significant figures
+  options(scipen = 999)
+  
+
 ```
 
 ```{r load-libraries, cache=FALSE}
+
 # `french` and `prepub` variables are extracted from the YAML headers above and
 #  are used throughout the document. To make the document all in french, change
 #  the line in the YAML header above to `french: true`
@@ -98,11 +110,139 @@ if(french){
   options(OutDec =  ",")
 }
 
-# add other packages here:
-library(dplyr)
-library(ggplot2)
-library(readr)
-library(rosettafish)
-library(tibble)
-library(csasdown)
+# load R libraries
+library(tidyverse) # data manipulations
+library(rosettafish) # french-english translation of figures
+library(csasdown) # to build report
+library(car) # statistics
+library(RODBC) # database connection
+library(lubridate) # functions with dates
+library(cowplot) # multiple plots in one
+library(float) # fix the table-page breaks
+library(broom) # display linear model on LW graphs easily
+library(xfun) # to convert numeric values to text
+library(measurements) #to convert lat/lon values
+library(openxlsx) # load excel data
+library(rgdal) # to load shapefiles
+
 ```
+
+```{r database, cache = FALSE}
+
+#*** change this to your local HSSALMON database within the R project
+db <- "data/HSSALMON.accdb" 
+
+# access IPES database
+myconn <- odbcConnectAccess2007(db)
+
+```
+
+
+```{r surveyDetails}
+
+# *** survey number 
+# note the extra quotes are needed
+CRUISEchr <- "'2020017'"
+CRUISEnum <- 2020017
+
+# survey name
+surveyName <- "ecosystem-based juvenile salmon survey"
+
+# create string to query db
+tripQuery <- paste0("SELECT CRUISE_INFO.CRUISE, CRUISE_INFO.START_DATE, CRUISE_INFO.END_DATE, CRUISE_INFO.REGIONS_SURVEYED, CRUISE_INFO.VESSEL
+FROM CRUISE_INFO
+WHERE (((CRUISE_INFO.CRUISE)=", CRUISEchr,"))")
+
+# get cruise data from database
+tripdf <- sqlQuery(myconn, tripQuery)
+
+# start date from data
+surveyStartDate <- tripdf$START_DATE
+surveyStart <- as.character(surveyStartDate, format = "%b %d, %Y")
+surveyStartDay <- as.character(surveyStartDate, format = "%B %d")
+
+# end date from data
+surveyEndDate <- tripdf$END_DATE
+surveyEnd <- as.character(surveyEndDate, format = "%b %d, %Y")
+surveyEndDay <- as.character(surveyEndDate, format = "%d, %Y")
+
+# date range to use in text
+surveyDateRange <- str_c(surveyStartDay, " to ", surveyEndDay)
+
+# survey year
+surveyYear <- as.character(year(surveyStartDate))
+
+# vessel name as variable
+vessel <- str_replace(str_to_title(as.character(tripdf$VESSEL)), "Ccgs", "CCGS")
+
+
+```
+
+```{r locations}
+
+# load location data for maps from at sea bridge data
+## will need to update this from database for older surveys
+events_orig <- openxlsx::read.xlsx("data/2020-017_BridgeLog_digital_2020-11-18.xlsx",
+                                   sheet = "Details")
+
+# wrangle data
+events <- events_orig %>%
+  filter(!(is.na(Type))) %>%
+  mutate(Start_Long_DD = -1* Start_Long_DD)
+
+# find min and max lat and longs for limits to basemap
+minLat <- min(events$Start_Lat_DD) + 1 # adjusted for test sets pulling it south
+maxLat <- max(events$Start_Lat_DD) 
+minLon <- min(events$Start_Long_DD) - 0.5 # adjusted so HG not cut off
+maxLon <- max(events$Start_Long_DD)
+
+# load basemap from coastal shapefile
+coast <- readOGR("data/Spatial/Land.shp", verbose = FALSE)
+
+# basemap
+  basemap <- ggplot() +
+    geom_path(data = coast, aes(x = long, y = lat, group = group)) +
+    coord_equal() +
+    xlim(minLon, maxLon) +
+    ylim(minLat, maxLat) +
+    labs(x = "Longitude",
+         y = "Laititude") +
+    # # add scale bar using https://stevemorse.org/nearest/distance.php
+    # geom_segment(aes(x = -127.7, y = 48.5, xend = -127.56375, yend = 48.5), size = 2) +
+    # geom_segment(aes(x = -127.56375, y = 48.5, xend = -127.4275, yend = 48.5), size = 2, color = "grey") +
+    # geom_segment(aes(x = -127.4275, y = 48.5, xend = -127.29125, yend = 48.5), size = 2) +
+    # geom_text(aes(-127.5, 48.6), label = "30 km") +
+    theme_bw() 
+
+
+```
+
+```{r salmon}
+
+# create string to query db
+salmonQuery <- paste0("SELECT CRUISE_INFO.CRUISE, BRIDGE.EVENT, BRIDGE.YEAR, BRIDGE.MONTH, BRIDGE.DAY, BRIDGE.DATE, BRIDGE.START_LAT, BRIDGE.START_LONG, BRIDGE.DISTANCE, BRIDGE.NET_OPENING_WIDTH, BRIDGE.NET_OPENING_HEIGHT, BRIDGE.HEAD_DEPTH, BRIDGE.[ESTIMATED_CATCHES_ BY_WT], BRIDGE.PK_JUV, BRIDGE.CM_JUV, BRIDGE.CM_ADULT, BRIDGE.SE_JUV, BRIDGE.CO_JUV, BRIDGE.CK_JUV, BRIDGE.GEAR_TYPE, BRIDGE.COMMENTS
+FROM (CRUISE_INFO INNER JOIN STATION_INFO ON CRUISE_INFO.CRUISE = STATION_INFO.CRUISE) INNER JOIN BRIDGE ON STATION_INFO.STATION_ID = BRIDGE.STATION_ID
+WHERE (((CRUISE_INFO.CRUISE)=", CRUISEchr,"))")
+
+# get cruise data from database
+salmondf_orig <- sqlQuery(myconn, salmonQuery)
+
+# wrangle data for volume swept CPUE
+salmondf <- salmondf_orig %>%
+  mutate(NOPE = str_extract(COMMENTS, "DO NOT USE")) %>%
+  filter(is.na(NOPE)) %>%
+  mutate(DISTANCE_KM = DISTANCE * 1.852,
+         WIDTH_KM = NET_OPENING_WIDTH/1000,
+         HEIGHT_KM = NET_OPENING_HEIGHT/1000,
+         MOUTH_KM2 = WIDTH_KM * HEIGHT_KM,
+         VOLUME_KM3 = MOUTH_KM2 * DISTANCE_KM,
+         PK_JUV_KM3 = PK_JUV/VOLUME_KM3,
+         CM_JUV_KM3 = CM_JUV/VOLUME_KM3,
+         SE_JUV_KM3 = SE_JUV/VOLUME_KM3,
+         CO_JUV_KM3 = CO_JUV/VOLUME_KM3,
+         CK_JUV_KM3 = CK_JUV/VOLUME_KM3)
+
+
+
+```
+
