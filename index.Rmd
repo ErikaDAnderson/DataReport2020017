@@ -124,6 +124,7 @@ library(xfun) # to convert numeric values to text
 library(measurements) #to convert lat/lon values
 library(openxlsx) # load excel data
 library(rgdal) # to load shapefiles
+library(naniar) # function replace_with_na
 
 ```
 
@@ -244,5 +245,73 @@ salmondf <- salmondf_orig %>%
 
 
 
+```
+
+```{r lengths}
+
+# create string to query db
+lengthQuery <- paste0("SELECT CRUISE_INFO.CRUISE, BIOLOGICAL.FISH_NUMBER, BIOLOGICAL.DATE_CAPTURED, BIOLOGICAL.SPECIES, BIOLOGICAL.SHIP_FL, BIOLOGICAL.SHIP_SL, BIOLOGICAL.SHIP_TL, BIOLOGICAL.SHIP_ML, BIOLOGICAL.SHIP_BD, BIOLOGICAL.SHIP_WT
+FROM (CRUISE_INFO INNER JOIN STATION_INFO ON CRUISE_INFO.CRUISE = STATION_INFO.CRUISE) INNER JOIN (BIOLOGICAL_JUNCTION INNER JOIN BIOLOGICAL ON BIOLOGICAL_JUNCTION.FISH_NUMBER = BIOLOGICAL.FISH_NUMBER) ON STATION_INFO.STATION_ID = BIOLOGICAL_JUNCTION.STATION_ID
+WHERE (((CRUISE_INFO.CRUISE)=", CRUISEchr,"))")
+
+# get cruise data from database
+lengthFreq_orig <- sqlQuery(myconn, lengthQuery)
+
+# wrangle data
+lengthFreq <- lengthFreq_orig %>%
+  pivot_longer(., cols = c("SHIP_FL", "SHIP_SL", "SHIP_TL", "SHIP_ML", "SHIP_BD"),
+               names_to = "LengthType",
+               values_to = "LENGTH") %>%
+  mutate( LOG.LEN = log(LENGTH),
+         LOG.WT = log(SHIP_WT)) %>%
+  rename(TRIP_ID = CRUISE,
+         WEIGHT = SHIP_WT,
+         COMMON_NAME = SPECIES)
+
+```
+
+```{r catch}
+
+# create string to query db
+# omit unusable tow in QCST01
+catchQuery <- paste0("SELECT STATION_INFO.CRUISE, BCSI_ECOSYSTEM_SPECIES_TOTALS.STATION_ID, BCSI_ECOSYSTEM_SPECIES_TOTALS.SPECIES_CODE, BCSI_ECOSYSTEM_SPECIES_TOTALS.SPECIES_COMMON_NAME, BCSI_ECOSYSTEM_SPECIES_TOTALS.PIECES, BCSI_ECOSYSTEM_SPECIES_TOTALS.WT
+FROM (STATION_INFO INNER JOIN BCSI_ECOSYSTEM_SPECIES_TOTALS ON STATION_INFO.STATION_ID = BCSI_ECOSYSTEM_SPECIES_TOTALS.STATION_ID) INNER JOIN BRIDGE ON (BCSI_ECOSYSTEM_SPECIES_TOTALS.STATION_ID = BRIDGE.STATION_ID) AND (STATION_INFO.STATION_ID = BRIDGE.STATION_ID)
+WHERE (((STATION_INFO.CRUISE)=", CRUISEchr,"))")
+
+# get cruise data from database
+catch_orig <- sqlQuery(myconn, catchQuery)
+
+# upload GFBIO species table for common and scientific names
+species_orig <- read_csv("data/C_Species.csv")
+
+# simiplify species table
+species <- species_orig %>%
+  select(SPECIES_CODE, SPECIES_COMMON_NAME, SPECIES_SCIENCE_NAME)
+
+# wrangle data
+catch <- catch_orig %>%
+  # omit unusable tow in QCST01
+  filter(STATION_ID != "BCSI-2020017-QCST01") %>%
+  
+# fix species codes where R dropped the 0 preceeding the code
+  mutate(SPECIES_CODE = if_else(SPECIES_CODE != "96", as.character(SPECIES_CODE), "096"),
+         SPECIES_CODE = if_else(SPECIES_CODE != "41", as.character(SPECIES_CODE), "041")) %>%
+  left_join(., species, by = "SPECIES_CODE") %>%
+  mutate(DISPLAY_COMMON = if_else(is.na(SPECIES_COMMON_NAME.y), as.character(SPECIES_COMMON_NAME.x), SPECIES_COMMON_NAME.y)) %>%
+  mutate(DISPLAY_COMMON = str_remove_all(DISPLAY_COMMON, "[()](JUVENILES)[)]*"),
+         DISPLAY_COMMON = str_remove(DISPLAY_COMMON, "[()](ADULTS)[)]*")) %>%
+    mutate(COMMON_NAME = paste0(str_sub(DISPLAY_COMMON, 1,1), str_sub(tolower(DISPLAY_COMMON),2)),
+         SCIENTIFIC_NAME = paste0(str_sub(SPECIES_SCIENCE_NAME, 1,1), str_sub(tolower(SPECIES_SCIENCE_NAME),2))) %>%
+  group_by(COMMON_NAME, SCIENTIFIC_NAME) %>%
+  summarise(numTows = n(),
+            totalWgt = sum(WT, na.rm = TRUE),
+            maxWgt = max(WT, na.rm = TRUE),
+            meanWgt = round(mean(WT, na.rm = TRUE), 2)) %>%
+  ungroup() %>%
+  arrange(desc(totalWgt), desc(numTows)) %>%
+  naniar::replace_with_na(replace = list(meanWgt = NaN, 
+                                         maxWgt = -Inf, 
+                                         totalWgt = 0)) 
+  
 ```
 
