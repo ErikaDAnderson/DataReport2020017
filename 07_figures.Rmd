@@ -70,7 +70,7 @@ events_mocness <- events %>%
 ```
 
 
-(ref:cmcpue) Juvenile chum salmon (*Oncorhynchus keta*) catch in thousand of individuals per km^3^ per tow. Red circles are proportional to catch abundance, and zero catches are shown with a cross (+).
+(ref:cmcpue) Juvenile chum salmon (*Oncorhynchus keta*) catch per km^3^ per tow. Red circles are proportional to catch abundance, and zero catches are shown with a cross (+).
 
 ```{r cmcpue, fig.pos="H", fig.cap = "(ref:cmcpue)", warning=FALSE}
 
@@ -96,7 +96,7 @@ basemap +
 
 ```
 
-(ref:pkcpue) Juvenile pink salmon (*Oncorhynchus gorbusha*) catch in thousand of individuals per km^3^ per tow. Red circles are proportional to catch abundance, and zero catches are shown with a cross (+).
+(ref:pkcpue) Juvenile pink salmon (*Oncorhynchus gorbusha*) catch per km^3^ per tow. Red circles are proportional to catch abundance, and zero catches are shown with a cross (+).
 
 ```{r pkcpue, fig.pos="H", fig.cap = "(ref:pkcpue)", warning=FALSE}
 
@@ -123,7 +123,7 @@ basemap +
 ```
 
 
-(ref:secpue) Juvenile sockeye salmon (*Oncorhynchus nerka*) catch in thousand of individuals per km^3^ per tow. Red circles are proportional to catch abundance, and zero catches are shown with a cross (+).
+(ref:secpue) Juvenile sockeye salmon (*Oncorhynchus nerka*) catch per km^3^ per tow. Red circles are proportional to catch abundance, and zero catches are shown with a cross (+).
 
 ```{r secpue, fig.pos="H", fig.cap = "(ref:secpue)", warning=FALSE}
 
@@ -149,7 +149,7 @@ basemap +
 
 ```
 
-(ref:cocpue) Juvenile coho salmon (*Oncorhynchus kitsutch*) catch in thousand of individuals per km^3^ per tow. Red circles are proportional to catch abundance, and zero catches are shown with a cross (+).
+(ref:cocpue) Juvenile coho salmon (*Oncorhynchus kitsutch*) catch per km^3^ per tow. Red circles are proportional to catch abundance, and zero catches are shown with a cross (+).
 
 ```{r cocpue, fig.pos="H", fig.cap = "(ref:cocpue)", warning=FALSE}
 
@@ -175,7 +175,7 @@ basemap +
 
 ``` 
 
-(ref:ckcpue) Juvenile chinook salmon (*Oncorhynchus tschawytscha*) catch in thousand of individuals per km^3^ per tow. Red circles are proportional to catch abundance, and zero catches are shown with a cross (+).
+(ref:ckcpue) Juvenile chinook salmon (*Oncorhynchus tschawytscha*) catch per km^3^ per tow. Red circles are proportional to catch abundance, and zero catches are shown with a cross (+).
 
 ```{r ckcpue, fig.pos="H", fig.cap = "(ref:ckcpue)", warning=FALSE}
 
@@ -202,7 +202,148 @@ basemap +
 
 ```
 
-Length frequencies and log length to weight regression (all species?)     
+(ref:forkcm) Juveile chum salmon (*Oncorhynchus keta*) length frequency plot as sampled during the `r surveyName` aboard the `r vessel`, `r surveyDateRange` (A). Double log-transformed length-weight regression with outliers removed, using a Bonferroni outlier test (B).
+
+```{r forkcm, fig.cap="(ref:forkcm)"}
+
+### create function to repeat graphs on different species
+graphSpecies <- function(lengthFreq, thisspecies) {
+
+# select species
+thisdf <- filter(lengthFreq, COMMON_NAME == thisspecies)
+
+##### Removing Length-Weight outliers
+#### L-W Regression- there are more lengths than weights so remove NA weights
+df.LW <- thisdf %>%
+  filter(!is.na(WEIGHT)) %>%
+  filter(!is.na(LENGTH)) %>%
+  dplyr::select(., c(TRIP_ID, LENGTH, WEIGHT, LOG.LEN, LOG.WT))
+
+### Regression model
+df.LWReg <- lm(LOG.WT~LOG.LEN, data = df.LW)
+df.LW$LWResids <- resid(df.LWReg)
+
+## Produce Bonferoni value for each point in your data
+test.df.LW <- outlierTest(df.LWReg, n.max = Inf, cutoff = Inf, order = FALSE)$bonf.p
+df.LWremove <- which(test.df.LW < .7)
+
+# EA: modified to account for no outliers in species
+if (length(df.LWremove) > 0) {
+  df.LW <- df.LW[-df.LWremove, ]
+}
+
+# EA: changed code to plot with ggplot
+
+# graph length frequency
+dfbar <- ggplot(df.LW) +
+  geom_histogram(aes(LENGTH), binwidth = 5) +
+  labs(x = "Length (mm)",
+       y = "Count") +
+  theme_bw()
+
+
+# create function to print equation for the LW regression
+lm_eqn <- function(df){
+
+  # get model without outliers
+dfmodel <- lm(LOG.WT~LOG.LEN, df)
+
+  # make model into tidy data frame
+  tidy(dfmodel)
+
+  # make equation text from values in model
+    eq <- substitute(italic(y) == a + b *italic(x)*","~italic(R)^2~"="~r2~","~p,
+         list(a = format(unname(dfmodel$coefficients[1]), digits = 2),
+              b = format(unname(dfmodel$coefficients[2]), digits = 2),
+             r2 = round(glance(dfmodel)$r.squared, 3),
+              p = if_else(round(glance(dfmodel)$p.value, 3) == 0, "p-value < 0.001", paste0("p-value = ", as.character(round(glance(dfmodel)$p.value, 3))))))
+    as.character(as.expression(eq));
+}
+lm_text <- lm_eqn(df.LW)
+
+# calculate where equation test should go
+xtext <- ((max(df.LW$LOG.LEN) - min(df.LW$LOG.LEN))/3)*2 + min(df.LW$LOG.LEN)
+ytext <- ((max(df.LW$LOG.WT) - min(df.LW$LOG.WT))/2) + min(df.LW$LOG.WT) - 1
+
+# graph log length by weight
+dffit <- ggplot(df.LW) +
+  geom_point(aes(LOG.LEN, LOG.WT)) +
+  labs(x = "log(Length (mm))",
+       y = "log(Weight (g))") +
+  geom_text(aes(xtext, ytext), label = lm_text, parse = TRUE) +
+  theme_bw()
+
+# put both graphs in list to return from function
+list(dfbar, dffit)
+
+}
+
+# remove adult chum since there were only two and no other adult salmon sampled
+lengthFreqCmJuv <- lengthFreq %>%
+  filter(LENGTH < 500)
+
+# create graphs 
+chumList <- graphSpecies(lengthFreqCmJuv, "CHUM")
+chumbar <- chumList[[1]]
+chumLine <- chumList[[2]]
+chumPlots <- plot_grid(chumbar, chumLine, ncol = 1,
+                          labels = c('A', 'B'), label_size = 12)
+chumPlots
+
+```
+
+(ref:forkpk) Juveile pink salmon (*Oncorhynchus gorbusha*) length frequency plot as sampled during the `r surveyName` aboard the `r vessel`, `r surveyDateRange` (A). Double log-transformed length-weight regression with outliers removed, using a Bonferroni outlier test (B).
+
+```{r forkpk, fig.cap="(ref:forkpk)"}
+
+pinkList <- graphSpecies(lengthFreq, "PINK")
+pinkbar <- pinkList[[1]]
+pinkLine <- pinkList[[2]]
+pinkPlots <- plot_grid(pinkbar, pinkLine, ncol = 1,
+                          labels = c('A', 'B'), label_size = 12)
+pinkPlots
+
+```
+
+(ref:forkse) Juvenile sockeye salmon (*Oncorhynchus nerka*) length frequency plot as sampled during the `r surveyName` aboard the `r vessel`, `r surveyDateRange` (A). Double log-transformed length-weight regression with outliers removed, using a Bonferroni outlier test (B).
+
+```{r forkse, fig.cap="(ref:forkse)"}
+
+sockeyeList <- graphSpecies(lengthFreq, "SOCKEYE")
+sockeyebar <- sockeyeList[[1]]
+sockeyeLine <- sockeyeList[[2]]
+sockeyePlots <- plot_grid(sockeyebar, sockeyeLine, ncol = 1,
+                          labels = c('A', 'B'), label_size = 12)
+sockeyePlots
+
+```
+
+(ref:forkco) Juvenile coho salmon (*Oncorhynchus kisutch*) length frequency plot as sampled during the `r surveyName` aboard the `r vessel`, `r surveyDateRange` (A). Double log-transformed length-weight regression with outliers removed, using a Bonferroni outlier test (B).
+
+```{r forkco, fig.cap="(ref:forkco)"}
+
+cohoList <- graphSpecies(lengthFreq, "COHO")
+cohobar <- cohoList[[1]]
+cohoLine <- cohoList[[2]]
+cohoPlots <- plot_grid(cohobar, cohoLine, ncol = 1,
+                          labels = c('A', 'B'), label_size = 12)
+cohoPlots
+
+```
+
+(ref:forkck) Juvenile chinook salmon (*Oncorhynchus tshawytscha)*) length frequency plot as sampled during the `r surveyName` aboard the `r vessel`, `r surveyDateRange` (A). Double log-transformed length-weight regression with outliers removed, using a Bonferroni outlier test (B).
+
+```{r forkck, fig.cap="(ref:forkck)"}
+
+chinookList <- graphSpecies(lengthFreq, "CHINOOK")
+chinookbar <- chinookList[[1]]
+chinookLine <- chinookList[[2]]
+chinookPlots <- plot_grid(chinookbar, chinookLine, ncol = 1,
+                          labels = c('A', 'B'), label_size = 12)
+chinookPlots
+
+```
+
 
 Bell diameters for > 100 individuals?    
 
