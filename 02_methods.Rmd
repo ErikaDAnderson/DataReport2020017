@@ -1,6 +1,30 @@
-# Methods
+# Materials and Methods
 
-To reference the tables and figures, just place code like this for tables: Table \@ref(tab:test1b), and the figure reference: Figure \@ref(fig:testfig). The numbers are clickable.
+## Survey Locations
+
+Figure \@ref(fig:mapfish) to \@ref(fig:mapplankton) show the locations for fishing operations, oceanographis sampling, and zooplankton sampling. There were 20 coastal midwater trawls, 2 offshore midwater trawls, 19 CTD casts, 2 rosette casts, 21 vertical zooplankton tows, 2 oblique zooplankton tows, and 3 MOCNESS (**M**ultiple **O**pening/**C**losing **N**et and **E**nvironmental **S**ensing **S**ystem) tows successfully completed (Table \ref(tab:totaltows)). In addition, 4 offshore midwater tows and 1 rosette cast were successfully completed during equipment set up. All net adjustment tows were done with the codend open to avoid the capture of fish.
+
+## Fishing Operations
+
+We used two midwater trawl nets, the offshore [NPAFC](https://npafc.org/) LFS 1142 midwater trawl net (Appendix \@ref(fig:offshorenet)) and coastal LFS 7742 midwater trawl net (Appendix \@ref(fig:coastalnet)), manufactured by [LFS Trawl](https://www.lfsinc.com/commericalfishinggear/trawl.htm) (LFS Net Systems, Bellingham, USA). Both trawl nets are two-bridle midwater nets, and have a 3-4 mm mesh codend liners to catch smaller species. The main difference between trawl nets is that the offshore net is larger, with a bigger mouth opening (**approximately ?m x ? m **) compared to the coastal net (**approximately ?m x ?m**). The offshore LFS 1142 was designed for [High Seas Expeditions](https://yearofthesalmon.org/high-seas-expeditions/), and has never been used on the `r vessel`. We incorporated equipment set up into the survey since gear testing was cancelled due to COVID-19. 
+
+Two chain clumps were attached to the footrope with approximately 204 kg (450 lbs) and 340 kg (750 lbs) per chain clump for the coastal and offshore net respectively. [Thyborøn](https://thyboron-trawldoor.dk/) Type 15 VF, 4.5 m^2^ mid-water doors (730 kg each) with [Scanmar](https://www.scanmar.no/) SS4 door sensors, were used with both nets. A [Simrad](https://www.kongsberg.com/maritime/) FS70 was used as a third wire trawl sonar to the monitor net opening in real time, and [Scanmar](https://www.scanmar.no/) SS4 clump sensors were attached on the wing tips. In addition, [RBR duet^3^ temperature and depth sensors](https://rbr-global.com/products/compact-loggers/rbrduet-td) (RBR Ltd., Ottawa, ON, Canada) were attached to the headrope and footrope to record depth every 30 seconds. The vertical net opening was calculated from the difference between the two depth. These depths were plotted over time to show the net opening and depth during gear trials.
+
+Tow speed varied between 3.3 and 5.2 knots speed over ground, depending on the wind, tide, and current, in order to reach the target headrope depth. The target headrope depths were 0 m (surface) and 15 m (depth). Two A-6 floats 86.4 cm x 118.1 cm (34" x 46.5") were attached to sixth blue knot on headrope for surface tows. Warp length
+
+
+## Oceanography
+
+
+## Zooplankton
+
+At zooplankton stations, vertical bongo tows were conducted to approximately 250 m or within 10 m of the bottom with two **60? cm diameter, 253 micrometer mesh?**.  Zooplankton collected from the flow meter side were preserved in 10% formalin and sent to the zooplankton laboratory at the Institute of Ocean Sciences, Fisheries and Oceans Canada (Sidney, BC) for species classification and enumeration.  Zooplankton collected sorted into four size fractions by successively sieving through 8.0, 1.7, 1.0, and 0.25 mm screens. Individual size fraction frozen for future stable isotope, bomb calorimetric, and proximate analyses.  
+
+## Offshore Protocols?
+
+
+
+
 
 
 
