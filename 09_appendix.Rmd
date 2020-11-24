@@ -6,32 +6,28 @@ After that, all subsequent sections will be turned into appendices. -->
 
 \clearpage
 
-# THE FIRST APPENDIX {#app:first-appendix}
+# THE FIRST APPENDIX {#app:nets}
 
 Bridge Log table (landscape hard to do in word)
   
 Catch Table  
 
 
-(ref:test1) English version of the test1 figure caption
+(ref:offshorenet) Net specifications for the offshore NPAFC 1142 midwater trawl net used on the the `r surveyName` from `r surveyDateRange` on the `r vessel`.
 
-```{r test1, fig.cap="(ref:test1)"}
-plot(1)
+```{r offshorenet, fig.cap="(ref:offshorenet)"}
+
+# png of net specs
+
 ```
 
-(ref:test1b) English version of the test1b figure caption
+(ref:coastalnet) Net specifications for the coastal NPAFC 7742 midwater trawl net the `r surveyName` from `r surveyDateRange` on the `r vessel`.
 
-```{r test1b, results='asis'}
-csasdown::csas_table(data.frame(x = c("a", "a", "b"),
-                                y = c(1, 2, 3)),
-                     caption = "English verion of the test2b table caption")
+```{r coastalnet, results='asis'}
+
+# coastal net specs
+
 ```
-
-And references to them...
-
-See Figure \@ref(fig:test1) for the example appendix figure.
-
-See Table \@ref(tab:test1b) for the example appendix table.
 
 \clearpage
 
