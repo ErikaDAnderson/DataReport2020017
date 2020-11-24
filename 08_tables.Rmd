@@ -1,17 +1,28 @@
 # Tables
 
-Table of total tows, CTD, plankton, MOCNESS?  
+(ref:totaltows) Total usable fishing, CTD, zooplankton, and MOCNESS events during the `r surveyName` aboard the `r vessel`, `r surveyDateRange`. Test and aborted tows are not included in this table. Please see methods section for more detailed equipment information.
 
-(ref:verttable) All captured species (or taxonomic group), ordered by total catch weight, showing number of tows in which the species occurred, total catch weight, maximum catch weight, and mean catch weight per tow for usable tows during the `r surveyName` aboard the `r vessel`, `r surveyDateRange`. Blank weights indicate specimens that could not be weighed accurately (either released alive or too small).
+```{r totaltows, results = 'asis'}
 
-```{r verttable, results='asis'}
+tows <- tibble(
+  Event = c("Midwater Coastal Trawl", "Midwater Offshore Trawl", "CTD Seabird 25", "Rosette with Seabird 911", "Vertical Zooplankton Tow", "Oblique Zooplankton Tow", "MOCNESS"),
+  Number = c(20, 2, 19, 2, 21, 2, 3))
+
+csasdown::csas_table(tows,
+                     caption = "(ref:totaltows)")
+
+```
+
+  
+(ref:catchtable) All captured species (or taxonomic group), ordered by total catch weight, showing number of tows in which the species occurred, total catch weight, maximum catch weight, and mean catch weight per tow for usable tows during the `r surveyName` aboard the `r vessel`, `r surveyDateRange`. Blank weights indicate specimens that could not be weighed accurately (either released alive or too small).
+
+```{r catchtable, results='asis'}
 csasdown::csas_table(catch,
                      caption = "(ref:verttable)",
                      col.names = c("Common Name", "Scientific Name","Tows", "Total", "Max", "Mean"))
 ```
-
-
-
+  
+  
 Species Lengths and Weights  
 Sample size and statistics of lengths and weights for each species (listed
 alphabetically) sampled during the `r surveyName` aboard the `r vessel`, `r surveyDateRange`. (Sampled = number of tows, Measured = number of lengths, Weighed = number of weights).
