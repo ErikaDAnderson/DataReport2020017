@@ -1,13 +1,9 @@
 # Introduction
 
-The Basin and Coastal Scale Interactions Program (formerly Highseas Program) of Fisheries and Oceans has conducted ecosystem-based annual  surveys targeting juvenile Pacific salmon (*Oncorhynchus* spp.) on the continental shelf off British Columbia since 1995. The main objectives of these surveys were to collect information on (1) the abundance, distribution, and ecology of juvenile Pacific salmon that are in their first year at sea, (2) the prevailing oceanography, and (3) the distribution and biomass of zooplankton.   
+The Basin and Coastal Scale Interactions Program of Fisheries and Oceans conducted an ecosystem-based survey, targeting juvenile Pacific salmon (*Oncorhynchus* spp.) from `r surveyDateRange` on the `r vessel`. The main objectives of this surveys were:
 
-This report documents the data collected on the survey from `r surveyDateRange` on the `r vessel`. Biological and oceanographic sampling was conducted 
+1. to determine the abundance, condition, distribution, and genetic stock composition of juvenile salmon present from Queen Charlotte Strait to Dixon Entrance in the fall, and 
 
-An additional objective of this survey was to optimize offshore sampling gear and protocols for the [2022 Pan-Pacific High Seas Expedition](https://yearofthesalmon.org/high-seas-expeditions/).
+2. to optimize the new LFS 1142 (offshore) net deployment and new oceanographic sampling protocols for the [2022 Pan-Pacific High Seas Expedition](https://yearofthesalmon.org/high-seas-expeditions/) on the `r vessel`. 
 
-  
-survey    
-history    
-objectives    
-
+This survey supports research into linkages between oceanographic conditions, fish abundance and community composition, Pacific Salmon ocean ecology and forecasting adult returns. Survey data will also be presented at and integrated into the 2020 [State of the Pacific Ocean](https://dfo-mpo.gc.ca/oceans/publications/index-eng.html#soto-pac-tech) report. This data report documents the biological, oceanographic, and zooplankton data collected during the `r surveyName` from `r surveyDateRange`.  
