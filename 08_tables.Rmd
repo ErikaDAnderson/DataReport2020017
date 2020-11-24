@@ -18,7 +18,7 @@ csasdown::csas_table(tows,
 
 ```{r catchtable, results='asis'}
 csasdown::csas_table(catch,
-                     caption = "(ref:verttable)",
+                     caption = "(ref:catchtable)",
                      col.names = c("Common Name", "Scientific Name","Tows", "Total", "Max", "Mean"))
 ```
   
