@@ -25,7 +25,7 @@ techreport.tex
 *.png
 *.rda
 *.rds
-*.Rproj
+#*.Rproj
 *.sty
 *.upa
 *.utf8.md
