@@ -8,6 +8,17 @@ Length frequencies
 Net set up
 oblique versus vertical bongos 
 
+On this survey, the offshore LFS 1142 mouth opening averaged 54 m horizontally x 25 m vertically (area of 1350 m^2^), compared to the coastal net which averaged 17 m by 47 m vertically (area of 800 m^2^) during surface tows. This measurements is less than previous surveys where the offshore LFS mouth openning averaged 19 m vertically by 44 m horizontally at the surface, or area of (836 m^2^) 
+```{r}
+
+# # calculate average vertical opening for offshore from Somov 2020
+# # exclude tows with headrope depth > 10 m
+# vertopen <- round((15.8+17+16+18.8+17.7+18.3+18.2+18+18+17.7+17.7+16+19+19.2+17.8+18.2+17+16+18.3+20+18+21.2+18.3+21+20.5+21+21.2+20.2+19.7+20.5+20.3+20+19.7+19.5+20.7+20.7+19.7+19.8+20.3+20+20+17.5+20+19.2+19.7+19.2+21+19.3)/48,0)
+# horopen <- round((44.2+46.8+46.7+43.7+45.5+45.2+44.3+44.8+44.8+45+45.3+44.8+43.5+43.5+42.5+43.2+43.3+42.5+41.8+43.8+44.8+37.7+38.5+42.8+44.2+42.3+42.3+42.8+43+42.5+43.3+43.3+44.5+45.3+43.7+43.7+43.7+43.2+43.3+43.8+43.2+46.3+42.7+43.5+43.8+47.3+40.2+45.3)/48,0)
+
+```
+
+
 ## Oceanographic
 CTD rosette and SBE25
 
