@@ -5,8 +5,8 @@
 ```{r totaltows, results = 'asis'}
 
 tows <- tibble(
-  Event = c("Midwater Coastal Trawl", "Midwater Offshore Trawl", "CTD Seabird 25", "Rosette with Seabird 911", "Vertical Plankton Tow", "Oblique Plankton Tow", "MOCNESS"),
-  Number = c(20, 2, 19, 2, 21, 2, 3))
+  Event = c("Coastal LFS 7742 Midwater Trawl", "Offshore LFS 1142 Midwater Trawl", "CTD Seabird 25", "Rosette with Seabird 911", "Vertical Plankton Tow", "Oblique Plankton Tow", "MOCNESS"),
+  "Number Usable" = c(20, 2, 19, 2, 21, 2, 3))
 
 csasdown::csas_table(tows,
                      caption = "(ref:totaltows)")
