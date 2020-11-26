@@ -1,18 +1,17 @@
-<!-- The following code should appear at the beginning of the first appendix.
-After that, all subsequent sections will be turned into appendices. -->
-
-`r if(knitr:::is_latex_output()) '% begin csasdown appendix'`
-`r if(!knitr:::is_latex_output()) '# (APPENDIX) Appendix {-}'`
-
 \clearpage
 
-# THE FIRST APPENDIX {#app:nets}
+# Appendix {#app:app1}
 
-Bridge Log table (landscape hard to do in word)
+(ref:bridgetable) Event locations, regions, dates, times, and net dimensions during the `r surveyName` aboard the `r vessel`, `r surveyDateRange`. (**landscape hard to do in word**)
+
+```{r bridgetable, results='asis'}
+
+# csasdown::csas_table(bridge,
+#                      caption = "(ref:bridgetable)")
+
+```
   
-Catch Table  
-
-
+  
 (ref:offshorenet) Net specifications for the offshore NPAFC 1142 midwater trawl net used on the the `r surveyName` from `r surveyDateRange` on the `r vessel`.
 
 ```{r offshorenet, fig.cap="(ref:offshorenet)"}
@@ -31,10 +30,3 @@ Catch Table
 
 \clearpage
 
-# THE SECOND APPENDIX, FOR FUN {#app:second-appendix}
-
-Tow plots?
-
-
-<!-- At the end of your appendices add: -->
-`r if(knitr:::is_latex_output()) '% end csasdown appendix'`
