@@ -1,6 +1,6 @@
 # Figures
 
-(ref:mapfish) Fishing locations during the `r surveyName` from `r surveyDateRange` on the `r vessel`. The LFS 7742 coastal trawl net (red triangles) was used for 20 tows and the LFS 1142 offshore trawl net (orange circles) was used for 2 tows.
+(ref:mapfish) Fishing tow locations during the `r surveyName` from `r surveyDateRange` on the `r vessel`. The LFS 7742 coastal trawl net (red triangles) was used for 20 tows and the LFS 1142 offshore trawl net (orange circles) was used for 2 tows.
 
 ```{r mapfish, fig.pos="H", fig.cap = "(ref:mapfish)", warning=FALSE}
 
@@ -37,7 +37,7 @@ events_ctd <- events %>%
 
 ```
 
-(ref:mapplankton) Zooplankton sampling locations during the `r surveyName` from `r surveyDateRange` on the `r vessel`. There were 21 vertical plankton tows (red triangles), 2 oblique plankton tows (yellow circles) and 3 MOCNESS tows (black squares).
+(ref:mapplankton) Plankton sampling locations during the `r surveyName` from `r surveyDateRange` on the `r vessel`. There were 21 vertical plankton tows (red triangles), 2 oblique plankton tows (yellow circles) and 3 MOCNESS tows (black squares).
 
 ```{r mapplankton, fig.pos="H", fig.cap = "(ref:mapplankton)", warning=FALSE}
 
