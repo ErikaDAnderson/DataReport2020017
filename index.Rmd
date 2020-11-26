@@ -130,11 +130,11 @@ library(naniar) # function replace_with_na
 
 ```{r database, cache = FALSE}
 
-#*** change this to your local HSSALMON database within the R project
-db <- "data/HSSALMON.accdb" 
-
-# access IPES database
-myconn <- odbcConnectAccess2007(db)
+# #*** change this to your local HSSALMON database within the R project
+# db <- "data/HSSALMON.accdb" 
+# 
+# # access IPES database
+# myconn <- odbcConnectAccess2007(db)
 
 ```
 
@@ -149,42 +149,83 @@ CRUISEnum <- 2020017
 # survey name
 surveyName <- "ecosystem-based juvenile salmon survey"
 
-# create string to query db
-tripQuery <- paste0("SELECT CRUISE_INFO.CRUISE, CRUISE_INFO.START_DATE, CRUISE_INFO.END_DATE, CRUISE_INFO.REGIONS_SURVEYED, CRUISE_INFO.VESSEL
-FROM CRUISE_INFO
-WHERE (((CRUISE_INFO.CRUISE)=", CRUISEchr,"))")
+# # create string to query db
+# tripQuery <- paste0("SELECT CRUISE_INFO.CRUISE, CRUISE_INFO.START_DATE, CRUISE_INFO.END_DATE, CRUISE_INFO.REGIONS_SURVEYED, CRUISE_INFO.VESSEL
+# FROM CRUISE_INFO
+# WHERE (((CRUISE_INFO.CRUISE)=", CRUISEchr,"))")
+# 
+# # get cruise data from database
+# tripdf <- sqlQuery(myconn, tripQuery)
+# 
+# # start date from data
+# surveyStartDate <- tripdf$START_DATE
+# surveyStart <- as.character(surveyStartDate, format = "%b %d, %Y")
+# surveyStartDay <- as.character(surveyStartDate, format = "%B %d")
+# 
+# # end date from data
+# surveyEndDate <- tripdf$END_DATE
+# surveyEnd <- as.character(surveyEndDate, format = "%b %d, %Y")
+# surveyEndDay <- as.character(surveyEndDate, format = "%d, %Y")
+# 
+# # date range to use in text
+# surveyDateRange <- str_c(surveyStartDay, " to ", surveyEndDay)
+# 
+# # survey year
+# surveyYear <- as.character(year(surveyStartDate))
+# 
+# # vessel name as variable
+# vessel <- str_replace(str_to_title(as.character(tripdf$VESSEL)), "Ccgs", "CCGS")
 
-# get cruise data from database
-tripdf <- sqlQuery(myconn, tripQuery)
-
-# start date from data
-surveyStartDate <- tripdf$START_DATE
-surveyStart <- as.character(surveyStartDate, format = "%b %d, %Y")
-surveyStartDay <- as.character(surveyStartDate, format = "%B %d")
-
-# end date from data
-surveyEndDate <- tripdf$END_DATE
-surveyEnd <- as.character(surveyEndDate, format = "%b %d, %Y")
-surveyEndDay <- as.character(surveyEndDate, format = "%d, %Y")
-
-# date range to use in text
-surveyDateRange <- str_c(surveyStartDay, " to ", surveyEndDay)
-
-# survey year
-surveyYear <- as.character(year(surveyStartDate))
-
-# vessel name as variable
-vessel <- str_replace(str_to_title(as.character(tripdf$VESSEL)), "Ccgs", "CCGS")
-
+# maunally add variables
+surveyDateRange <- "October 6 to 16, 2020"
+surveyYear <- "2020"
+vessel <- "CCGS Sir John Franklin"
 
 ```
 
 ```{r locations}
 
 # load location data for maps from at sea bridge data
-## will need to update this from database for older surveys
-events_orig <- openxlsx::read.xlsx("data/2020-017_BridgeLog_digital_2020-11-18.xlsx",
-                                   sheet = "Details")
+# events_orig <- openxlsx::read.xlsx("data/2020-017_BridgeLog_digital_2020-11-18.xlsx",
+#                                    sheet = "Details")
+
+events_orig <- readr::read_csv("data/csv/2020-017_BridgeLog_digital_2020-11-18.csv",
+                                col_types = cols(
+                                  Cruise = col_character(),
+                                  Event = col_double(),
+                                  Year = col_double(),
+                                  Month = col_double(),
+                                  Day = col_double(),
+                                  StationID = col_character(),
+                                  Type = col_character(),
+                                  Location = col_character(),
+                                  StartTime = col_character(), # excel R conflict for time format
+                                  Start_Lat_Deg = col_double(),
+                                  Start_Lat_Min = col_double(),
+                                  Start_Lat_DD = col_double(),
+                                  Start_Long_Deg = col_double(),
+                                  Start_Long_Min = col_double(),
+                                  Start_Long_DD = col_double(),
+                                  Start_Bot_Depth = col_double(),
+                                  StopTime = col_character(), # excel R conflict for time format
+                                  TowTime = col_character(),
+                                  End_Lat_Deg = col_double(),
+                                  End_Lat_Min = col_double(),
+                                  End_Lat_DD = col_double(),
+                                  End_Long_Deg = col_double(),
+                                  End_Long_Min = col_double(),
+                                  End_Long_DD = col_double(),
+                                  StopBotDepth = col_double(),
+                                  Warp = col_double(),
+                                  Speed = col_double(),
+                                  VerticalNetOpening = col_double(),
+                                  Doorspread = col_double(),
+                                  Wingspread = col_double(),
+                                  TargetHeadDepth = col_double(),
+                                  ActualHeadDepth = col_double(),
+                                  `Chain Clumps` = col_character(),
+                                  Comments = col_character()
+                                )) 
 
 # wrangle data
 events <- events_orig %>%
@@ -237,13 +278,37 @@ net <- events %>%
 
 ```{r salmon}
 
-# create string to query db
-salmonQuery <- paste0("SELECT CRUISE_INFO.CRUISE, BRIDGE.EVENT, BRIDGE.YEAR, BRIDGE.MONTH, BRIDGE.DAY, BRIDGE.DATE, BRIDGE.START_LAT, BRIDGE.START_LONG, BRIDGE.DISTANCE, BRIDGE.NET_OPENING_WIDTH, BRIDGE.NET_OPENING_HEIGHT, BRIDGE.HEAD_DEPTH, BRIDGE.[ESTIMATED_CATCHES_ BY_WT], BRIDGE.PK_JUV, BRIDGE.CM_JUV, BRIDGE.CM_ADULT, BRIDGE.SE_JUV, BRIDGE.CO_JUV, BRIDGE.CK_JUV, BRIDGE.GEAR_TYPE, BRIDGE.COMMENTS
-FROM (CRUISE_INFO INNER JOIN STATION_INFO ON CRUISE_INFO.CRUISE = STATION_INFO.CRUISE) INNER JOIN BRIDGE ON STATION_INFO.STATION_ID = BRIDGE.STATION_ID
-WHERE (((CRUISE_INFO.CRUISE)=", CRUISEchr,"))")
-
-# get cruise data from database
-salmondf_orig <- sqlQuery(myconn, salmonQuery)
+# # create string to query db
+# salmonQuery <- paste0("SELECT CRUISE_INFO.CRUISE, BRIDGE.EVENT, BRIDGE.YEAR, BRIDGE.MONTH, BRIDGE.DAY, BRIDGE.DATE, BRIDGE.START_LAT, BRIDGE.START_LONG, BRIDGE.DISTANCE, BRIDGE.NET_OPENING_WIDTH, BRIDGE.NET_OPENING_HEIGHT, BRIDGE.HEAD_DEPTH, BRIDGE.[ESTIMATED_CATCHES_ BY_WT], BRIDGE.PK_JUV, BRIDGE.CM_JUV, BRIDGE.CM_ADULT, BRIDGE.SE_JUV, BRIDGE.CO_JUV, BRIDGE.CK_JUV, BRIDGE.GEAR_TYPE, BRIDGE.COMMENTS
+# FROM (CRUISE_INFO INNER JOIN STATION_INFO ON CRUISE_INFO.CRUISE = STATION_INFO.CRUISE) INNER JOIN BRIDGE ON STATION_INFO.STATION_ID = BRIDGE.STATION_ID
+# WHERE (((CRUISE_INFO.CRUISE)=", CRUISEchr,"))")
+# 
+# # get cruise data from database
+# salmondf_orig <- sqlQuery(myconn, salmonQuery)
+salmondf_orig <- readr::read_csv("data/csv/salmondf.csv",
+                                 col_types = cols(
+  CRUISE = col_double(),
+  EVENT = col_double(),
+  Year = col_double(),
+  Month = col_character(),
+  Day = col_double(),
+  Date = col_character(), # MS Access and R date format conflict
+  START_LAT = col_double(),
+  START_LONG = col_double(),
+  DISTANCE = col_double(),
+  NET_OPENING_WIDTH = col_double(),
+  NET_OPENING_HEIGHT = col_double(),
+  HEAD_DEPTH = col_double(),
+  `ESTIMATED_CATCHES_ BY_WT` = col_character(),
+  PK_JUV = col_double(),
+  CM_JUV = col_double(),
+  CM_ADULT = col_double(),
+  SE_JUV = col_double(),
+  CO_JUV = col_double(),
+  CK_JUV = col_double(),
+  GEAR_TYPE = col_character(),
+  COMMENTS = col_character()
+))
 
 # wrangle data for volume swept CPUE
 salmondf <- salmondf_orig %>%
@@ -266,13 +331,26 @@ salmondf <- salmondf_orig %>%
 
 ```{r lengths}
 
-# create string to query db
-lengthQuery <- paste0("SELECT CRUISE_INFO.CRUISE, BIOLOGICAL.FISH_NUMBER, BIOLOGICAL.DATE_CAPTURED, BIOLOGICAL.SPECIES, BIOLOGICAL.SHIP_FL, BIOLOGICAL.SHIP_SL, BIOLOGICAL.SHIP_TL, BIOLOGICAL.SHIP_ML, BIOLOGICAL.SHIP_BD, BIOLOGICAL.SHIP_WT
-FROM (CRUISE_INFO INNER JOIN STATION_INFO ON CRUISE_INFO.CRUISE = STATION_INFO.CRUISE) INNER JOIN (BIOLOGICAL_JUNCTION INNER JOIN BIOLOGICAL ON BIOLOGICAL_JUNCTION.FISH_NUMBER = BIOLOGICAL.FISH_NUMBER) ON STATION_INFO.STATION_ID = BIOLOGICAL_JUNCTION.STATION_ID
-WHERE (((CRUISE_INFO.CRUISE)=", CRUISEchr,"))")
-
-# get cruise data from database
-lengthFreq_orig <- sqlQuery(myconn, lengthQuery)
+# # create string to query db
+# lengthQuery <- paste0("SELECT CRUISE_INFO.CRUISE, BIOLOGICAL.FISH_NUMBER, BIOLOGICAL.DATE_CAPTURED, BIOLOGICAL.SPECIES, BIOLOGICAL.SHIP_FL, BIOLOGICAL.SHIP_SL, BIOLOGICAL.SHIP_TL, BIOLOGICAL.SHIP_ML, BIOLOGICAL.SHIP_BD, BIOLOGICAL.SHIP_WT
+# FROM (CRUISE_INFO INNER JOIN STATION_INFO ON CRUISE_INFO.CRUISE = STATION_INFO.CRUISE) INNER JOIN (BIOLOGICAL_JUNCTION INNER JOIN BIOLOGICAL ON BIOLOGICAL_JUNCTION.FISH_NUMBER = BIOLOGICAL.FISH_NUMBER) ON STATION_INFO.STATION_ID = BIOLOGICAL_JUNCTION.STATION_ID
+# WHERE (((CRUISE_INFO.CRUISE)=", CRUISEchr,"))")
+# 
+# # get cruise data from database
+# lengthFreq_orig <- sqlQuery(myconn, lengthQuery)
+lengthFreq_orig <- readr::read_csv("data/csv/lengthFreq.csv",
+                                   col_types = cols(
+  CRUISE = col_double(),
+  FISH_NUMBER = col_character(),
+  DATE_CAPTURED = col_character(), # Access and R date format conflict
+  SPECIES = col_character(),
+  SHIP_FL = col_double(),
+  SHIP_SL = col_double(),
+  SHIP_TL = col_double(),
+  SHIP_ML = col_double(),
+  SHIP_BD = col_double(),
+  SHIP_WT = col_double()
+))
 
 # wrangle data
 lengthFreq <- lengthFreq_orig %>%
@@ -289,17 +367,26 @@ lengthFreq <- lengthFreq_orig %>%
 
 ```{r catch}
 
-# create string to query db
-# omit unusable tow in QCST01
-catchQuery <- paste0("SELECT STATION_INFO.CRUISE, BCSI_ECOSYSTEM_SPECIES_TOTALS.STATION_ID, BCSI_ECOSYSTEM_SPECIES_TOTALS.SPECIES_CODE, BCSI_ECOSYSTEM_SPECIES_TOTALS.SPECIES_COMMON_NAME, BCSI_ECOSYSTEM_SPECIES_TOTALS.PIECES, BCSI_ECOSYSTEM_SPECIES_TOTALS.WT
-FROM (STATION_INFO INNER JOIN BCSI_ECOSYSTEM_SPECIES_TOTALS ON STATION_INFO.STATION_ID = BCSI_ECOSYSTEM_SPECIES_TOTALS.STATION_ID) INNER JOIN BRIDGE ON (BCSI_ECOSYSTEM_SPECIES_TOTALS.STATION_ID = BRIDGE.STATION_ID) AND (STATION_INFO.STATION_ID = BRIDGE.STATION_ID)
-WHERE (((STATION_INFO.CRUISE)=", CRUISEchr,"))")
-
-# get cruise data from database
-catch_orig <- sqlQuery(myconn, catchQuery)
+# # create string to query db
+# # omit unusable tow in QCST01
+# catchQuery <- paste0("SELECT STATION_INFO.CRUISE, BCSI_ECOSYSTEM_SPECIES_TOTALS.STATION_ID, BCSI_ECOSYSTEM_SPECIES_TOTALS.SPECIES_CODE, BCSI_ECOSYSTEM_SPECIES_TOTALS.SPECIES_COMMON_NAME, BCSI_ECOSYSTEM_SPECIES_TOTALS.PIECES, BCSI_ECOSYSTEM_SPECIES_TOTALS.WT
+# FROM (STATION_INFO INNER JOIN BCSI_ECOSYSTEM_SPECIES_TOTALS ON STATION_INFO.STATION_ID = BCSI_ECOSYSTEM_SPECIES_TOTALS.STATION_ID) INNER JOIN BRIDGE ON (BCSI_ECOSYSTEM_SPECIES_TOTALS.STATION_ID = BRIDGE.STATION_ID) AND (STATION_INFO.STATION_ID = BRIDGE.STATION_ID)
+# WHERE (((STATION_INFO.CRUISE)=", CRUISEchr,"))")
+# 
+# # get cruise data from database
+# catch_orig <- sqlQuery(myconn, catchQuery)
+catch_orig <- readr::read_csv("data/csv/catch_orig.csv",
+                              col_types = cols(
+  CRUISE = col_double(),
+  STATION_ID = col_character(),
+  SPECIES_CODE = col_character(),
+  SPECIES_COMMON_NAME = col_character(),
+  PIECES = col_double(),
+  WT = col_double()
+))
 
 # upload GFBIO species table for common and scientific names
-species_orig <- read_csv("data/C_Species.csv",
+species_orig <- read_csv("data/csv/C_Species.csv",
                          col_types = cols(
   SPECIES_CODE = col_character(),
   SPECIES_DESC = col_character(),
@@ -357,7 +444,8 @@ lw_length <- lengthFreq %>%
             lengthNum = sum(!is.na(LENGTH)),
             meanLen = round(mean(LENGTH, na.rm = TRUE), 0),
             minLen = min(LENGTH, na.rm = TRUE),
-            maxLen = max(LENGTH, na.rm = TRUE))
+            maxLen = max(LENGTH, na.rm = TRUE),
+            .groups = "drop")
 
 lw_weight <- lengthFreq %>%
   filter(!(is.na(LENGTH))) %>%
@@ -366,7 +454,8 @@ lw_weight <- lengthFreq %>%
   summarize(wgtNum = sum(!is.na(WEIGHT)),
             meanWGT = round(mean(WEIGHT, na.rm = TRUE), 0),
             minWgt = min(WEIGHT, na.rm = TRUE),
-            maxWgt = max(WEIGHT, na.rm = TRUE))
+            maxWgt = max(WEIGHT, na.rm = TRUE),
+            .groups = "drop")
 
 # join tables
 lw <- lw_length %>%
