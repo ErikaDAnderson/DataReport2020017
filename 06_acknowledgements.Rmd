@@ -1,3 +1,6 @@
+<div id="refs"></div>
+
 # Acknowledgements
 
 We would like to thank Captain Duncan McCallum, and crew of the CCGS Sir John Franklin. The following science staff  participated in the survey: Cameron Freshwater, Chelsea Stanely, Daniel Williams, and Cindy Wright.  
+
