@@ -218,6 +218,23 @@ coast <- readOGR("data/Spatial/Land.shp", verbose = FALSE)
 
 ```
 
+```{r net}
+
+net <- events %>%
+  mutate(NOPE = str_extract(Comments, "DO NOT USE")) %>%
+  filter(is.na(NOPE)) %>%
+  filter(Type == "Trawl7742" | Type == "Trawl1142") %>%
+  group_by(Type, TargetHeadDepth) %>%
+  summarize(Vertavg = mean(VerticalNetOpening),
+            Vertmin = min(VerticalNetOpening),
+            Vertmax = max(VerticalNetOpening),
+            Horavg = mean(Wingspread),
+            Hormin = min(Wingspread),
+            Hormax = max(Wingspread), .groups = "drop")
+
+```
+
+
 ```{r salmon}
 
 # create string to query db
@@ -282,7 +299,21 @@ WHERE (((STATION_INFO.CRUISE)=", CRUISEchr,"))")
 catch_orig <- sqlQuery(myconn, catchQuery)
 
 # upload GFBIO species table for common and scientific names
-species_orig <- read_csv("data/C_Species.csv")
+species_orig <- read_csv("data/C_Species.csv",
+                         col_types = cols(
+  SPECIES_CODE = col_character(),
+  SPECIES_DESC = col_character(),
+  ROW_VERSION = col_double(),
+  SPECIES_COMMON_NAME = col_character(),
+  SPECIES_SCIENCE_NAME = col_character(),
+  ITIS_TSN = col_double(),
+  TAXONOMIC_RANK = col_character(),
+  RSTY_ID = col_double(),
+  PARENT_RSTY_ID = col_double(),
+  PARENT_TAXONOMIC_UNIT = col_character(),
+  SPECIES_GROUPING = col_character(),
+  LSID = col_character()
+))
 
 # simiplify species table
 species <- species_orig %>%
@@ -306,12 +337,68 @@ catch <- catch_orig %>%
   summarise(numTows = n(),
             totalWgt = sum(WT, na.rm = TRUE),
             maxWgt = max(WT, na.rm = TRUE),
-            meanWgt = round(mean(WT, na.rm = TRUE), 2)) %>%
+            meanWgt = round(mean(WT, na.rm = TRUE), 0)) %>%
   ungroup() %>%
   arrange(desc(totalWgt), desc(numTows)) %>%
   naniar::replace_with_na(replace = list(meanWgt = NaN, 
                                          maxWgt = -Inf, 
                                          totalWgt = 0)) 
   
+```
+
+```{r lengthweight}
+
+lw_length <- lengthFreq %>%
+  filter(!(is.na(LENGTH))) %>%
+  separate(., FISH_NUMBER, into = c("Program", "Survey", "Station", "SPECIES_CODE", "FishNum")) %>%
+  group_by(COMMON_NAME) %>%
+  mutate(numTows = length(unique(Station))) %>%
+  summarize(numTows = mean(numTows),            
+            lengthNum = sum(!is.na(LENGTH)),
+            meanLen = round(mean(LENGTH, na.rm = TRUE), 0),
+            minLen = min(LENGTH, na.rm = TRUE),
+            maxLen = max(LENGTH, na.rm = TRUE))
+
+lw_weight <- lengthFreq %>%
+  filter(!(is.na(LENGTH))) %>%
+  filter(!(is.na(WEIGHT))) %>%
+  group_by(COMMON_NAME) %>%
+  summarize(wgtNum = sum(!is.na(WEIGHT)),
+            meanWGT = round(mean(WEIGHT, na.rm = TRUE), 0),
+            minWgt = min(WEIGHT, na.rm = TRUE),
+            maxWgt = max(WEIGHT, na.rm = TRUE))
+
+# join tables
+lw <- lw_length %>%
+  full_join(., lw_weight, by = "COMMON_NAME") %>%
+  mutate(COMMON_NAME = paste0(str_sub(COMMON_NAME, 1,1), str_sub(tolower(COMMON_NAME),2)),
+         COMMON_NAME = case_when(
+           COMMON_NAME == "Opalescent squid" ~ "Opalescent inshore squid", 
+           COMMON_NAME == "Chinook" ~ "Chinook salmon",
+           COMMON_NAME == "Pink" ~ "Pink salmon",
+           COMMON_NAME == "Sockeye" ~ "Sockeye salmon",
+           COMMON_NAME == "Coho" ~ "Coho salmon",
+           COMMON_NAME == "Chum" ~ "Chum salmon",
+           COMMON_NAME == "Herring" ~ "Pacific Herring",
+           COMMON_NAME == "Aequorea" ~ "Water Jelly",
+           COMMON_NAME == "Rock sole" ~ "Flatfish",
+           TRUE ~ COMMON_NAME)
+         ) %>%
+  arrange(-lengthNum)
+
+```
+
+```{r stomach}
+
+# summarize stomachs examined
+#"Species", "Number of Tows", "Number of Stomachs", "Number of Empty Stomachs", "Percent Empty Stomachs"
+
+```
+
+```{r prey}
+
+# summarize prey found
+# "Species", "Prey Species", "Average Prey Volume", "Count of Stomachs"
+
 ```
 
