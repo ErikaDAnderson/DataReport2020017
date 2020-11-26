@@ -23,7 +23,7 @@ csasdown::csas_table(catch,
 ```
   
   
-(ref:lwtable) Sample size and statistics of lengths and weights for each species (listed by the number of tows by species) sampled during the `r surveyName` aboard the `r vessel`, `r surveyDateRange`. (Tows = number of tows, Measured = number of lengths, Weighed = number of weights).
+(ref:lwtable) Lengths and weights for each species (arranged decending by the number of tows for each by species) sampled during the `r surveyName` aboard the `r vessel`, `r surveyDateRange`. (Tows = number of tows, Measured = number of lengths, Weighed = number of weights).
 
 ```{r lwtable, results='asis'}
 
