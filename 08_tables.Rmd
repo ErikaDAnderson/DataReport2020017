@@ -1,20 +1,20 @@
 # Tables
 
-(ref:totaltows) Total usable fishing, CTD, zooplankton, and MOCNESS events during the `r surveyName` aboard the `r vessel`, `r surveyDateRange`. Test and aborted tows are not included in this table. Please see methods section for more detailed equipment information.
+(ref:totaltows) Total usable fishing, CTD, plankton, and MOCNESS events during the `r surveyName` aboard the `r vessel`, `r surveyDateRange`. Gear testing and aborted tows are not included in this table. Please see methods section for more detailed equipment information.
 
 ```{r totaltows, results = 'asis'}
 
 tows <- tibble(
-  Event = c("Midwater Coastal Trawl", "Midwater Offshore Trawl", "CTD Seabird 25", "Rosette with Seabird 911", "Vertical Zooplankton Tow", "Oblique Zooplankton Tow", "MOCNESS"),
+  Event = c("Midwater Coastal Trawl", "Midwater Offshore Trawl", "CTD Seabird 25", "Rosette with Seabird 911", "Vertical Plankton Tow", "Oblique Plankton Tow", "MOCNESS"),
   Number = c(20, 2, 19, 2, 21, 2, 3))
 
 csasdown::csas_table(tows,
                      caption = "(ref:totaltows)")
 
 ```
-
   
-(ref:catchtable) All captured species (or taxonomic group), ordered by total catch weight, showing number of tows in which the species occurred, total catch weight, maximum catch weight, and mean catch weight per tow for usable tows during the `r surveyName` aboard the `r vessel`, `r surveyDateRange`. Blank weights indicate specimens that could not be weighed accurately (either released alive or too small).
+
+(ref:catchtable) All captured species (or taxonomic group), ordered by total catch weight (grams), showing number of tows in which the species occurred, total catch weight, maximum catch weight, and mean catch weight per tow for usable tows during the `r surveyName` aboard the `r vessel`, `r surveyDateRange`. Blank weights indicate specimens that could not be weighed accurately (either released alive or too small).
 
 ```{r catchtable, results='asis'}
 csasdown::csas_table(catch,
@@ -23,16 +23,53 @@ csasdown::csas_table(catch,
 ```
   
   
-Species Lengths and Weights  
-Sample size and statistics of lengths and weights for each species (listed
-alphabetically) sampled during the `r surveyName` aboard the `r vessel`, `r surveyDateRange`. (Sampled = number of tows, Measured = number of lengths, Weighed = number of weights).
+(ref:lwtable) Sample size and statistics of lengths and weights for each species (listed by the number of tows by species) sampled during the `r surveyName` aboard the `r vessel`, `r surveyDateRange`. (Tows = number of tows, Measured = number of lengths, Weighed = number of weights).
 
-Stomach Table
-Number of samples (tows), number of stomachs examined, number empty
-stomachs, and percentage of stomachs that were empty for species sampled (listed
-alphabetically) during the `r surveyName` aboard the `r vessel`, `r surveyDateRange`.  
+```{r lwtable, results='asis'}
 
-Prey Table  
-Prey items identified in the stomach contents of species sampled (listed
-alphabetically) during during the `r surveyName` aboard the `r vessel`, `r surveyDateRange`. The average prey volume is in cm3 and the count of stomachs is the number of stomachs examined.  
+csasdown::csas_table(lw,
+                     caption = "(ref:lwtable)",
+                     col.names = c("Species", "Tows","Measured", "MeanL", "MinL", "MaxL", "Weighed", "MeanW", "MinW", "MaxW"))
+        
+  #       col.names = c("Species", "Sampled", "Measured", "Min", "Max", "Mean", "Weighed", "Min", "Max", "Mean"),
+  #       col_names_align = "c") %>%
+  # kableExtra::add_header_above(c("", "", "", "Length (mm)" = 3, "", "Weight (g)" = 3)) %>%
+  # kableExtra::column_spec(column = 1, width = "3cm")
+
+```
+  
+(ref:stomachtable) Number of samples (tows), number of stomachs examined, number empty stomachs, and percentage of stomachs that were empty for species sampled (listed alphabetically) during the `r surveyName` aboard the `r vessel`, `r surveyDateRange`. 
+
+```{r stomachtable, results = 'asis'}
+
+# csasdown::csas_table(stomach,
+#                      caption = "(ref:stomachtable)",
+#         col.names = c("Species", "Number of Tows", "Number of Stomachs", "Number of Empty Stomachs", "Percent Empty Stomachs"),
+#   col_names_align = "c") %>%
+#   column_spec(column = 1, width = "4 cm") %>%
+#   column_spec(column = 2, width = "1.8 cm") %>%
+#   column_spec(column = 3, width = "1.8 cm") %>%
+#   column_spec(column = 4, width = "1.8 cm") %>%
+#   column_spec(column = 5, width = "1.8 cm"
+#   )
+
+```
+
+
+(ref:preytable) Prey items identified in the stomach contents of species sampled (listed alphabetically) during during the `r surveyName` aboard the `r vessel`, `r surveyDateRange`. The average prey volume is in cm^3^ and the count of stomachs is the number of stomachs examined.  
+
+```{r preytable, results = 'asis'}
+
+# csasdown::csas_table(prey,
+#                      caption = "(ref:preytable)",
+#   col.names = c("Species", "Prey Species", "Average Prey Volume", "Count of Stomachs"),
+#   col_names_align = "c")  %>%
+#   column_spec(column = 1, width = "4 cm") %>%
+#   column_spec(column = 2, width = "4 cm") %>%
+#   column_spec(column = 3, width = "2 cm") %>%
+#   column_spec(column = 4, width = "2 cm"
+# )
+
+```
+
   
