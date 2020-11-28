@@ -343,7 +343,7 @@ cohoPlots
 
 ```
 
-(ref:forkck) Juvenile chinook salmon (*Oncorhynchus tshawytscha)*) length frequency plot as sampled during the `r surveyName` aboard the `r vessel`, `r surveyDateRange` (A). Double log-transformed length-weight regression with outliers removed, using a Bonferroni outlier test (B). No linear equation is presented since there were too very caught.
+(ref:forkck) Juvenile chinook salmon (*Oncorhynchus tshawytscha)*) length frequency plot as sampled during the `r surveyName` aboard the `r vessel`, `r surveyDateRange` (A). Double log-transformed length-weight regression with outliers removed, using a Bonferroni outlier test (B). No linear equation is presented since there were too few caught.
 
 ```{r forkck, fig.cap="(ref:forkck)"}
 
@@ -355,8 +355,5 @@ chinookPlots <- plot_grid(chinookbar, chinookLine, ncol = 1,
 chinookPlots
 
 ```
-
-
-Bell diameters for > 100 individuals?    
 
 /newpage
