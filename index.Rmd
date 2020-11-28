@@ -126,6 +126,8 @@ library(openxlsx) # load excel data
 library(rgdal) # to load shapefiles
 library(naniar) # function replace_with_na
 library(kableExtra) # better table layouts
+library(geosphere) # distance between lat and long
+library(fossil) # calculate heading
 
 ```
 
@@ -231,7 +233,8 @@ events_orig <- readr::read_csv("data/csv/2020-017_BridgeLog_digital_2020-11-18.c
 # wrangle data
 events <- events_orig %>%
   filter(!(is.na(Type))) %>%
-  mutate(Start_Long_DD = -1* Start_Long_DD)
+  mutate(Start_Long_DD = -1* Start_Long_DD,
+         End_Long_DD = -1* End_Long_DD)
 
 # find min and max lat and longs for limits to basemap
 minLat <- min(events$Start_Lat_DD) + 1 # adjusted for test sets pulling it south
@@ -543,9 +546,11 @@ stomachdf <- stomachdf_orig %>%
 preycode <- stomachdf_orig %>%
   select(FISH_NUMBER, `1-PREY_CODE`, `2-PREY_CODE`, `3-PREY_CODE`) %>%
     pivot_longer(., cols = c("1-PREY_CODE", "2-PREY_CODE", "3-PREY_CODE"),
-                 values_drop_na = TRUE, names_to = "PreyLevel", values_to = "PreySpecies")%>%
+                 values_drop_na = TRUE, names_to = "PreyLevel", values_to = "PreySpecies") %>%
   mutate(Level = str_extract_all(PreyLevel, "[0-3]"),
-         PreySpecies = if_else(PreySpecies == "OAO", "0A0", PreySpecies)) # this is a typo and should be fixed in database, should be 0A0 not letters OAO
+         # this is a typo and should be fixed in database, should be 0A0 not letters OAO
+         #PreySpecies = if_else(PreySpecies == "OAO", "0A0", PreySpecies) 
+  )
   
 
 volume <- stomachdf_orig %>%
@@ -580,6 +585,37 @@ prey <- preycode %>%
   select(COMMON_NAME, PREY_NAME, AvgVolume, NumPrey) %>%
   mutate(PREY_NAME = paste0(str_sub(PREY_NAME, 1,1), str_sub(tolower(PREY_NAME),2))) %>%
   arrange(COMMON_NAME, -AvgVolume)
+
+
+```
+
+```{r bridge}
+
+# Calculate distance function
+calcDist <- function(lat_a, lon_a, lat_b, lon_b) { 
+  library(geosphere)
+  distm(c(lon_a, lat_a), c(lon_b, lat_b), fun = distGeo) 
+} 
+
+bridge <- events %>%
+  mutate(Date = lubridate::ymd(str_c(Year, Month, Day, sep = "-"))) %>%
+  mutate(Gear = str_c("LFS ", str_extract(Type, "[0-9]+"), " trawl net"),
+         Test = str_extract(Comments, "DO NOT USE"),
+         # from start-stop positions
+         HEADING = round(fossil::earth.bear(Start_Long_DD, Start_Lat_DD, End_Long_DD, End_Lat_DD)),
+         DISTANCE_NM = round((mapply(lat_a =  Start_Lat_DD, lon_a = Start_Long_DD, #calc. dist.
+                           lat_b = End_Lat_DD, lon_b = End_Long_DD,
+                           FUN = calcDist) / 1852),2), #division converts to naut. miles
+         DISTANCE_M = round((mapply(lat_a =  Start_Lat_DD, lon_a = Start_Long_DD, #calc. dist.
+                           lat_b = End_Lat_DD, lon_b = End_Long_DD,
+                           FUN = calcDist)),2)) %>%
+  select(Event, Date, Location, Type, StartTime, TowTime, Start_Lat_DD, Start_Long_DD, End_Lat_DD, End_Long_DD, HEADING, DISTANCE_NM, DISTANCE_M, Speed, VerticalNetOpening, Wingspread, Warp, TargetHeadDepth, ActualHeadDepth, Start_Bot_Depth, StopBotDepth, Comments, Gear, Test)
+
+bridgetow <- bridge %>%
+  filter(!(is.na(Gear))) %>%
+  mutate(Usable = if_else(is.na(Test), "Y", "N"))
+
+
 
 
 ```
