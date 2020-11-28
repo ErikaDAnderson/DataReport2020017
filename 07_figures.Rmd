@@ -265,13 +265,25 @@ lm_text <- lm_eqn(df.LW)
 xtext <- ((max(df.LW$LOG.LEN) - min(df.LW$LOG.LEN))/3)*2 + min(df.LW$LOG.LEN)
 ytext <- ((max(df.LW$LOG.WT) - min(df.LW$LOG.WT))/2) + min(df.LW$LOG.WT) - 1
 
+if(thisspecies == "CHINOOK") { # remove equations in 2020017 since only three CK caught
 # graph log length by weight
+dffit <- ggplot(df.LW) +
+  geom_point(aes(LOG.LEN, LOG.WT)) +
+  labs(x = "log(Length (mm))",
+       y = "log(Weight (g))") +
+  #geom_text(aes(xtext, ytext), label = lm_text, parse = TRUE) +
+  theme_bw()
+} else {
+  
+  # graph log length by weight
 dffit <- ggplot(df.LW) +
   geom_point(aes(LOG.LEN, LOG.WT)) +
   labs(x = "log(Length (mm))",
        y = "log(Weight (g))") +
   geom_text(aes(xtext, ytext), label = lm_text, parse = TRUE) +
   theme_bw()
+  
+}
 
 # put both graphs in list to return from function
 list(dfbar, dffit)
@@ -331,7 +343,7 @@ cohoPlots
 
 ```
 
-(ref:forkck) Juvenile chinook salmon (*Oncorhynchus tshawytscha)*) length frequency plot as sampled during the `r surveyName` aboard the `r vessel`, `r surveyDateRange` (A). Double log-transformed length-weight regression with outliers removed, using a Bonferroni outlier test (B).
+(ref:forkck) Juvenile chinook salmon (*Oncorhynchus tshawytscha)*) length frequency plot as sampled during the `r surveyName` aboard the `r vessel`, `r surveyDateRange` (A). Double log-transformed length-weight regression with outliers removed, using a Bonferroni outlier test (B). No linear equation is presented since there were too very caught.
 
 ```{r forkck, fig.cap="(ref:forkck)"}
 
