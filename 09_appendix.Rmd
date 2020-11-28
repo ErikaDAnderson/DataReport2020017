@@ -2,7 +2,7 @@
 
 # Appendix {#app:app1}
 
-(ref:bridgetable) Event locations, regions, dates, times, and net dimensions during the `r surveyName` aboard the `r vessel`, `r surveyDateRange`. (**landscape hard to do in word**)
+(ref:bridgetable) Bridge log information for trawl tows during the `r surveyName` aboard the `r vessel`, `r surveyDateRange`.
 
 ```{r bridgetable, results='asis'}
 
