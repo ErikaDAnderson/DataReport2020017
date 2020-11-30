@@ -599,24 +599,169 @@ calcDist <- function(lat_a, lon_a, lat_b, lon_b) {
 
 bridge <- events %>%
   mutate(Date = lubridate::ymd(str_c(Year, Month, Day, sep = "-"))) %>%
-  mutate(Gear = str_c("LFS ", str_extract(Type, "[0-9]+"), " trawl net"),
+  mutate(# make pretty lat and longs to display
+         Start_Lat_Min_NoSec = str_extract_all(Start_Lat_Min, "^[0-9]+"),
+         Start_lat_Sec = str_pad(as.character(round(as.numeric(str_extract_all(Start_Lat_Min, "[.][0-9]+$"))*60)), width = 2, side = "left", pad = "0"),
+         START_LAT = str_c(Start_Lat_Deg, "\u00B0", Start_Lat_Min_NoSec, "'", Start_lat_Sec),
+         
+         Start_Long_Min_NoSec = str_extract_all(Start_Long_Min, "^[0-9]+"),
+         Start_long_Sec = str_pad(as.character(round(as.numeric(str_extract_all(Start_Long_Min, "[.][0-9]+$"))*60)), width = 2, side = "left", pad = "0"),
+         START_LONG = str_c(Start_Long_Deg, "\u00B0", Start_Long_Min_NoSec, "'", Start_long_Sec),
+         
+         End_Lat_Min_NoSec = str_extract_all(End_Lat_Min, "^[0-9]+"),
+         End_lat_Sec = str_pad(as.character(round(as.numeric(str_extract_all(End_Lat_Min, "[.][0-9]+$"))*60)), width = 2, side = "left", pad = "0"),
+         END_LAT = str_c(End_Lat_Deg, "\u00B0", End_Lat_Min_NoSec, "'", End_lat_Sec),
+         
+         End_Long_Min_NoSec = str_extract_all(End_Long_Min, "^[0-9]+"),
+         End_long_Sec = str_pad(as.character(round(as.numeric(str_extract_all(End_Long_Min, "[.][0-9]+$"))*60)), width = 2, side = "left", pad = "0"),
+         END_LONG = str_c(End_Long_Deg, "\u00B0", End_Long_Min_NoSec, "'", End_long_Sec)
+         ) 
+
+bridgetow <- bridge %>%
+  mutate(TrawlNet = str_c("LFS ", str_extract(Type, "[0-9]+")),
          Test = str_extract(Comments, "DO NOT USE"),
-         # from start-stop positions
+         Usable = if_else(is.na(Test), "Y", "N"),
+         DURATION = str_extract_all(TowTime, "[0-9]+$"),
+         SPEED_KM = round(Speed*1.852,1),
+         
          HEADING = round(fossil::earth.bear(Start_Long_DD, Start_Lat_DD, End_Long_DD, End_Lat_DD)),
          DISTANCE_NM = round((mapply(lat_a =  Start_Lat_DD, lon_a = Start_Long_DD, #calc. dist.
                            lat_b = End_Lat_DD, lon_b = End_Long_DD,
                            FUN = calcDist) / 1852),2), #division converts to naut. miles
-         DISTANCE_M = round((mapply(lat_a =  Start_Lat_DD, lon_a = Start_Long_DD, #calc. dist.
+         DISTANCE_KM = round(((mapply(lat_a =  Start_Lat_DD, lon_a = Start_Long_DD, #calc. dist.
                            lat_b = End_Lat_DD, lon_b = End_Long_DD,
-                           FUN = calcDist)),2)) %>%
-  select(Event, Date, Location, Type, StartTime, TowTime, Start_Lat_DD, Start_Long_DD, End_Lat_DD, End_Long_DD, HEADING, DISTANCE_NM, DISTANCE_M, Speed, VerticalNetOpening, Wingspread, Warp, TargetHeadDepth, ActualHeadDepth, Start_Bot_Depth, StopBotDepth, Comments, Gear, Test)
+                           FUN = calcDist))/1000),2)) %>%
+  filter(!(is.na(TrawlNet))) %>%
+select(Event, Date, TrawlNet, StartTime, DURATION, START_LAT, START_LONG, END_LAT, END_LONG, HEADING, SPEED_KM, DISTANCE_KM, VerticalNetOpening, Wingspread, Warp, Doorspread, TargetHeadDepth, ActualHeadDepth, Start_Bot_Depth, StopBotDepth, Usable) %>%
+    dplyr::rename(
+      "Event Number" = Event,
+      "Trawl Net" = TrawlNet,
+         "Start Time (PDT)" = StartTime,
+         "Duration (min)" = DURATION,
+         "Start Latitude" = START_LAT,
+         "Start Longitude" = START_LONG,
+         "End Latitude" = END_LAT,
+         "End Longitude" = END_LONG,
+         "Direction of Tow (deg)" = HEADING,
+         "Vessel Speed (km/h)" = SPEED_KM,
+         "Distance Towed (km)" = DISTANCE_KM,
+         "Net Opening Height (m)" = VerticalNetOpening,
+         "Net Opening Width (m)" = Wingspread,
+         "Warp Length (m)" = Warp,
+         "Door Spread (m)" = Doorspread,
+         "Target Headrope Depth (m)" = TargetHeadDepth,
+         "Average Headrope Depth (m)" = ActualHeadDepth,
+         "Start Bottom Depth (m)" = Start_Bot_Depth,
+         "End Bottom Depth (m)" = StopBotDepth)
 
-bridgetow <- bridge %>%
-  filter(!(is.na(Gear))) %>%
-  mutate(Usable = if_else(is.na(Test), "Y", "N"))
+
+# transpose table into display format
+# tows as column names
+bridge_t <- as.data.frame(t(bridgetow))
+
+# column names as vector
+col_from <- colnames(bridge_t)
+
+# column names from tow number
+col_to <- 1:27
+
+# rename column names with consequtive tow number
+bridge_t <- bridge_t %>%
+  rename_at(vars(col_from), function(x) col_to)
+
+# make vector for row names
+MeasurementNames <- as.vector(row.names(bridge_t))
+  
+# make function to create discrete tables for display
+breakBridgeTable <- function(df, rowNum, MeasurementNames) {
+  
+  df <- bridge_t %>%
+    select(rowNum) %>%  
+    mutate(`Tow Number` = MeasurementNames) %>%
+    select(`Tow Number`, everything())
+    
+}
+
+# divide the total tows by 3 to make discrete tables
+bridge1 <- breakBridgeTable(bridge_t, 1:7, MeasurementNames)
+bridge2 <- breakBridgeTable(bridge_t, 8:15, MeasurementNames)
+bridge3 <- breakBridgeTable(bridge_t, 16:23, MeasurementNames)
+bridge4 <- breakBridgeTable(bridge_t, 24:27, MeasurementNames)
+
+```
+
+```{r CTDdepthtime}
+
+# date, start time, bottom depth, gear depth for CTD, Bongo Vert, Bongo Oblique, MOCNESS
+# recommend start lat/long and end lat/long also since not always with tow
 
 
+```
 
+```{r catchAppendix}
+
+# find event numbers to join by station
+stations <- events %>%
+  mutate(STATION_ID = str_c("BCSI-2020017-", StationID),
+         Test = str_extract(Comments, "DO NOT USE")) %>%
+  filter(is.na(Test)) %>%
+  filter(Type %in% c("Trawl7742", "Trawl1142")) %>%
+  select(Event, STATION_ID, Type)
+
+# wrangle data
+catchApp <- catch_orig %>%
+  # omit unusable tow in QCST01
+  filter(STATION_ID != "BCSI-2020017-QCST01") %>%
+  
+# fix species codes where R dropped the 0 preceeding the code
+  mutate(SPECIES_CODE = if_else(SPECIES_CODE != "96", as.character(SPECIES_CODE), "096"),
+         SPECIES_CODE = if_else(SPECIES_CODE != "41", as.character(SPECIES_CODE), "041")) %>%
+  left_join(., species, by = "SPECIES_CODE") %>%
+  mutate(DISPLAY_COMMON = if_else(is.na(SPECIES_COMMON_NAME.y), as.character(SPECIES_COMMON_NAME.x), SPECIES_COMMON_NAME.y)) %>%
+  mutate(DISPLAY_COMMON = str_remove_all(DISPLAY_COMMON, "[()](JUVENILES)[)]*"),
+         DISPLAY_COMMON = str_remove(DISPLAY_COMMON, "[()](ADULTS)[)]*")) %>%
+  mutate(COMMON_NAME = paste0(str_sub(DISPLAY_COMMON, 1,1), str_sub(tolower(DISPLAY_COMMON),2)),
+         SCIENTIFIC_NAME = paste0(str_sub(SPECIES_SCIENCE_NAME, 1,1), str_sub(tolower(SPECIES_SCIENCE_NAME),2)),
+         WT_KG = round(WT / 1000,2)) %>%
+  left_join(., stations, by = "STATION_ID") %>%
+  select(COMMON_NAME, Event, WT_KG) %>%
+  filter(!(is.na(WT_KG))) %>%
+  arrange(Event) %>%
+  dplyr::rename(`Event Number` = Event)
+
+catch_spread <- catchApp %>%
+  pivot_wider(., names_from = `Event Number`, values_from = WT_KG) %>%
+  arrange(COMMON_NAME)
+
+# make vector for species names
+speciesNames <- as.vector(catch_spread$COMMON_NAME)
+
+# make function to create discrete tables for displaying catch
+# and summary total to bottom row
+breakcatchTable <- function(colNum, speciesNames, catch_spread) {
+  
+  df <- catch_spread %>%
+  select(-COMMON_NAME) %>%
+    select(colNum) %>%
+    mutate(`Event Number` = str_to_title(as.character(speciesNames))) %>%
+    select(`Event Number`, everything())
+  
+  # create summary totals
+summaryfunc <- function(z) if (is.numeric(z)) sum(z, na.rm = TRUE) else ''
+sumrow <- as.data.frame(lapply(df, summaryfunc))
+sumrow$Event.Number <- as.character(sumrow$Event.Number)
+sumrow[1,1] <- "TOTAL" # *** need to add if else to leave unusable tows as - here
+
+# create vector of column names to match
+colNamesdf <- colnames(df)
+colnames(sumrow) <- colNamesdf
+
+df <- rbind(df, sumrow)
+}
+
+# these column numbers need to be modified in appendix catchTable section if they change
+catch1 <- breakcatchTable(1:11, speciesNames, catch_spread)
+catch2 <- breakcatchTable(12:22, speciesNames, catch_spread)
 
 ```
 
