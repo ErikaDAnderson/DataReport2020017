@@ -18,7 +18,6 @@ author_footnote: "Email: Erika.Anderson@dfo-mpo.gc.ca | telephone: (250) 756-706
 abstract: |
   Fisheries and Oceans Canada conducted an ecosystem-based survey from October 6-16, 2020 on the CCGS Sir John Franklin targeting juvenile salmon from Queen Charlotte Sound to Dixon Entrance. The survey was designed to determine the distribution, abundance, and ecology of juvenile Pacific salmon (Oncorhynchus sp.) in northern British Columbia during the fall season. In addition, gear optimization occurred for the International Year of the Salmon Survey.
     
-  Add french translation if printing in word (only displays in pdf)  
 abstract_other: |
   Voici le résumé. 
 output:
