@@ -1,21 +1,31 @@
 \newpage
 \clearpage
 
-# Nets specifications {#app:appNet}
+# Nets Specifications {#app:appNet}
 
-(ref:offshorenet) Net specifications for the offshore NPAFC 1142 midwater trawl net used on the the `r surveyName` from `r surveyDateRange` on the `r vessel`.
+(ref:offshorenet) Net specifications (upper, lower and side views) for the offshore NPAFC 1142 midwater trawl net used on the the `r surveyName` from `r surveyDateRange` on the `r vessel`.
 
-```{r offshorenet, fig.cap="(ref:offshorenet)"}
-
-# png of net specs
+```{r offshorenet1}
+# split figures to fit better
+knitr::include_graphics("knitr-figs-pdf/LFS1142net_upper_horizontal.png")
 
 ```
 
-(ref:coastalnet) Net specifications for the coastal NPAFC 7742 midwater trawl net the `r surveyName` from `r surveyDateRange` on the `r vessel`.
+\newpage
 
-```{r coastalnet, results='asis'}
+```{r offshorenet2, fig.cap="(ref:offshorenet)"}
 
-# coastal net specs
+knitr::include_graphics("knitr-figs-pdf/LFS1142net_lower_horizontal.png")
+knitr::include_graphics("knitr-figs-pdf/LFS1142net_side_horizontal.png")
+
+```
+
+
+(ref:coastalnet) Net specifications (side only) for the coastal NPAFC 7742 midwater trawl net the `r surveyName` from `r surveyDateRange` on the `r vessel`.
+
+```{r coastalnet, fig.cap="(ref:coastalnet)"}
+
+knitr::include_graphics("knitr-figs-pdf/LFS7742_side.png")
 
 ```
 
@@ -49,33 +59,35 @@ csasdown::csas_table(bridge4,
 
 \clearpage
 
-# Oceanographic and Plankton Locations {#app:appOcean}  
+# CTD Casts and Vertical Plankton Tows {#app:appOcean}  
   
 (ref:oceantable) Bridge log information for CTD casts and plankton tows during the `r surveyName` from `r surveyDateRange` on the `r vessel`.
 
 ```{r oceantable, results='asis'}
 
-# # write table
-# # column_spec causes warning if you do it in one step with vectors
-# kableExtra::kable(
-#   CTDdepthtime, 
-#   caption = "(ref:oceantable)",
-#   #format = "latex",
-#   escape = FALSE,
-#   longtable = TRUE,
-#   booktabs = TRUE,
-#   col.names = c("Date", "Stratum", "Block", 
-#                  "Start Time (PDT)", "Bottom Depth (m)","Gear Depth (m)",
-#                  "Start Time (PDT)", "Bottom Depth (m)","Gear Depth (m)")) %>%
-#   add_header_above(c("", "", "", "CTD" = 3, "Bongo" = 3)) %>%
-#   column_spec(4, "1cm") %>%
-#   column_spec(5, "1cm") %>%
-#   column_spec(6, "1cm") %>%
-#   column_spec(7, "1cm") %>%
-#   column_spec(8, "1cm") %>%
-#   column_spec(9, "1cm") %>%
-#   #kableExtra::kable_styling(font_size = 10) %>%
-#   #kableExtra::kable_styling(latex_options = c("repeat_header"))
+# write table
+# column_spec causes warning if you do it in one step with vectors
+kableExtra::kable(
+  ocean_wider,
+  caption = "(ref:oceantable)"
+  # ,
+  # #format = "latex",
+  # escape = FALSE,
+  # longtable = TRUE,
+  # booktabs = TRUE,
+  # col.names = c("Date", "Station",
+  #                "Start Time (PDT)", "Bottom Depth (m)","Gear Depth (m)",
+  #                "Start Time (PDT)", "Bottom Depth (m)","Gear Depth (m)")) %>%
+  # add_header_above(c("", "", "CTD" = 3, "Bongo" = 3)) %>%
+  # column_spec(3, "1cm") %>%
+  # column_spec(4, "1cm") %>%
+  # column_spec(5, "1cm") %>%
+  # column_spec(6, "1cm") %>%
+  # column_spec(7, "1cm") %>%
+  # column_spec(8, "1cm") %>%
+  # kableExtra::kable_styling(font_size = 10) %>%
+  # kableExtra::kable_styling(latex_options = c("repeat_header")
+  )
 
 ```
 \clearpage
