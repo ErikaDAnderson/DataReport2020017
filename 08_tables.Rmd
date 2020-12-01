@@ -1,19 +1,4 @@
-# Tables
-
-(ref:totaltows) Total usable fishing, CTD, plankton, and MOCNESS events during the `r surveyName` aboard the `r vessel`, `r surveyDateRange`. Gear testing and aborted tows are not included in this table. Please see methods section for more detailed equipment information.
-
-```{r totaltows, results = 'asis'}
-
-tows <- tibble(
-  Event = c("Coastal LFS 7742 Midwater Trawl", "Offshore LFS 1142 Midwater Trawl", "CTD Seabird 25", "Rosette with Seabird 911", "Vertical Plankton Tow", "Oblique Plankton Tow", "MOCNESS"),
-  "Number Usable" = c(20, 2, 19, 2, 21, 2, 3))
-
-# csasdown::csas_table(tows,
-#                      caption = "(ref:totaltows)")
-
-```
-\newpage
-  
+# TABLES
 
 (ref:catchtable) All captured species (or taxonomic group), ordered by total catch weight (in grams), showing number of tows in which the species occurred, total catch weight, maximum catch weight, and mean catch weight per tow for usable tows during the `r surveyName` aboard the `r vessel`, `r surveyDateRange`. Blank weights indicate specimens which could not be weighed accurately (either released alive or too small).
 
@@ -21,7 +6,8 @@ tows <- tibble(
 csasdown::csas_table(catch,
                      #format = "latex",
                      caption = "(ref:catchtable)",
-                     col.names = c("Common Name", "Scientific Name","Tows", "Total", "Max", "Mean")) 
+                     col.names = c("Common Name", "Scientific Name","Tows", "Total", "Max", "Mean")
+                     ) 
 # %>%
 #     kableExtra::kable_styling(font_size = 8, latex_options = "repeat_header",
 #      repeat_header_text = "continued.", repeat_header_method = "replace") %>%
