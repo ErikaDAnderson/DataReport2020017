@@ -7,7 +7,7 @@ the following French/English translation. For a French document, set the followi
 
 \clearpage
 
-# References
+# REFERENCES
 
 <!-- The following sets the appropriate indentation for the references -->
 \noindent
