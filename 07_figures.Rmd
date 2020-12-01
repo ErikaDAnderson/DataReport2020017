@@ -1,4 +1,4 @@
-# Figures
+# FIGURES
 
 (ref:mapfish) Fishing tow locations during the `r surveyName` from `r surveyDateRange` on the `r vessel`. The LFS 7742 coastal trawl net (red triangles) was used for 20 tows and the LFS 1142 offshore trawl net (orange circles) was used for 2 tows.
 
