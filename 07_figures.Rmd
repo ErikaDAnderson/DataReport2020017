@@ -69,7 +69,6 @@ events_mocness <- events %>%
   
 ```
 
-
 (ref:cmcpue) Juvenile chum salmon (*Oncorhynchus keta*) catch per km^3^ per tow. Red circles are proportional to catch abundance, and zero catches are shown with a cross (+).
 
 ```{r cmcpue, fig.pos="H", fig.cap = "(ref:cmcpue)", warning=FALSE}
