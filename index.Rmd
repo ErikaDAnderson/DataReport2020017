@@ -25,7 +25,7 @@ output:
  csasdown::techreport_word:
    french: false
    copy_sty: true
-   line_nums: true
+   line_nums: false
    line_nums_mod: 1
 type:
   techreport
