@@ -14,8 +14,9 @@ csasdown::csas_table(catch,
 #   add_header_above(c("", "", "", "Catch (g)" = 3)) %>%
 #   row_spec(vertline, hline_after = T) 
 ```
-  
-  
+
+\newpage  
+
 (ref:lwtable) Lengths (mm) and weights (g) for each species (arranged decending by the number of tows for each by species) sampled during the `r surveyName` aboard the `r vessel`, `r surveyDateRange`. (Tows = number of tows, Measured = number of lengths, Weighed = number of weights).
 
 ```{r lwtable, results='asis'}
