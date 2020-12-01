@@ -192,7 +192,7 @@ vessel <- "CCGS Sir John Franklin"
 # events_orig <- openxlsx::read.xlsx("data/2020-017_BridgeLog_digital_2020-11-18.xlsx",
 #                                    sheet = "Details")
 
-events_orig <- readr::read_csv("data/csv/2020-017_BridgeLog_digital_2020-11-18.csv",
+events_orig <- readr::read_csv("data/csv/2020-017_BridgeLog_digital_2020-11-30.csv",
                                 col_types = cols(
                                   Cruise = col_character(),
                                   Event = col_double(),
@@ -563,6 +563,7 @@ volume <- stomachdf_orig %>%
 prey <- preycode %>%
   full_join(., volume, by = c("FISH_NUMBER", "Level")) %>%
   filter(PreySpecies != "M002") %>%
+  mutate(PreySpecies = if_else(PreySpecies == "96", "096", PreySpecies)) %>%
   separate(., FISH_NUMBER, into = c("Program", "Survey", "Station", "SPECIES_CODE", "FishNum")) %>%
   group_by(SPECIES_CODE, PreySpecies) %>%
   summarise(AvgVolume = round(mean(PreyVolume, na.rm = TRUE),2),
@@ -570,7 +571,8 @@ prey <- preycode %>%
             .groups = "drop") %>%
   left_join(., species, by = "SPECIES_CODE") %>%
   mutate(DISPLAY_COMMON = str_remove_all(SPECIES_COMMON_NAME, "[()](JUVENILES)[)]*"),
-         DISPLAY_COMMON = str_remove(DISPLAY_COMMON, "[()](ADULTS)[)]*")) %>%
+         #DISPLAY_COMMON = str_remove(DISPLAY_COMMON, "[()](ADULTS)[)]*")
+         ) %>%
   mutate(COMMON_NAME = paste0(str_sub(DISPLAY_COMMON, 1,1), str_sub(tolower(DISPLAY_COMMON),2))) %>%
   select(COMMON_NAME, PreySpecies, AvgVolume, NumPrey) %>%
   left_join(., species, by = c("PreySpecies" = "SPECIES_CODE")) %>%
@@ -632,9 +634,10 @@ bridgetow <- bridge %>%
                            lat_b = End_Lat_DD, lon_b = End_Long_DD,
                            FUN = calcDist))/1000),2)) %>%
   filter(!(is.na(TrawlNet))) %>%
-select(Event, Date, TrawlNet, StartTime, DURATION, START_LAT, START_LONG, END_LAT, END_LONG, HEADING, SPEED_KM, DISTANCE_KM, VerticalNetOpening, Wingspread, Warp, Doorspread, TargetHeadDepth, ActualHeadDepth, Start_Bot_Depth, StopBotDepth, Usable) %>%
+select(Event, Date, StationID, TrawlNet, StartTime, DURATION, START_LAT, START_LONG, END_LAT, END_LONG, HEADING, SPEED_KM, DISTANCE_KM, VerticalNetOpening, Wingspread, Warp, Doorspread, TargetHeadDepth, ActualHeadDepth, Start_Bot_Depth, StopBotDepth, Usable) %>%
     dplyr::rename(
       "Event Number" = Event,
+      "Station ID" = StationID,
       "Trawl Net" = TrawlNet,
          "Start Time (PDT)" = StartTime,
          "Duration (min)" = DURATION,
@@ -692,9 +695,24 @@ bridge4 <- breakBridgeTable(bridge_t, 24:27, MeasurementNames)
 
 ```{r CTDdepthtime}
 
-# date, start time, bottom depth, gear depth for CTD, Bongo Vert, Bongo Oblique, MOCNESS
+# date, start time, bottom depth, gear depth for CTD, Bongo Vert
 # recommend start lat/long and end lat/long also since not always with tow
 
+Ocean_orig <- bridge %>%
+  filter(!(Type %in% c("Trawl7742", "Trawl1142"))) %>%
+  filter(StationID != "Test1") %>%
+  select(Event, Date, StationID, Type, StartTime, Start_Bot_Depth, CastDepth)
+
+# only CTD and vertical plankton tows for this table
+ocean_wider <- Ocean_orig %>%
+  select(-Event) %>%
+  mutate(Type = if_else(Type == "ROS", "CTD", Type)) %>%
+  filter(Type %in% c("BongoVertical", "CTD")) %>%
+  pivot_wider(., names_from = "Type", values_from = c("StartTime","Start_Bot_Depth", "CastDepth")) %>%
+  select(Date, StationID, StartTime_CTD, Start_Bot_Depth_CTD, CastDepth_CTD, 
+         StartTime_BongoVertical, Start_Bot_Depth_BongoVertical, CastDepth_BongoVertical)
+
+# Bongo Oblique and MOCNESS describe in text and figures only?
 
 ```
 
@@ -711,7 +729,7 @@ stations <- events %>%
 # wrangle data
 catchApp <- catch_orig %>%
   # omit unusable tow in QCST01
-  filter(STATION_ID != "BCSI-2020017-QCST01") %>%
+  filter(STATION_ID != "BCSI-2020017-QCST01") %>% # remove aborted tow
   
 # fix species codes where R dropped the 0 preceeding the code
   mutate(SPECIES_CODE = if_else(SPECIES_CODE != "96", as.character(SPECIES_CODE), "096"),
