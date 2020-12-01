@@ -698,13 +698,13 @@ bridge4 <- breakBridgeTable(bridge_t, 24:27, MeasurementNames)
 # date, start time, bottom depth, gear depth for CTD, Bongo Vert
 # recommend start lat/long and end lat/long also since not always with tow
 
-Ocean_orig <- bridge %>%
+ocean_orig <- bridge %>%
   filter(!(Type %in% c("Trawl7742", "Trawl1142"))) %>%
   filter(StationID != "Test1") %>%
   select(Event, Date, StationID, Type, StartTime, Start_Bot_Depth, CastDepth)
 
 # only CTD and vertical plankton tows for this table
-ocean_wider <- Ocean_orig %>%
+ocean_wider <- ocean_orig %>%
   select(-Event) %>%
   mutate(Type = if_else(Type == "ROS", "CTD", Type)) %>%
   filter(Type %in% c("BongoVertical", "CTD")) %>%
