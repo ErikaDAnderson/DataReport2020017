@@ -67,13 +67,13 @@ csasdown::csas_table(stomachdf,
 \newpage
   
   
-(ref:preytable) Prey items identified in the stomach contents of species sampled (list alphebetically) during during the `r surveyName` aboard the `r vessel`, `r surveyDateRange`. Volume in cm^3^ and Stomachs = the number of stomachs sampled.
+(ref:preytable) Prey items identified in the stomach contents of species sampled (list alphebetically) during during the `r surveyName` aboard the `r vessel`, `r surveyDateRange`. Volume is averaged in cm^3^; Count is the number of stomachs observed with this prey.
   
 ```{r preytable, results = 'asis'}
 
 csasdown::csas_table(prey,
                      caption = "(ref:preytable)",
-  col.names = c("Species", "Prey", "Volume", "Stomachs"),
+  col.names = c("Species", "Prey", "Volume", "Count"),
   col_names_align = "c")  
 
 # %>%
