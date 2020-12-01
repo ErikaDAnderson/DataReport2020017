@@ -27,7 +27,6 @@ knitr::include_graphics("knitr-figs-pdf/LFS1142net_lower_horizontal.png")
 
 ```
   
-    
 (ref:offshorenet3) Net specifications (side view) for the offshore NPAFC 1142 midwater trawl net used on the the `r surveyName` from `r surveyDateRange` on the `r vessel`.
 
 ```{r offshorenet3, fig.cap="(ref:offshorenet3)"}
@@ -35,8 +34,7 @@ knitr::include_graphics("knitr-figs-pdf/LFS1142net_lower_horizontal.png")
 knitr::include_graphics("knitr-figs-pdf/LFS1142net_side_horizontal.png")
 
 ```
-
-
+  
 (ref:coastalnet) Net specifications (side view only) for the coastal NPAFC 7742 midwater trawl net the `r surveyName` from `r surveyDateRange` on the `r vessel`.
 
 ```{r coastalnet, fig.cap="(ref:coastalnet)"}
@@ -46,6 +44,7 @@ knitr::include_graphics("knitr-figs-pdf/LFS7742_side.png")
 ```
 
 \newpage
+\floatbarrier
 
 # TRAWL BRIDGE LOG DATA {#app:appBridge} 
 
