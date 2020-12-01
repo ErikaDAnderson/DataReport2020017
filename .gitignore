@@ -21,7 +21,7 @@ techreport.tex
 *.html
 *.knit.md
 *.log
-*.pdf
+#*.pdf
 *.png
 *.rda
 *.rds
