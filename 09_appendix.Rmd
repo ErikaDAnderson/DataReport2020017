@@ -7,7 +7,7 @@ After that, all subsequent sections will be turned into appendices. -->
 
 \clearpage
 
-# Nets Specifications {#app:appNet}
+# NET SPECIFICATIONS {#app:appNet}
 
 (ref:offshorenet1) Net specifications (upper view) for the offshore NPAFC 1142 midwater trawl net used on the the `r surveyName` from `r surveyDateRange` on the `r vessel`.
 
@@ -47,7 +47,7 @@ knitr::include_graphics("knitr-figs-pdf/LFS7742_side.png")
 
 \newpage
 
-# Bridge Log Data {#app:appBridge} 
+# TRAWL BRIDGE LOG DATA {#app:appBridge} 
 
 (ref:bridgetable) Bridge log information for trawl tows during the `r surveyName` aboard the `r vessel`, `r surveyDateRange`.
 
@@ -75,7 +75,7 @@ csasdown::csas_table(bridge4,
 
 \newpage
 
-# CTD Casts and Vertical Plankton Tows {#app:appOcean}  
+# CTD CASTS AND VERTICAL PLANKTONG TOWS {#app:appOcean}  
   
 (ref:oceantable) Bridge log information for CTD casts and plankton tows during the `r surveyName` from `r surveyDateRange` on the `r vessel`.
 
@@ -110,7 +110,7 @@ csas_table(
 
 \newpage
 
-# Catch Data {#app:appCatch}  
+# CATCH DATA {#app:appCatch}  
 
 (ref:catchTableCaption) Catch (kg) of species (or taxonomic groups where species identification could not be made with certainty) captured during the `r surveyName` from `r surveyDateRange` on the `r vessel`. Species with no weights (released alive or too small) are not included in this table.
 
