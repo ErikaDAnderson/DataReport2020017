@@ -1,27 +1,43 @@
-\newpage
+<!-- The following code should appear at the beginning of the first appendix.
+(if you have one)
+After that, all subsequent sections will be turned into appendices. -->
+`r if(knitr:::is_latex_output()) '% begin csasdown appendix'`
+
+`r if(!knitr:::is_latex_output()) '# (APPENDIX) Appendix {-}'`
+
 \clearpage
 
 # Nets Specifications {#app:appNet}
 
-(ref:offshorenet) Net specifications (upper, lower and side views) for the offshore NPAFC 1142 midwater trawl net used on the the `r surveyName` from `r surveyDateRange` on the `r vessel`.
+(ref:offshorenet1) Net specifications (upper view) for the offshore NPAFC 1142 midwater trawl net used on the the `r surveyName` from `r surveyDateRange` on the `r vessel`.
 
-```{r offshorenet1}
+```{r offshorenet1,fig.cap="(ref:offshorenet1)"}
+
 # split figures to fit better
 knitr::include_graphics("knitr-figs-pdf/LFS1142net_upper_horizontal.png")
 
 ```
+  
+(ref:offshorenet2) Net specifications (lower view) for the offshore NPAFC 1142 midwater trawl net used on the the `r surveyName` from `r surveyDateRange` on the `r vessel`.
 
-\newpage
+```{r offshorenet2,fig.cap="(ref:offshorenet2)"}
 
-```{r offshorenet2, fig.cap="(ref:offshorenet)"}
-
+# split figures to fit better
 knitr::include_graphics("knitr-figs-pdf/LFS1142net_lower_horizontal.png")
+
+```
+  
+    
+(ref:offshorenet3) Net specifications (side view) for the offshore NPAFC 1142 midwater trawl net used on the the `r surveyName` from `r surveyDateRange` on the `r vessel`.
+
+```{r offshorenet3, fig.cap="(ref:offshorenet3)"}
+
 knitr::include_graphics("knitr-figs-pdf/LFS1142net_side_horizontal.png")
 
 ```
 
 
-(ref:coastalnet) Net specifications (side only) for the coastal NPAFC 7742 midwater trawl net the `r surveyName` from `r surveyDateRange` on the `r vessel`.
+(ref:coastalnet) Net specifications (side view only) for the coastal NPAFC 7742 midwater trawl net the `r surveyName` from `r surveyDateRange` on the `r vessel`.
 
 ```{r coastalnet, fig.cap="(ref:coastalnet)"}
 
@@ -29,7 +45,7 @@ knitr::include_graphics("knitr-figs-pdf/LFS7742_side.png")
 
 ```
 
-\clearpage
+\newpage
 
 # Bridge Log Data {#app:appBridge} 
 
@@ -57,7 +73,7 @@ csasdown::csas_table(bridge4,
 
 ```
 
-\clearpage
+\newpage
 
 # CTD Casts and Vertical Plankton Tows {#app:appOcean}  
   
@@ -67,7 +83,8 @@ csasdown::csas_table(bridge4,
 
 # write table
 # column_spec causes warning if you do it in one step with vectors
-kableExtra::kable(
+#kableExtra::kable(
+csas_table(
   ocean_wider,
   caption = "(ref:oceantable)"
   # ,
@@ -90,7 +107,8 @@ kableExtra::kable(
   )
 
 ```
-\clearpage
+
+\newpage
 
 # Catch Data {#app:appCatch}  
 
@@ -126,4 +144,7 @@ csasdown::csas_table(catch2)
 
 ```
 \clearpage
+
+<!-- At the end of your appendices add: -->
+`r if(knitr:::is_latex_output()) '% end csasdown appendix'`
   
