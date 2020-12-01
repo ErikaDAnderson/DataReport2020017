@@ -1,4 +1,4 @@
-# Introduction
+# INTRODUCTION
 
 The Basin and Coastal Scale Interactions Program of Fisheries and Oceans conducted an ecosystem-based survey, targeting juvenile Pacific salmon (*Oncorhynchus* spp.) from `r surveyDateRange` on the `r vessel`. The main objectives of this surveys were:
 
