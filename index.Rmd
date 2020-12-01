@@ -24,7 +24,7 @@ abstract_other: |
 output:
  csasdown::techreport_word:
    french: false
-   copy_sty: true
+   copy_sty: false
    line_nums: false
    line_nums_mod: 1
 type:
