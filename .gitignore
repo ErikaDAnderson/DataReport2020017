@@ -30,11 +30,11 @@ techreport.tex
 *.upa
 *.utf8.md
 *data/
+
 techreport.docx
 csas-style/res-doc-french.sty
 csas-style/res-doc.sty
-
 csas-style/sr-french.sty
-csas-style/tech-report-french.sty
 csas-style/sr.sty
 csas-style/sr-french.sty
+csas-style/tech-report-french.sty
