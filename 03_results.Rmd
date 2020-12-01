@@ -1,10 +1,10 @@
-# Results
+# RESULTS
 
-## Biological
+## BIOLOGICAL
 Catch
 Length frequencies
 
-## Gear optimization
+## GEAR OPTIMIZATION
 Net set up
 oblique versus vertical bongos 
 
@@ -19,14 +19,14 @@ On this survey, the offshore LFS 1142 mouth opening averaged 54 m horizontally x
 ```
 
 
-## Oceanographic
+## OCEANOGRAPHY
 CTD rosette and SBE25
 
-## Plankton
+## PLANKTON
 bongos  
 MOCNESS  
 
-## Other data
+## OTHER DATA
 Acoustic?
 
 
