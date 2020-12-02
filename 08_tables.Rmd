@@ -24,7 +24,7 @@ csasdown::csas_table(catch,
 csasdown::csas_table(lw,
                      # format = "Latex",
                      caption = "(ref:lwtable)",
-                     col.names = c("Species", "Tows","Measured", "MeanL", "MinL", "MaxL", "Weighed", "MeanW", "MinW", "MaxW"))
+                     col.names = c("Species", "Tows","Measured", "Mean", "Min", "Max", "Weighed", "Mean", "Min", "Max"))
         
   #       col.names = c("Species", "Tows", "Measured", "Mean", "Min", "Max", "Weighed", "Mean", "Min", "Max"),
   #       col_names_align = "c") %>%
@@ -34,7 +34,7 @@ csasdown::csas_table(lw,
 ```
   
   
-(ref:stomachtable) Number of tows with samples, number of stomachs examined, number of empty stomachs, and percentage of empty stomachs for each species (arranged descending by number of tows) during the `r surveyName` aboard the `r vessel`, `r surveyDateRange`.
+(ref:stomachtable) Number of tows with stomach samples (Tows), number of stomachs examined (Stomachs), number of empty stomachs (empty), and percentage of empty stomachs for each species (Percent), arranged descending by number of tows, during the `r surveyName` aboard the `r vessel`, `r surveyDateRange`.
   
 ```{r stomachtable, results = 'asis'}
 
@@ -54,7 +54,7 @@ csasdown::csas_table(stomachdf,
 \newpage
   
   
-(ref:preytable) Prey items identified in the stomach contents of species sampled (list alphebetically) during during the `r surveyName` aboard the `r vessel`, `r surveyDateRange`. Volume is averaged in cm^3^; Count is the number of stomachs observed with this prey.
+(ref:preytable) Prey items (Prey) identified in the stomach contents of species sampled (list alphebetically by Species) during during the `r surveyName` aboard the `r vessel`, `r surveyDateRange`. Volume is averaged in cm^3^; Count is the number of stomachs observed with each prey.
   
 ```{r preytable, results = 'asis'}
 
