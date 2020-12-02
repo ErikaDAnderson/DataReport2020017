@@ -23,7 +23,7 @@ csasdown::csas_table(lw,
                      caption = "(ref:lwtable)",
                      col.names = c("Species", "Tows","Measured", "Min", "Max", "Mean", "Weighed",  "Min", "Max", "Mean"),
                      format = "latex", landscape = TRUE,
-                     extra_header = c("", "", "", "", "Length (mm)","", "", "", "Weight (g)", ""))
+                     extra_header = c("", "", "Length","(mm)", "", "", "Weight", "(g)", "", ""))
 
 ```
   
@@ -47,15 +47,7 @@ csasdown::csas_table(stomachdf,
 
 csasdown::csas_table(prey,
                      caption = "(ref:preytable)",
-  col.names = c("Species", "Prey", "Volume", "Count"),
-  col_names_align = "c")  
-
-# %>%
-#   column_spec(column = 1, width = "4 cm") %>%
-#   column_spec(column = 2, width = "4 cm") %>%
-#   column_spec(column = 3, width = "2 cm") %>%
-#   column_spec(column = 4, width = "2 cm"
-# )
+  col.names = c("Species", "Prey", "Volume", "Count"))  
 
 ```
 
