@@ -21,7 +21,7 @@ abstract: |
 abstract_other: |
   Voici le résumé. 
 output:
- csasdown::techreport_word:
+ csasdown::techreport_pdf:
    french: false
    copy_sty: false
    line_nums: false
@@ -445,9 +445,9 @@ lw_length <- lengthFreq %>%
   mutate(numTows = length(unique(Station))) %>%
   summarize(numTows = mean(numTows),            
             lengthNum = sum(!is.na(LENGTH)),
-            meanLen = round(mean(LENGTH, na.rm = TRUE), 0),
             minLen = min(LENGTH, na.rm = TRUE),
             maxLen = max(LENGTH, na.rm = TRUE),
+            meanLen = round(mean(LENGTH, na.rm = TRUE), 0),
             .groups = "drop")
 
 lw_weight <- lengthFreq %>%
@@ -455,9 +455,9 @@ lw_weight <- lengthFreq %>%
   filter(!(is.na(WEIGHT))) %>%
   group_by(COMMON_NAME) %>%
   summarize(wgtNum = sum(!is.na(WEIGHT)),
-            meanWGT = round(mean(WEIGHT, na.rm = TRUE), 0),
             minWgt = min(WEIGHT, na.rm = TRUE),
             maxWgt = max(WEIGHT, na.rm = TRUE),
+            meanWGT = round(mean(WEIGHT, na.rm = TRUE), 0),
             .groups = "drop")
 
 # join tables
