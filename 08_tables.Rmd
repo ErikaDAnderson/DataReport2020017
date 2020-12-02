@@ -4,32 +4,26 @@
 
 ```{r catchtable, results='asis'}
 csasdown::csas_table(catch,
-                     #format = "latex",
                      caption = "(ref:catchtable)",
                      col.names = c("Common Name", "Scientific Name","Tows", "Total", "Max", "Mean")
+                     ,
+                     format = "latex", font_size = 9, repeat_header = TRUE,
+                     repeat_header_text = "continued"
                      ) 
-# %>%
-#     kableExtra::kable_styling(font_size = 8, latex_options = "repeat_header",
-#      repeat_header_text = "continued.", repeat_header_method = "replace") %>%
-#   add_header_above(c("", "", "", "Catch (g)" = 3)) %>%
-#   row_spec(vertline, hline_after = T) 
+
 ```
 
 \newpage  
 
-(ref:lwtable) Lengths (mm) and weights (g) for each species (arranged decending by the number of tows for each by species) sampled during the `r surveyName` aboard the `r vessel`, `r surveyDateRange`. (Tows = number of tows, Measured = number of lengths, Weighed = number of weights).
+(ref:lwtable) Lengths and weights for each species (arranged decending by the number of tows for each by species) sampled during the `r surveyName` aboard the `r vessel`, `r surveyDateRange`. (Tows = number of tows, Measured = number of lengths, Weighed = number of weights).
 
 ```{r lwtable, results='asis'}
 
 csasdown::csas_table(lw,
-                     # format = "Latex",
                      caption = "(ref:lwtable)",
-                     col.names = c("Species", "Tows","Measured", "Mean", "Min", "Max", "Weighed", "Mean", "Min", "Max"))
-        
-  #       col.names = c("Species", "Tows", "Measured", "Mean", "Min", "Max", "Weighed", "Mean", "Min", "Max"),
-  #       col_names_align = "c") %>%
-  # kableExtra::add_header_above(c("", "", "", "Length (mm)" = 3, "", "Weight (g)" = 3)) %>%
-  # kableExtra::column_spec(column = 1, width = "3cm")
+                     col.names = c("Species", "Tows","Measured", "Min", "Max", "Mean", "Weighed",  "Min", "Max", "Mean"),
+                     format = "latex", landscape = TRUE,
+                     extra_header = c("", "", "", "", "Length (mm)","", "", "", "Weight (g)", ""))
 
 ```
   
@@ -40,17 +34,10 @@ csasdown::csas_table(lw,
 
 csasdown::csas_table(stomachdf,
                      caption = "(ref:stomachtable)",
-        col.names = c("Species", "Tows", "Stomachs", "Empty", "Percent"),
-  col_names_align = "c")
-#%>%
-#   column_spec(column = 1, width = "4 cm") %>%
-#   column_spec(column = 2, width = "1.8 cm") %>%
-#   column_spec(column = 3, width = "1.8 cm") %>%
-#   column_spec(column = 4, width = "1.8 cm") %>%
-#   column_spec(column = 5, width = "1.8 cm"
-#   )
+        col.names = c("Species", "Tows", "Stomachs", "Empty", "Percent")) 
 
 ```
+  
 \newpage
   
   
