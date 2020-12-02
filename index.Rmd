@@ -599,7 +599,7 @@ calcDist <- function(lat_a, lon_a, lat_b, lon_b) {
 } 
 
 bridge <- events %>%
-  mutate(Date = lubridate::ymd(str_c(Year, Month, Day, sep = "-"))) %>%
+  mutate(Date = as.character(lubridate::ymd(str_c(Year, Month, Day, sep = "-")))) %>%
   mutate(# make pretty lat and longs to display
          Start_Lat_Min_NoSec = str_extract_all(Start_Lat_Min, "^[0-9]+"),
          Start_lat_Sec = str_pad(as.character(round(as.numeric(str_extract_all(Start_Lat_Min, "[.][0-9]+$"))*60)), width = 2, side = "left", pad = "0"),
