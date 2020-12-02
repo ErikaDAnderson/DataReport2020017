@@ -44,7 +44,7 @@ knitr::include_graphics("knitr-figs-pdf/LFS7742_side.png")
 ```
 
 \newpage
-\floatbarrier
+\FloatBarrier  
 
 # TRAWL BRIDGE LOG DATA {#app:appBridge} 
 
