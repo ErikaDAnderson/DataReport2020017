@@ -55,9 +55,8 @@ knitr::include_graphics("knitr-figs-pdf/LFS7742_side.png")
 csasdown::csas_table(
   bridge1,
   caption = "(ref:bridgetable)",
-  #format = "latex",
-  #landscape = TRUE,
-  font_size = 8)
+  #format = "latex", landscape = TRUE,
+  font_size = 10)
 
 # additional tables
 csasdown::csas_table(bridge2, 
@@ -124,7 +123,7 @@ csasdown::csas_table(
   # #format = "latex", landscape = TRUE,
   # escape = FALSE,
   # repeat_header = TRUE,
-  # font_size = 8,
+  # font_size = 10,
   # extra_header = str_split(c("Tow", as.character(1:11)), "words", simplify = TRUE),
   # ex_line_sep = 0,
   # ex_align = "r") %>%
@@ -135,7 +134,7 @@ csasdown::csas_table(
 csasdown::csas_table(catch2)
   #                    ,
   #                    #format = "latex", landscape = TRUE, 
-  #                    repeat_header = TRUE, font_size = 8,
+  #                    repeat_header = TRUE, font_size = 10,
   #                    extra_header = str_split(c("Tow", as.character(12:22)), "words", simplify = TRUE),
   #                    ex_line_sep = 0,
   #                    ex_align = "r") %>%
