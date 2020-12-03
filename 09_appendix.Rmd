@@ -107,7 +107,8 @@ csasdown::csas_table(catch1,
                      format = "latex", landscape = TRUE,
                      repeat_header = TRUE, repeat_header_text = "continued",
                      extra_header = c("Tow", as.character(1:11)),
-                     ex_align = "r", ex_line_sep = 0)
+                     ex_align = "r", ex_line_sep = 0) %>%
+  row_spec(21, hline_after = T)
 
 # ***need to modify column header when the number of tows changes
 csasdown::csas_table(catch2,
@@ -115,7 +116,8 @@ csasdown::csas_table(catch2,
                      format = "latex", landscape = TRUE,
                      repeat_header = TRUE, repeat_header_text = "continued",
                      extra_header = c("Tow", as.character(12:22)),
-                     ex_align = "r", ex_line_sep = 0)
+                     ex_align = "r", ex_line_sep = 0) %>%
+  row_spec(21, hline_after = T)
 
 ```
 \clearpage
