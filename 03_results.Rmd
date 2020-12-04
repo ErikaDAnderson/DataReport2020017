@@ -1,14 +1,9 @@
 # RESULTS
 
-## BIOLOGICAL
-Catch
-Length frequencies
+## FISHING
+Number tows, useable and why \@ref(app:appBridge)
 
-## GEAR OPTIMIZATION
-Net set up
-oblique versus vertical bongos 
-
-On this survey, the offshore LFS 1142 mouth opening averaged 54 m horizontally x 25 m vertically (area of 1350 m^2^), compared to the coastal net which averaged 17 m by 47 m vertically (area of 800 m^2^) during surface tows. This measurements is less than previous surveys where the offshore LFS mouth openning averaged 19 m vertically by 44 m horizontally at the surface, or area of (836 m^2^) 
+### Offshore Gear Optimization
 ```{r}
 
 # # calculate average vertical opening for offshore from Somov 2020
@@ -19,15 +14,54 @@ On this survey, the offshore LFS 1142 mouth opening averaged 54 m horizontally x
 ```
 
 
+The coastal LFS 7742 was successfully fished for 21 sets: 16 surface tows and 5 deeper tows (headrope depth of 15 m). The offshore LFS 1142 was successfully fished from the vessel for 6 sets. This net has never been deployed from the Franklin before, and it will be used during the International Year of the Salmon (IYS) offshore survey. Plots made on survey show improved in consistency due to the appropriate chain clumps and practice (see example graph of surface tow with LFS 1142, credit C. Freshwater).
+
+On this survey, the offshore LFS 1142 mouth opening averaged 54 m horizontally x 25 m vertically (area of 1350 m^2^), compared to the coastal net which averaged 17 m by 47 m vertically (area of 800 m^2^) during surface tows. This measurements is less than previous surveys where the offshore LFS mouth openning averaged 19 m vertically by 44 m horizontally at the surface, or area of (836 m^2^) 
+
+International Year of the Salmon survey gear and protocols were successfully tested included the offshore LFS 1142 net (6 sets), MOCNESS (multiple opening and closing net with environmental sensing system), and oblique zooplankton tows for comparison to the vertical zooplankton tows. One of the most unexpected catches during offshore net trials was a 4.6 m Common Thresher shark (released alive, see photo, credit T. Zubkowski).
+
+Net set up list specifications here
+MOCNESS deployment straight forward but didn't always fire
+oblique versus vertical bongos in flat calm conditions it is possible to complete a oblique zooplankton tow off this platform. No obvious visible difference in amount of zooplankton caught.
+
+## CATCH COMPOSITION
+Catch composition for each tow is presented in Appendix \@ref(app:appCatch). Mean catch weight per tow and range. Total catch for the survey from usable tows was ?. Spercies vert versus invert 
+
+For each species captured during the survey, the number of tows in which the species occurred, total catch weight, maximum catch weight, and mean catch weight per tow for usable tows is presented in Table \@ref(tab:catchtable).
+
+## BIOLOGICAL SAMPLES
+### Samples
+A total weight of 1752 kg from 29 species were enumerated, measured and weighed. The most abundance species caught by weight were opalescent inshore squid, primarily caught in one set (746 kg), moon jellies (455 kg), then chum salmon (385 kg). All species of juvenile salmon were caught. The order of abundance by weight was chum, coho, pink, sockeye, and chinook salmon. Samples were collected for DNA stock composition (322), otoliths (322), energy density (259), isotopic analysis (170), and coded wire tags (3). Stomachs of 415 individual fish were analysed at sea. Juvenile salmon showed species-specific differences in their prey items.
+
+A total of ? samples were collected from ? species which included ? individual specimens (\@ref(tab:lwtable)). Sample size, statistics of length and weight are present in Table \Aref(tab:lwtable). Fin clips were collected from **??** salmon for genetic stock assignments. Furthermores, **??** whole bodies were retained for energy denisty analysis in the lab and **??** muscle samples for radio isotopic analyses. 
+
+### Length and Weight
+Length frequencies and length-weight relationships are presented for species Figures \@ref(forkcm) to \@ref(fig:forkck). Double log transformed length-weight regressions coeffiecients were similar for all salmon species, except coho salmon. The relationship between length and weight in juvenile coho salmon was more variable and less ?.
+
+### Stomach Contents
+Total ? stomach were processed at sea from ? species (Table \@ref(tab:stomachtable)). Of the stomachs, ? were empty. Any stomach samples retained for at home samples?
+
+### Diet Summaries
+Detailed stomach contents for each predator species are presented in Table \@ref(tab:preytable). Unidentifiable prey items, which are generally items too digested to retain identifiable features, were recorded in **??**% of the stomachs examined (Table \@ref(tab:preytable)). Based on stomachs that contained prey, the most frequently consumed prey item among predators were **??** (Table \@ref(tab:preytable)).
+
 ## OCEANOGRAPHY
-CTD rosette and SBE25
+CTD rosette and SBE25 planned versus completed.
+
+CTD casts, water samples, and zooplankton vertical net vertical hauls were completed at 21 sites. Samples were collected for nutrients and chlorophyll, primarily at surface with some limited ligand sampling at depth during the rosette operations (see photo with CTD rosette deployment). The CTD rosette and LARS system needs repair and testing before being science ready.
+
+CTD casts, water samples, and zooplankton vertical net vertical hauls were completed at 21 sites. Samples were collected for nutrients and chlorophyll, primarily at surface with some limited ligand sampling at depth during the rosette operations (see photo with CTD rosette deployment). The CTD rosette and LARS system needs repair and testing before being science ready.
+
+Oceanographic samples from CTD casts, water samples, and zooplankton vertical net vertical hauls were completed at 21 sites, and the water profiles will be made available online through the water properties. The zooplankton samples are of particular interest because the science mission on the CCGS John P. Tully was unable to conduct zooplankton sampling this fall. Samples were collected for nutrients and chlorophyll, primarily at surface with some limited ligand sampling at depth during the rosette operations. The CTD rosette and LARS system needs to be repaired, tested, and training provided before science programs can use the system.
+
+Oceanographic data from rosette or CTD casts, including Niskin bottle samples for nitrate, phosphate, silicate, and chl a, were processed, analyzed, and archived in the Ocean Sciences Data Inventory at the Fisheries and Oceans Institute of Ocean Sciences. CTD casts and Niskin bottle sampling were conducted in **??** stations, with depths of CTD casts ranging from **?-?** m (Table \@ref(app:appctd)).
 
 ## PLANKTON
-bongos  
-MOCNESS  
+Vertical zooplankton tows (bongos) were conducted **??** stations at depths ranging from **??** m (Appendix \@ref(app:appctd)). Formalin-preserved zooplankton samples are being enumerated at the Institute of Ocean Sciences and data will be archived in the zooplankton database at the Insitute for Ocean Sciences. Frozen zooplankton samples are being processed at the Pacific Biological Station and results are not available yet.
 
-## OTHER DATA
-Acoustic?
+MOCNESS?  
+
+## ACOUSTIC DATA
+Acoustic data was collected throughout the survey with the drop keel deployed, for analysis by Dr. Stephane Gauthier and his research group at the Institute for Ocean Sciences (Sidney, BC). 
 
 
 
