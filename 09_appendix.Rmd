@@ -73,7 +73,7 @@ csasdown::csas_table(bridge4,
 
 \newpage
 
-# CTD CASTS AND VERTICAL PLANKTONG TOWS {#app:appOcean}  
+# CTD CASTS AND VERTICAL PLANKTON TOWS {#app:appOcean}  
   
 (ref:oceantable) CTD casts and plankton tow bridge log data during the `r surveyName` from `r surveyDateRange` on the `r vessel`.
 
