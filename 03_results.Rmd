@@ -98,7 +98,7 @@ Chum salmon were abundant in the northern portion the survey area, with the high
 
 Samples were collected for DNA stock composition (322), otoliths (322), energy density (259), isotopic analysis (170), and coded wire tags (3). These samples are localized at the Pacific Biological Station for laboratory analysis.
 
-## Length and Weight
+## LENGTH AND WEIGHT
 ```{r lengthandweight}
 
 lwspeciesnum <- nrow(lw)
@@ -126,7 +126,7 @@ smlsalmonWGT <- smlsalmon %>% pull(meanWGT)
 
 Length frequencies and length-weight relationships are presented for salmon species in Figures \@ref(fig:forkcm) to \@ref(fig:forkck). Double log transformed length-weight regressions coeffiecients were similar for all salmon species, except coho salmon. The relationship between length and weight in juvenile coho salmon was more variable, with a smaller slope (Figure \@ref(fig:forkco)). Lengths and weights of `r lwspeciesnum` species were recorded, with all five salmon species represented (Table \@ref(tab:lwtable)) `r bigsalmonNam` had the largest mean length (`r bigsalmonLen` mm) and weight (`r bigsalmonWGT` g), whereas `r smlsalmonNam` had the smallest mean length (`r smlsalmonLen` mm) and weight (`r smlsalmonWGT` g) of the salmon species. These size differences represent the various life histories of the salmon species. For example, pink juvenile salmon migrate early to the marine environment, whereas coho juvenile salmon migrate later and may remain in the coastal marine environment longer [@quinn2018].
 
-## Stomach Contents
+## STOMACH CONTENTS
 ```{r stomachcontents}
 
 totalstomachs <- sum(stomachdf$NumStomachs)
