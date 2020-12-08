@@ -1,64 +1,194 @@
 # RESULTS
 
 ## FISHING
-Number tows, useable and why \@ref(app:appBridge)
+```{r fishing}
 
-### Offshore Gear Optimization
-```{r}
+coastaltows <- bridgetow %>%
+  filter(`Trawl Net` == "LFS 7742") %>%
+  nrow
 
-# # calculate average vertical opening for offshore from Somov 2020
-# # exclude tows with headrope depth > 10 m
-# vertopen <- round((15.8+17+16+18.8+17.7+18.3+18.2+18+18+17.7+17.7+16+19+19.2+17.8+18.2+17+16+18.3+20+18+21.2+18.3+21+20.5+21+21.2+20.2+19.7+20.5+20.3+20+19.7+19.5+20.7+20.7+19.7+19.8+20.3+20+20+17.5+20+19.2+19.7+19.2+21+19.3)/48,0)
-# horopen <- round((44.2+46.8+46.7+43.7+45.5+45.2+44.3+44.8+44.8+45+45.3+44.8+43.5+43.5+42.5+43.2+43.3+42.5+41.8+43.8+44.8+37.7+38.5+42.8+44.2+42.3+42.3+42.8+43+42.5+43.3+43.3+44.5+45.3+43.7+43.7+43.7+43.2+43.3+43.8+43.2+46.3+42.7+43.5+43.8+47.3+40.2+45.3)/48,0)
+offshoretows <- bridgetow %>%
+  filter(`Trawl Net` == "LFS 1142") %>%
+  nrow
+
+offshorehigh <- bridgetow %>%
+  filter(Usable == "Y" & `Trawl Net` == "LFS 1142") %>%
+  pull(`Net Opening Height (m)`) %>%
+  mean %>%
+  round()
+
+offshorewide <- bridgetow %>%
+  filter(Usable == "Y" & `Trawl Net` == "LFS 1142") %>%
+  pull(`Net Opening Width (m)`) %>%
+  mean %>%
+  round()
+
+coastalhigh <- bridgetow %>%
+  filter(Usable == "Y" & `Trawl Net` == "LFS 7742") %>%
+  pull(`Net Opening Height (m)`) %>%
+  mean %>%
+  round()
+
+coastalwide <- bridgetow %>%
+  filter(Usable == "Y" & `Trawl Net` == "LFS 7742") %>%
+  pull(`Net Opening Width (m)`) %>%
+  mean %>%
+  round()
 
 ```
 
+We completed `r coastaltows` coastal midwater trawls, and `r offshoretows` offshore midwater trawls (Appendix \@ref(app:appBridge)). Although all net adjustment tows were done with the codend open to avoid the capture of fish, a 4.6 m Common Thresher shark (*Alopias vulpinus*) was captured, then released alive from the first tow (Figure \@ref(fig:shark)). The last tow was aborted in Queen Charlotte Strait due to equipment failure of the third wire winch. Subsequent tows were cancelled when the third wire winch cable broke because the FS70 Simrad trawl eye was lost at sea.
 
-The coastal LFS 7742 was successfully fished for 21 sets: 16 surface tows and 5 deeper tows (headrope depth of 15 m). The offshore LFS 1142 was successfully fished from the vessel for 6 sets. This net has never been deployed from the Franklin before, and it will be used during the International Year of the Salmon (IYS) offshore survey. Plots made on survey show improved in consistency due to the appropriate chain clumps and practice (see example graph of surface tow with LFS 1142, credit C. Freshwater).
-
-On this survey, the offshore LFS 1142 mouth opening averaged 54 m horizontally x 25 m vertically (area of 1350 m^2^), compared to the coastal net which averaged 17 m by 47 m vertically (area of 800 m^2^) during surface tows. This measurements is less than previous surveys where the offshore LFS mouth openning averaged 19 m vertically by 44 m horizontally at the surface, or area of (836 m^2^) 
-
-International Year of the Salmon survey gear and protocols were successfully tested included the offshore LFS 1142 net (6 sets), MOCNESS (multiple opening and closing net with environmental sensing system), and oblique zooplankton tows for comparison to the vertical zooplankton tows. One of the most unexpected catches during offshore net trials was a 4.6 m Common Thresher shark (released alive, see photo, credit T. Zubkowski).
-
-Net set up list specifications here
-MOCNESS deployment straight forward but didn't always fire
-oblique versus vertical bongos in flat calm conditions it is possible to complete a oblique zooplankton tow off this platform. No obvious visible difference in amount of zooplankton caught.
+On this survey, the offshore LFS 1142 mouth opening averaged `r offshorehigh` m high by `r offshorewide` m wide, or an area of `r round(offshorehigh * offshorewide)` m^2^. This opening is slightly smaller than to the expected net area opening of 30 m high by 46 m wide, or an area of 1380 m^2^ [@somov2020]. The coastal net averaged `r coastalhigh` m high by `r coastalwide` m wide, or an area of `r round(coastalhigh * coastalwide)` m^2^, during surface tows on this survey. During a previous survey on the FV Sea Crest, the coastal LFS 7742 net mouth opening averaged 19 m high by 41 m wide at the surface, or area of (779 m^2^; [@anderson2019]). All catch per unit effort (CPUE) reported here are standarized by sept volume to standardize catch.
 
 ## CATCH COMPOSITION
-Catch composition for each tow is presented in Appendix \@ref(app:appCatch). Mean catch weight per tow and range. Total catch for the survey from usable tows was ?. Spercies vert versus invert 
+```{r catchcomposition}
 
-For each species captured during the survey, the number of tows in which the species occurred, total catch weight, maximum catch weight, and mean catch weight per tow for usable tows is presented in Table \@ref(tab:catchtable).
+totalcatchkg <- round(sum(catch$totalWgt, na.rm = TRUE)/1000)
+
+totalsalmon <- catch %>%
+  filter(str_extract(SCIENTIFIC_NAME, "Oncorhynchus") == "Oncorhynchus")
+
+totalsalmonkg <- round(sum(totalsalmon$totalWgt, na.rm = TRUE)/1000)
+
+percentsalmon <- round(totalsalmonkg/totalcatchkg*100)
+
+numSpecies <- nrow(catch)
+
+abundantspeciesnames1 <- catch %>%
+  slice(1:2) %>%
+  pull(COMMON_NAME) %>%
+  tolower() %>%
+  first
+
+abundantspeciesnames1kg <- catch %>%
+  filter(tolower(COMMON_NAME) == abundantspeciesnames1) %>%
+  mutate(totalWgtkg = round(totalWgt/1000)) %>%
+  pull(totalWgtkg) 
+
+abundantspeciesnames2 <- catch %>%
+  slice(1:2) %>%
+  pull(COMMON_NAME) %>%
+  tolower() %>%
+  last
+
+abundantspeciesnames2kg <- catch %>%
+  filter(tolower(COMMON_NAME) == abundantspeciesnames2) %>%
+  mutate(totalWgtkg = round(totalWgt/1000)) %>%
+  pull(totalWgtkg) 
+
+abundantspeciesnames3 <- catch %>%
+  slice(3:3) %>%
+  pull(COMMON_NAME) %>%
+  tolower() %>%
+  last
+
+abundantspeciesnames3kg <- catch %>%
+  filter(tolower(COMMON_NAME) == abundantspeciesnames3) %>%
+  mutate(totalWgtkg = round(totalWgt/1000)) %>%
+  pull(totalWgtkg) 
+
+```
+
+For each of `r numSpecies` species captured during the survey, the number of tows in which the species was present, total catch weight, maximum catch weight, and mean catch weight per tow for usable tows is presented in Table \@ref(tab:catchtable). The most abundance species caught by weight were `r abundantspeciesnames1`, primarily caught in one set (`r abundantspeciesnames1kg` kg), `r abundantspeciesnames2` (`r abundantspeciesnames2kg` kg), then `r abundantspeciesnames3` (`r abundantspeciesnames3kg` kg; Table \@ref(tab:catchtable)). All species of juvenile salmon were caught. The order of abundance by weight was chum, coho, pink, sockeye, and chinook salmon. Total catch for the survey from usable tows was `r totalcatchkg` kg, with `r totalsalmonkg` kg or `r percentsalmon`% of salmon. Detailed catch composition for each tow is presented in Appendix \@ref(app:appCatch).
+
+Chum salmon were abundant in the northern portion the survey area, with the highest catches within Heacte Strait (Figure \@ref(fig:cmcpue)). Pink salmon had the second highest abundance by count and were found thoughout the survey area, except offshore (Figure \@ref(fig:pkcpue)). Juvenile sockeye salmon were strongly localized in the northern transet of Dixon Entrance (Figure \@ref(fig:secpue)). Coho salmon were primarily caught in Dixon Entrance, with lesser numbers in Hecate Strait (Figure \@ref(fig:cocpue)). Finally, there was only one chinook salmon caught in Hecate Strait during a usable tow (Figure \@ref(fig:ckcpue)).
 
 ## BIOLOGICAL SAMPLES
-### Samples
-A total weight of 1752 kg from 29 species were enumerated, measured and weighed. The most abundance species caught by weight were opalescent inshore squid, primarily caught in one set (746 kg), moon jellies (455 kg), then chum salmon (385 kg). All species of juvenile salmon were caught. The order of abundance by weight was chum, coho, pink, sockeye, and chinook salmon. Samples were collected for DNA stock composition (322), otoliths (322), energy density (259), isotopic analysis (170), and coded wire tags (3). Stomachs of 415 individual fish were analysed at sea. Juvenile salmon showed species-specific differences in their prey items.
 
-A total of ? samples were collected from ? species which included ? individual specimens (\@ref(tab:lwtable)). Sample size, statistics of length and weight are present in Table \Aref(tab:lwtable). Fin clips were collected from **??** salmon for genetic stock assignments. Furthermores, **??** whole bodies were retained for energy denisty analysis in the lab and **??** muscle samples for radio isotopic analyses. 
+Samples were collected for DNA stock composition (322), otoliths (322), energy density (259), isotopic analysis (170), and coded wire tags (3). These samples are at the Pacific Biological Station waiting for laboratory analysis.
 
-### Length and Weight
-Length frequencies and length-weight relationships are presented for species Figures \@ref(forkcm) to \@ref(fig:forkck). Double log transformed length-weight regressions coeffiecients were similar for all salmon species, except coho salmon. The relationship between length and weight in juvenile coho salmon was more variable and less ?.
+## Length and Weight
+```{r lengthandweight}
 
-### Stomach Contents
-Total ? stomach were processed at sea from ? species (Table \@ref(tab:stomachtable)). Of the stomachs, ? were empty. Any stomach samples retained for at home samples?
+lwspeciesnum <- nrow(lw)
 
-### Diet Summaries
-Detailed stomach contents for each predator species are presented in Table \@ref(tab:preytable). Unidentifiable prey items, which are generally items too digested to retain identifiable features, were recorded in **??**% of the stomachs examined (Table \@ref(tab:preytable)). Based on stomachs that contained prey, the most frequently consumed prey item among predators were **??** (Table \@ref(tab:preytable)).
+lwsalmon <- lw %>%
+  filter(str_extract(COMMON_NAME, "salmon") == "salmon")
+
+bigsalmon <- lwsalmon %>%
+  arrange(-meanLen) %>%
+  slice(1:1)
+
+bigsalmonNam <- bigsalmon %>% pull(COMMON_NAME)
+bigsalmonLen <- bigsalmon %>% pull(meanLen)
+bigsalmonWGT <- bigsalmon %>% pull(meanWGT)
+
+smlsalmon <- lwsalmon %>%
+  arrange(meanLen) %>%
+  slice(1:1)
+
+smlsalmonNam <- tolower(smlsalmon %>% pull(COMMON_NAME))
+smlsalmonLen <- smlsalmon %>% pull(meanLen)
+smlsalmonWGT <- smlsalmon %>% pull(meanWGT)
+
+```
+
+Length frequencies and length-weight relationships are presented for salmon species in Figures \@ref(forkcm) to \@ref(fig:forkck). Double log transformed length-weight regressions coeffiecients were similar for all salmon species, except coho salmon. The relationship between length and weight in juvenile coho salmon was more variable, with a smaller slope (Figure \@ref(fig:forkco)). Lengths and weights of `r lwspeciesnum` species were recorded, with all five salmon species represented (Table \@ref(tab:lwtable)) `r bigsalmonNam` had the largest average length (`r bigsalmonLen` g) and weight (`r bigsalmonWGT` g), whereas `r smlsalmonNam` had the smallest length (`r smlsalmonLen` g) and weight (`r smlsalmonWGT` g) of the salmon species.
+
+## Stomach Contents
+```{r stomachcontents}
+
+totalstomachs <- sum(stomachdf$NumStomachs)
+totalstomachspecies <- nrow(stomachdf)
+
+salmonstomachs <- stomachdf %>%
+  filter(str_extract(COMMON_NAME, "salmon") == "salmon") %>%
+  arrange(-PerEmpty)
+
+ckstomach <- stomachdf %>%
+  filter(COMMON_NAME == "Chinook salmon") %>%
+  pull(PerEmpty)
+
+costomach <- stomachdf %>%
+  filter(COMMON_NAME == "Coho salmon") %>%
+  pull(PerEmpty)
+
+cmstomach <- stomachdf %>%
+  filter(COMMON_NAME == "Chum salmon") %>%
+  pull(PerEmpty)
+
+pkstomach <- stomachdf %>%
+  filter(COMMON_NAME == "Pink salmon") %>%
+  pull(PerEmpty)
+
+sestomach <- stomachdf %>%
+  filter(COMMON_NAME == "Sockeye salmon") %>%
+  pull(PerEmpty)
+
+```
+
+Stomachs of `r totalstomachs` individual fish, from `r totalstomachspecies` species, were analysed at sea (Table \@ref(tab:stomachtable). Chinook (`r ckstomach`%) and coho (`r costomach`%) salmon had the highest percentage of empty stomachs, whereas chum salmon (`r cmstomach`%) had the lowest percentage of empty stomach within salmon species. Pink (`r pkstomach`%) and sockeye (`sestomach`%) salmon had intermediate percentages of empty stomachs (Table \@ref(tab:stomachtable)). 
+
+Juvenile salmon showed species-specific differences in their prey items (Table \@ref(tab:preytable)). Juvenile chum salmon primarily had unidentified remains within their stomachs. Jellyfish and squid are digested quickly; therefore, unidentifed remains may represents those prey species. Juvenile coho salmon showed the widest range of prey species. The most common prey within juvenile pink and sockeye salmon stomachs were amphipods and euphausids. The only chinook salmon without an empty stomach was eating squid (Table \@ref(tab:preytable)).
 
 ## OCEANOGRAPHY
-CTD rosette and SBE25 planned versus completed.
+```{r oceanography}
 
-CTD casts, water samples, and zooplankton vertical net vertical hauls were completed at 21 sites. Samples were collected for nutrients and chlorophyll, primarily at surface with some limited ligand sampling at depth during the rosette operations (see photo with CTD rosette deployment). The CTD rosette and LARS system needs repair and testing before being science ready.
+ctdnum <- ocean_orig %>%
+  filter(Type %in% c("CTD", "ROS"))
 
-CTD casts, water samples, and zooplankton vertical net vertical hauls were completed at 21 sites. Samples were collected for nutrients and chlorophyll, primarily at surface with some limited ligand sampling at depth during the rosette operations (see photo with CTD rosette deployment). The CTD rosette and LARS system needs repair and testing before being science ready.
+ctdmaxdepth <- max(ctdnum$CastDepth)
+ctdmindepth <- min(ctdnum$CastDepth)
+  
+```
 
-Oceanographic samples from CTD casts, water samples, and zooplankton vertical net vertical hauls were completed at 21 sites, and the water profiles will be made available online through the water properties. The zooplankton samples are of particular interest because the science mission on the CCGS John P. Tully was unable to conduct zooplankton sampling this fall. Samples were collected for nutrients and chlorophyll, primarily at surface with some limited ligand sampling at depth during the rosette operations. The CTD rosette and LARS system needs to be repaired, tested, and training provided before science programs can use the system.
-
-Oceanographic data from rosette or CTD casts, including Niskin bottle samples for nitrate, phosphate, silicate, and chl a, were processed, analyzed, and archived in the Ocean Sciences Data Inventory at the Fisheries and Oceans Institute of Ocean Sciences. CTD casts and Niskin bottle sampling were conducted in **??** stations, with depths of CTD casts ranging from **?-?** m (Table \@ref(app:appctd)).
+CTD casts and water samples were completed at `r nrow(ctdnum)` sites with cast depths ranging from `r ctdmindepth` m to `r ctdmaxdepth` m (Table \@ref(app:appctd)). Samples were collected for nutrients and chlorophyll, primarily at surface with some limited ligand sampling at depth during the rosette operations. The LARS winch system used to launch the rosette with the 911 rosette failed during the third rosette deployment. Fortunately, a backup Seabird 25 CTD was available for the remainder of the survey. Oceanographic data from rosette or CTD casts, including water samples for nitrate, phosphate, silicate, and chl a, are being processed, analyzed, and archived online within the [Water Properties Data Inventory](https://www.waterproperties.ca). 
 
 ## PLANKTON
-Vertical zooplankton tows (bongos) were conducted **??** stations at depths ranging from **??** m (Appendix \@ref(app:appctd)). Formalin-preserved zooplankton samples are being enumerated at the Institute of Ocean Sciences and data will be archived in the zooplankton database at the Insitute for Ocean Sciences. Frozen zooplankton samples are being processed at the Pacific Biological Station and results are not available yet.
+```{r planktonresults}
 
-MOCNESS?  
+planktonvert <- ocean_orig %>%
+  filter(Type == "BongoVertical")
+
+planktonmax <- max(planktonvert$CastDepth)
+planktonmin <- min(planktonvert$CastDepth)
+
+```
+
+Vertical zooplankton tows (bongos) were conducted `r nrow(planktonvert)` stations at depths ranging from `r planktonmin` m to `r planktonmax` m (Appendix \@ref(app:appctd)). The zooplankton samples are of particular interest because they contain prey items for salmon and there are limited fall samples and seasonal differences in zooplankton. Formalin-preserved zooplankton samples are being enumerated at the Institute of Ocean Sciences and data will be archived in the zooplankton database at the Insitute for Ocean Sciences. Fractionated zooplankton samples are frozen at the Pacific Biological Station and have not been analysed yet.
+
+In preparation for the 2022 Pan-Pacific High Seas Expedition, three MOCNESS and two oblique zooplankton tows were completed. Both techniques were successfully deployed under calm sea conditions. The MOCNESS (multiple opening and closing net with environmental sensing system) did not successfully close all nets between strata in 2 of the 3 tows. 
 
 ## ACOUSTIC DATA
 Acoustic data was collected throughout the survey with the drop keel deployed, for analysis by Dr. Stephane Gauthier and his research group at the Institute for Ocean Sciences (Sidney, BC). 
