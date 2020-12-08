@@ -9,7 +9,7 @@ After that, all subsequent sections will be turned into appendices. -->
 
 # NET SPECIFICATIONS {#app:appNet}
 
-(ref:offshorenet1) Net specifications (upper view) for the offshore NPAFC 1142 mid water trawl net used on the the `r surveyName` from `r surveyDateRange` on the `r vessel`.
+(ref:offshorenet1) Net specifications (upper view) for the offshore NPAFC 1142 mid water trawl net used on the the `r surveyName` from `r surveyDateRange` on the *`r vessel`*.
 
 ```{r offshorenet1,fig.cap="(ref:offshorenet1)"}
 
@@ -18,7 +18,7 @@ knitr::include_graphics("knitr-figs-pdf/LFS1142net_upper_horizontal.png")
 
 ```
   
-(ref:offshorenet2) Net specifications (lower view) for the offshore NPAFC 1142 mid water trawl net used on the the `r surveyName` from `r surveyDateRange` on the `r vessel`.
+(ref:offshorenet2) Net specifications (lower view) for the offshore NPAFC 1142 mid water trawl net used on the the `r surveyName` from `r surveyDateRange` on the *`r vessel`*.
 
 ```{r offshorenet2,fig.cap="(ref:offshorenet2)"}
 
@@ -27,7 +27,7 @@ knitr::include_graphics("knitr-figs-pdf/LFS1142net_lower_horizontal.png")
 
 ```
   
-(ref:offshorenet3) Net specifications (side view) for the offshore NPAFC 1142 mid water trawl net used on the the `r surveyName` from `r surveyDateRange` on the `r vessel`.
+(ref:offshorenet3) Net specifications (side view) for the offshore NPAFC 1142 mid water trawl net used on the the `r surveyName` from `r surveyDateRange` on the *`r vessel`*.
 
 ```{r offshorenet3, fig.cap="(ref:offshorenet3)"}
 
@@ -35,7 +35,7 @@ knitr::include_graphics("knitr-figs-pdf/LFS1142net_side_horizontal.png")
 
 ```
   
-(ref:coastalnet) Net specifications (side view only) for the coastal NPAFC 7742 mid water trawl net the `r surveyName` from `r surveyDateRange` on the `r vessel`.
+(ref:coastalnet) Net specifications (side view only) for the coastal NPAFC 7742 mid water trawl net the `r surveyName` from `r surveyDateRange` on the *`r vessel`*.
 
 ```{r coastalnet, fig.cap="(ref:coastalnet)"}
 
@@ -48,7 +48,7 @@ knitr::include_graphics("knitr-figs-pdf/LFS7742_side.png")
 
 # TRAWL BRIDGE LOG DATA {#app:appBridge} 
 
-(ref:bridgetable) Bridge log information for trawl tows during the `r surveyName` aboard the `r vessel`, `r surveyDateRange`.
+(ref:bridgetable) Bridge log information for trawl tows during the `r surveyName` aboard the *`r vessel`*, `r surveyDateRange`.
 
 ```{r bridgetable, results='asis'}
 
@@ -75,7 +75,7 @@ csasdown::csas_table(bridge4,
 
 # CTD CASTS AND VERTICAL PLANKTON TOWS {#app:appOcean}  
   
-(ref:oceantable) CTD casts and plankton tow bridge log data during the `r surveyName` from `r surveyDateRange` on the `r vessel`.
+(ref:oceantable) CTD casts and plankton tow times and depths during the `r surveyName` from `r surveyDateRange` on the *`r vessel`*.
 
 ```{r oceantable, results='asis'}
 
@@ -97,7 +97,7 @@ csas_table(
 
 # CATCH DATA {#app:appCatch}  
 
-(ref:catchTableCaption) Catch (kg) of species (or taxonomic groups where species identification could not be made with certainty) captured during the `r surveyName` from `r surveyDateRange` on the `r vessel`. Species with no weights (released alive or too small) are not included in this table.
+(ref:catchTableCaption) Catch (kg) of species (or taxonomic groups where species identification could not be made with certainty) captured during the `r surveyName` from `r surveyDateRange` on the *`r vessel`*. Species with no weights (released alive or too small) are not included in this table.
 
 ```{r catchTable, results = 'asis'}
 
