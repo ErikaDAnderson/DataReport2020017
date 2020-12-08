@@ -1,6 +1,6 @@
 # TABLES
 
-(ref:catchtable) All captured species (or taxonomic group), ordered by total catch weight (in grams), showing number of tows in which the species occurred, total catch weight, maximum catch weight, and mean catch weight per tow for usable tows during the `r surveyName` aboard the `r vessel`, `r surveyDateRange`. Blank weights indicate specimens which could not be weighed accurately (either released alive or too small).
+(ref:catchtable) All captured species (or taxonomic group), ordered by total catch weight (in grams), showing number of tows in which the species occurred, total catch weight, maximum catch weight, and mean catch weight per tow for usable tows during the `r surveyName` aboard the *`r vessel`*, `r surveyDateRange`. Blank weights indicate specimens which could not be weighed accurately (either released alive or too small).
 
 ```{r catchtable, results='asis'}
 csasdown::csas_table(catch,
@@ -15,7 +15,7 @@ csasdown::csas_table(catch,
 
 \newpage  
 
-(ref:lwtable) Lengths and weights for each species (arranged descending by the number of tows for each by species) sampled during the `r surveyName` aboard the `r vessel`, `r surveyDateRange`. (Tows = number of tows, Measured = number of lengths, Weighed = number of weights).
+(ref:lwtable) Lengths and weights for each species (arranged descending by the number of length measurements for each by species) sampled during the `r surveyName` aboard the *`r vessel`*, `r surveyDateRange`. (Tows = number of tows, Measured = number of length measurements, Weighed = number of weight measurements).
 
 ```{r lwtable, results='asis'}
 
@@ -28,7 +28,7 @@ csasdown::csas_table(lw,
 ```
   
   
-(ref:stomachtable) Number of tows with stomach samples (Tows), number of stomachs examined (Stomachs), number of empty stomachs (empty), and percentage of empty stomachs for each species (Percent), arranged descending by number of tows, during the `r surveyName` aboard the `r vessel`, `r surveyDateRange`.
+(ref:stomachtable) Number of tows with stomach samples (Tows), number of stomachs examined (Stomachs), number of empty stomachs (empty), and percentage of empty stomachs for each species (Percent), arranged descending by number of tows, during the `r surveyName` aboard the *`r vessel`*, `r surveyDateRange`.
   
 ```{r stomachtable, results = 'asis'}
 
@@ -41,7 +41,7 @@ csasdown::csas_table(stomachdf,
 \newpage
   
   
-(ref:preytable) Prey items (Prey) identified in the stomach contents of species sampled (list alphabetically by Species) during during the `r surveyName` aboard the `r vessel`, `r surveyDateRange`. Volume is averaged in cm^3^; Count is the number of stomachs observed with each prey.
+(ref:preytable) Prey items (Prey) identified in the stomach contents of predator species (Species) sampled (alphabetical by Species) during during the `r surveyName` aboard the *`r vessel`*, `r surveyDateRange`. Volume is average volume in cm^3^; Count is the number of stomachs observed with each prey.
   
 ```{r preytable, results = 'asis'}
 
