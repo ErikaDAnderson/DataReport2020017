@@ -15,7 +15,7 @@ csasdown::csas_table(catch,
 
 \newpage  
 
-(ref:lwtable) Lengths and weights for each species (arranged decending by the number of tows for each by species) sampled during the `r surveyName` aboard the `r vessel`, `r surveyDateRange`. (Tows = number of tows, Measured = number of lengths, Weighed = number of weights).
+(ref:lwtable) Lengths and weights for each species (arranged descending by the number of tows for each by species) sampled during the `r surveyName` aboard the `r vessel`, `r surveyDateRange`. (Tows = number of tows, Measured = number of lengths, Weighed = number of weights).
 
 ```{r lwtable, results='asis'}
 
@@ -41,7 +41,7 @@ csasdown::csas_table(stomachdf,
 \newpage
   
   
-(ref:preytable) Prey items (Prey) identified in the stomach contents of species sampled (list alphebetically by Species) during during the `r surveyName` aboard the `r vessel`, `r surveyDateRange`. Volume is averaged in cm^3^; Count is the number of stomachs observed with each prey.
+(ref:preytable) Prey items (Prey) identified in the stomach contents of species sampled (list alphabetically by Species) during during the `r surveyName` aboard the `r vessel`, `r surveyDateRange`. Volume is averaged in cm^3^; Count is the number of stomachs observed with each prey.
   
 ```{r preytable, results = 'asis'}
 
