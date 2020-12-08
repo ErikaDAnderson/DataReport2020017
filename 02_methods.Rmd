@@ -2,7 +2,7 @@
 
 ## SURVEY LOCATIONS
 
-Fishing (Figure \@ref(fig:mapfish)), oceanographic (Figure \@ref(fig:mapctd)) and plankton sampling (Figure \@ref(fig:mapplankton)) occurred offshore Triangle Island and in Queen Charlotte Sound, Hecate Strait, and Dixon Entrance. 
+Fishing (Figure \@ref(fig:mapfish)), oceanographic (Figure \@ref(fig:mapctd)) and plankton sampling (Figure \@ref(fig:mapplankton)) occurred offshore, west of Triangle Island and in Queen Charlotte Sound, Hecate Strait, and Dixon Entrance. 
 
 ## FISHING OPERATIONS
 
@@ -12,6 +12,9 @@ Two chain clumps were attached to the footrope with approximately 204 kg (450 lb
 
 Tow speed varied between 6.1 to 9.6 km/hour (3.3 and 5.2 knots) speed over ground, depending on the wind, tide, and current, in order to reach the target headrope depth. The target headrope depths were 0 m (surface) and 15 m (depth). Two A-6 floats 86.4 cm x 118.1 cm (34" x 46.5") were attached to sixth blue knot on headrope for surface tows. Warp length ranged from 190-200 m for surface tows, and 227 to 243 m for 15 m hearope depth tows.
 
+## BIOSAMPLES
+All shark species were released alive, and no marine mammals were caught. The remaining species were sorted by species or taxonomic group, then the individuals measured for length and weight. Stomachs were analyses at sea following an established protocol [@king2018]. For each species in the tow, up to five whole bodies and five muscle tissues were collected for energy density and radio isotope analyses. Additional collection for salmon species included: fin clips for genetic stock identification, otoliths, and adipose fin status, and coded wire tags (CWTs).
+
 ## OCEANOGRAPHY
 
 The survey began using a 24 bottle rosette with 911 CTD deplyed to 10 m above bottom. The Niskin bottle samples were intended for nutrients, chlorophyll a, and trace metals using ligand analysis. Unfortunately, the LARS winch failed on the third rosette deployment so the back up Seabird 25 standalone CTD was used for water profiles. Surface water was collected for chlorophyll and nutrient analyses for the remainder of the survey.
@@ -20,7 +23,7 @@ The survey began using a 24 bottle rosette with 911 CTD deplyed to 10 m above bo
 
 At plankton stations (Figure \@ref(fig:mapplankton)), vertical plankton (bongo) tows were conducted to approximately 250 m or within 10 m of the bottom with two 60 cm diameter, 250 micrometer mesh bongo nets. Plankton collected from the flow meter side were preserved in 10% formalin and sent to the plankton laboratory at the Institute of Ocean Sciences, Fisheries and Oceans Canada (Sidney, BC) for species classification and enumeration.  The remaining plankton sample was sorted into four size fractions by successively sieving through 8.0, 1.7, 1.0, and 0.25 mm screens. Individual size fractions were frozen for future stable isotope, bomb calorimetric, and proximate analyses. 
 
-Vertical zooplanton tows were completed at all stations, however, two additional oblique plankton tows were completed at two offshore stations (CS01, T01). The vessel speed was controlled to allow a 45 degree wire angle to increase the volume of water sampled. Oblique plankton tows are a method under consideration for the 2022 Pan-Pacific High Seas Expedition.
+Two additional oblique plankton tows were completed at the offshore stations (CS01, T01). The vessel speed was controlled to allow a 45 degree wire angle to increase the volume of water sampled. Oblique plankton tows are a method under consideration for the 2022 Pan-Pacific High Seas Expedition.
 
 The MOCNESS was deployed at three stations (CS01, MT08, Mason53) from the starboard side of the vessel. The vessel speed was controlled to allow a 45 degree angle on the wire. The net was open during descent to 300-500 m, depending on the starting bottom depth. The five additional strata were sampled during ascent, with the depth strata depending on the maximum depth and acoustic signals.
 
