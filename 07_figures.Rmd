@@ -75,7 +75,7 @@ events_mocness <- events %>%
 ```{r sharkphoto, fig.pos="H", fig.cap = "(ref:sharkphoto)"}
 
 # load image
-knitr::include_graphics("data/threshershark.JPG")
+knitr::include_graphics("data/threshershark.png")
 
 ```
 
