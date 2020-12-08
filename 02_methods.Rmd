@@ -13,7 +13,7 @@ Two chain clumps were attached to the footrope with approximately 204 kg (450 lb
 Tow speed varied between 6.1 to 9.6 km/hour (3.3 and 5.2 knots) speed over ground, depending on the wind, tide, and current, in order to reach the target headrope depth. The target headrope depths were 0 m (surface) and 15 m (depth). Two A-6 floats 86.4 cm x 118.1 cm (34" x 46.5") were attached to sixth blue knot on headrope for surface tows. Warp length ranged from 190-200 m for surface tows, and 227 to 243 m for 15 m headrope depth tows.
 
 ## BIOLOGICAL SAMPLES
-All shark species were released alive after idenitification and length measurements. The remaining species were sorted by species or taxonomic group, then the individuals measured for length and weight. Stomachs were analyses at sea following an established protocol [@king2018]. For each species in the tow, up to five whole bodies and five muscle tissues were collected for energy density and stable isotope analyses. Additional collection for salmon species included: fin clips for genetic stock identification, otoliths, and adipose fin status, and coded wire tags (CWTs).
+All shark species were released alive after idenitification and length measurements. The remaining species were sorted by species or taxonomic group, then the individuals measured for length and weight. Stomachs were analysed at sea following an established protocol [@king2018]. For each species in the tow, up to five whole bodies and five muscle tissues were collected for energy density and stable isotope analyses. Additional collection for salmon species included: fin clips for genetic stock identification, otoliths, and adipose fin status, and coded wire tags (CWTs).
 
 ## OCEANOGRAPHY
 
