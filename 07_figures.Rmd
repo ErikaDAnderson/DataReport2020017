@@ -1,6 +1,6 @@
 # FIGURES
 
-(ref:mapfish) Fishing tow locations during the `r surveyName` from `r surveyDateRange` on the `r vessel`. The LFS 7742 coastal trawl net (red triangles) was used for 20 tows and the LFS 1142 offshore trawl net (orange circles) was used for 2 tows.
+(ref:mapfish) Fishing tow locations during the `r surveyName` from `r surveyDateRange` on the `r vessel`. The LFS 7742 coastal trawl net (red triangles) was used for 20 tows and the LFS 1142 offshore trawl net (orange circles) was used for 2 tows. Gear testing and aborted tows are not shown.
 
 ```{r mapfish, fig.pos="H", fig.cap = "(ref:mapfish)", warning=FALSE}
 
@@ -212,7 +212,7 @@ basemap +
 
 ```
 
-(ref:forkcm) Juveile chum salmon (*Oncorhynchus keta*) length frequency plot as sampled during the `r surveyName` aboard the `r vessel`, `r surveyDateRange` (A). Double log-transformed length-weight regression with outliers removed, using a Bonferroni outlier test (B).
+(ref:forkcm) Juvenile chum salmon (*Oncorhynchus keta*) length frequency plot as sampled during the `r surveyName` aboard the `r vessel`, `r surveyDateRange` (A). Double log-transformed length-weight regression with outliers removed, using a Bonferroni outlier test (B).
 
 ```{r forkcm, fig.cap="(ref:forkcm)"}
 
@@ -314,7 +314,7 @@ chumPlots
 
 ```
 
-(ref:forkpk) Juveile pink salmon (*Oncorhynchus gorbusha*) length frequency plot as sampled during the `r surveyName` aboard the `r vessel`, `r surveyDateRange` (A). Double log-transformed length-weight regression with outliers removed, using a Bonferroni outlier test (B).
+(ref:forkpk) Juvenile pink salmon (*Oncorhynchus gorbusha*) length frequency plot as sampled during the `r surveyName` aboard the `r vessel`, `r surveyDateRange` (A). Double log-transformed length-weight regression with outliers removed, using a Bonferroni outlier test (B).
 
 ```{r forkpk, fig.cap="(ref:forkpk)"}
 
