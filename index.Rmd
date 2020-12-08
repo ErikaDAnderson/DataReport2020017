@@ -1,12 +1,12 @@
 ---
 title: "Ecosystem-Based Juvenile Salmon (*Oncorhynchus* spp.) Survey on the North Coast of British Columbia, October 6-16, 2020"
-year: 20XX
+year: 2021
 report_number: nnn
 author: |
   Erika Anderson^1^,
   Jackie King^1^, and
   Tyler Zubkowski^1^
-author_list: "Anderson, E., King, J. and Zubkowski, T."
+author_list: "Anderson, E.D., King, J.R. and Zubkowski, T.B."
 region: Pacific Region
 isbn: ""
 address: |
@@ -19,7 +19,7 @@ abstract: |
   Fisheries and Oceans Canada conducted an ecosystem-based survey from October 6-16, 2020 on the *CCGS Sir John Franklin*. This study targeted juvenile salmon from Queen Charlotte Sound to Dixon Entrance. The survey was designed to determine the distribution, abundance, and ecology of juvenile Pacific salmon (Oncorhynchus sp.) in northern British Columbia during the fall season. In addition, gear optimization occurred for the 2022 Pan-Pacific High Seas Expedition.
     
 abstract_other: |
-  Pêches et Océans Canada a conduit une étude écosystémique du 6 au 16 octobre 2020 sur le *NGCC Sir John Franklin*. Cet étude se concentre sur les saumons juvéniles du détroit de Queen Charlotte à l'entrée Dixon. L'étude a été conçu pour déterminer la distribution, l'abondance et l'écologie des juvéniles de saumon du Pacifique (*Oncorhynchus* spp.) dans le nord de la Colombie-Britannique pendant la saison d'automne. De plus, une optimisation d'équipment ont lieu pour l'expédition pan-pacifique en haute mer 2022.
+  Pêches et Océans Canada a conduit une étude écosystémique du 6 au 16 octobre 2020 sur le *NGCC Sir John Franklin*. Cet étude se concentre sur les saumons juvéniles du détroit de Queen Charlotte à l'entrée Dixon. L'étude a été conçu pour déterminer la distribution, l'abondance et l'écologie des juvéniles de saumon du Pacifique (*Oncorhynchus* spp.) dans le nord de la Colombie-Britannique pendant la saison d'automne. De plus, une optimisation d'équipment ont lieu pour l'expédition pan-pacifique en haute mer 2022...
   
 output:
  csasdown::techreport_word:
