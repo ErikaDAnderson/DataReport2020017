@@ -9,7 +9,7 @@ After that, all subsequent sections will be turned into appendices. -->
 
 # NET SPECIFICATIONS {#app:appNet}
 
-(ref:offshorenet1) Net specifications (upper view) for the offshore NPAFC 1142 midwater trawl net used on the the `r surveyName` from `r surveyDateRange` on the `r vessel`.
+(ref:offshorenet1) Net specifications (upper view) for the offshore NPAFC 1142 mid water trawl net used on the the `r surveyName` from `r surveyDateRange` on the `r vessel`.
 
 ```{r offshorenet1,fig.cap="(ref:offshorenet1)"}
 
@@ -18,7 +18,7 @@ knitr::include_graphics("knitr-figs-pdf/LFS1142net_upper_horizontal.png")
 
 ```
   
-(ref:offshorenet2) Net specifications (lower view) for the offshore NPAFC 1142 midwater trawl net used on the the `r surveyName` from `r surveyDateRange` on the `r vessel`.
+(ref:offshorenet2) Net specifications (lower view) for the offshore NPAFC 1142 mid water trawl net used on the the `r surveyName` from `r surveyDateRange` on the `r vessel`.
 
 ```{r offshorenet2,fig.cap="(ref:offshorenet2)"}
 
@@ -27,7 +27,7 @@ knitr::include_graphics("knitr-figs-pdf/LFS1142net_lower_horizontal.png")
 
 ```
   
-(ref:offshorenet3) Net specifications (side view) for the offshore NPAFC 1142 midwater trawl net used on the the `r surveyName` from `r surveyDateRange` on the `r vessel`.
+(ref:offshorenet3) Net specifications (side view) for the offshore NPAFC 1142 mid water trawl net used on the the `r surveyName` from `r surveyDateRange` on the `r vessel`.
 
 ```{r offshorenet3, fig.cap="(ref:offshorenet3)"}
 
@@ -35,7 +35,7 @@ knitr::include_graphics("knitr-figs-pdf/LFS1142net_side_horizontal.png")
 
 ```
   
-(ref:coastalnet) Net specifications (side view only) for the coastal NPAFC 7742 midwater trawl net the `r surveyName` from `r surveyDateRange` on the `r vessel`.
+(ref:coastalnet) Net specifications (side view only) for the coastal NPAFC 7742 mid water trawl net the `r surveyName` from `r surveyDateRange` on the `r vessel`.
 
 ```{r coastalnet, fig.cap="(ref:coastalnet)"}
 
