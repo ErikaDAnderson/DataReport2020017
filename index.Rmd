@@ -3,9 +3,9 @@ title: "Ecosystem-Based Juvenile Salmon (*Oncorhynchus* spp.) Survey on the Nort
 year: 2021
 report_number: nnn
 author: |
-  Erika Anderson^1^,
-  Jackie King^1^, and
-  Tyler Zubkowski^1^
+  Erika D. Anderson^1^,
+  Jackie R. King^1^, and
+  Tyler B. Zubkowski^1^
 author_list: "Anderson, E.D., King, J.R. and Zubkowski, T.B."
 region: Pacific Region
 isbn: ""
@@ -16,11 +16,9 @@ address: |
 phone: "(250) 756-7067"
 author_footnote: "Email: Erika.Anderson@dfo-mpo.gc.ca | telephone: (250) 756-7067"
 abstract: |
-  Fisheries and Oceans Canada conducted an ecosystem-based survey from October 6-16, 2020 on the *CCGS Sir John Franklin*. This study targeted juvenile salmon from Queen Charlotte Sound to Dixon Entrance. The survey was designed to determine the distribution, abundance, and ecology of juvenile Pacific salmon (Oncorhynchus sp.) in northern British Columbia during the fall season. In addition, gear optimization occurred for the 2022 Pan-Pacific High Seas Expedition.
-    
+  Fisheries and Oceans Canada conducted an ecosystem-based survey from October 6-16, 2020 on the *CCGS Sir John Franklin*. This study targeted juvenile salmon from Queen Charlotte Sound to Dixon Entrance. The survey was designed to determine the distribution, abundance, and ecology of juvenile Pacific salmon (Oncorhynchus spp.) on the north coast of British Columbia. In addition, gear optimization occurred for the 2022 Pan-Pacific High Seas Expedition. There were 26 species sampled in 1741 kg of catch, with 25% salmon caught by weight. Opalescent inshore squid and moon jellies were the most abundant species. Juvenile chum salmon were the most abundant salmon species with large catches in Hecate Strait, and only 2% containing empty stomachs. Pink salmon were the most widespread species, whereas juvenile sockeye salmon were localized in northern Dixon Entrance. Both juvenile pink and sockeye salmon were mainly feeding on euphausiids and amphipods. Juvenile coho were less abundant, although they were caught in Dixon Entrance. Juvenile coho had 47% empty stomachs and the widest variety of prey in their stomach contents. Only three chinook salmon were caught. The only chinook with stomach contents contained squid. Biological samples for stock composition and energy density are at the Pacific Biological Station for laboratory analysis. Associated information on the physical oceanography and plankton composition was collected from 21 stations, and will be analysed at the Institute for Ocean Sciences. Physical oceanography and plankton composition and abundance will be integrated with the catch and salmon data as it becomes available. Gear optimization occurred for the offshore LFS 1142 trawl net, MOCNESS (Multiple Opening and Closing Net with Environmental Sensing System), and oblique plankton net in preparation for the 2020 Pan Pacific High Seas Expedition. The LARS winch system to deploy the rosette with the Seabird 911 CTD was tested and highlighted repairs needed before offshore deployment.
 abstract_other: |
-  Pêches et Océans Canada a conduit une étude écosystémique du 6 au 16 octobre 2020 sur le *NGCC Sir John Franklin*. Cet étude se concentre sur les saumons juvéniles du détroit de Queen Charlotte à l'entrée Dixon. L'étude a été conçu pour déterminer la distribution, l'abondance et l'écologie des juvéniles de saumon du Pacifique (*Oncorhynchus* spp.) dans le nord de la Colombie-Britannique pendant la saison d'automne. De plus, une optimisation d'équipment ont lieu pour l'expédition pan-pacifique en haute mer 2022...
-  
+  Voici le résumé.
 output:
  csasdown::techreport_word:
    french: false
