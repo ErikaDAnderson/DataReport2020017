@@ -1,9 +1,5 @@
 # DISCUSSION
 
-Summarize major findings 
-Most abundant salmon and least
-Species differences in location
+This ecosystem-based juvenile salmon survey collected valuable information on distribution, abundance, condition, and genetic stock composition (GSI) for juvenile salmon in the north coast of British Columbia. Overall, juvenile chum and pink salmon were most abundant, whereas chinook salmon were least abundant. Distributions and stomach contents varied by species. We collected physical oceanographic water profiles, and plankton abundance and composition associated with the salmon caught. As it becomes available, the data from laboratory analysis (i.e. GSI, energy density, plankton identification) will be integrated into the survey data. Catch, condition and preliminary GSI will be presented at the [State of the Pacific Ocean](https://dfo-mpo.gc.ca/oceans/publications/index-eng.html#soto-pac-tech) meeting in March 2021, and the data will be used to support the Fraser River Sockeye Forecasting supplement produced annually [@macdonald2020]. 
 
-
-What next?   use in SOPO, Fraser sockeye forecasting, Salmon Ocean Ecology...
-
+This survey also completed gear testing and optimization using offshore equipment and protocols. The offshore LFS 1142 trawl net was deployed for the first time on the new `r vessel`. The MOCNESS and oblique plankton tows were successfully conducted off the side scientific area in calm waters. The LARS winch system with the rosette and 911 CTD was tested, and highlighted the need for additional work before use offshore.  
