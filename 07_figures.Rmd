@@ -69,6 +69,17 @@ events_mocness <- events %>%
   
 ```
 
+
+(ref:sharkphoto) Common thresher shark (*Alopias vulpinus*) captured during gear optimization of the offshore LFS 1142 trawl net (despite the open cod end). This 4.6 m shark was released alive (photo credit T. Zubkowski).
+
+```{r sharkphoto, fig.pos="H", fig.cap = "(ref:sharkphoto)"}
+
+# load image
+knitr::include_graphics("data/threshershark.JPG")
+
+```
+
+
 (ref:cmcpue) Juvenile chum salmon (*Oncorhynchus keta*) catch per km^3^ per tow. Red circles are proportional to catch abundance, and zero catches are shown with a cross (+).
 
 ```{r cmcpue, fig.pos="H", fig.cap = "(ref:cmcpue)", warning=FALSE}
@@ -354,6 +365,6 @@ chinookPlots <- plot_grid(chinookbar, chinookLine, ncol = 1,
 chinookPlots
 
 ```
-
+  
 \FloatBarrier
 \newpage
