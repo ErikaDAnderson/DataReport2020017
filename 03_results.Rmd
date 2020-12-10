@@ -37,9 +37,9 @@ coastalwide <- bridgetow %>%
 
 ```
 
-This survey completed `r offshoretows` offshore mid water trawls for gear setup and `r coastaltows` coastal mid water trawls (Appendix \@ref(app:appBridge)). Although all net adjustment tows were done with the codend open to avoid the capture of fish, a 4.6 m Common Thresher Shark (*Alopias vulpinus*) was captured, and released alive from the first tow (Figure \@ref(fig:sharkphoto)). The last coastal mid water trawl of the survey tow was aborted in Queen Charlotte Strait due to equipment failure of the third wire winch. Subsequent tows were cancelled.
+This survey completed `r offshoretows` offshore LFS 1142 trawls for gear setup and `r coastaltows` coastal LFS 7742 trawls (Appendix \@ref(app:appBridge)). Although all offshore LFS 1142 trawl net adjustment tows were done with the codend open to avoid the capture of fish, a 4.6 m Common Thresher Shark (*Alopias vulpinus*) was captured, and released alive from the first tow (Figure \@ref(fig:sharkphoto)). The last coastal LFS 7742 trawl of the survey was aborted in Queen Charlotte Strait due to equipment failure of the third wire winch. Subsequent tows were cancelled.
 
-The offshore LFS 1142 mouth opening averaged `r offshorehigh` m high by `r offshorewide` m wide, or an area of `r round(offshorehigh * offshorewide)` m^2^. This opening is slightly smaller than to the expected net area opening of 30 m high by 46 m wide, or an area of 1380 m^2^ [@somov2020]. The coastal net averaged `r coastalhigh` m high by `r coastalwide` m wide, or an area of `r round(coastalhigh * coastalwide)` m^2^, during surface tows on this survey. This mouth area is similar to a previous survey on the FV Sea Crest where the coastal LFS 7742 net mouth opening averaged 19 m high by 41 m wide at the surface, or area of (779 m^2^; [@anderson2019]). All catch per unit effort (CPUE) reported here are standardized by swept volume to standardize catch values.
+The offshore LFS 1142 mouth opening averaged `r offshorehigh` m high by `r offshorewide` m wide, or an area of `r round(offshorehigh * offshorewide)` m^2^. This opening is slightly smaller than to the expected net area opening of 30 m high by 46 m wide, or an area of 1380 m^2^ [@somov2020]. The coastal LFS 7742 trawl net averaged `r coastalhigh` m high by `r coastalwide` m wide, or an area of `r round(coastalhigh * coastalwide)` m^2^, during surface tows on this survey. This mouth area is similar to a previous survey on the *FV Sea Crest* where the coastal LFS 7742 trawl net mouth opening averaged 19 m high by 41 m wide at the surface, or area of (779 m^2^; [@anderson2019]). All catch per unit effort (CPUE) reported here are standardized by swept volume to standardize catch values.
 
 ## CATCH COMPOSITION
 ```{r catchcomposition}
@@ -58,33 +58,33 @@ numSpecies <- nrow(catch)
 abundantspeciesnames1 <- catch %>%
   slice(1:2) %>%
   pull(COMMON_NAME) %>%
-  tolower() %>%
+  str_to_title() %>%
   first
 
 abundantspeciesnames1kg <- catch %>%
-  filter(tolower(COMMON_NAME) == abundantspeciesnames1) %>%
+  filter(str_to_title(COMMON_NAME) == abundantspeciesnames1) %>%
   mutate(totalWgtkg = round(totalWgt/1000)) %>%
   pull(totalWgtkg) 
 
 abundantspeciesnames2 <- catch %>%
   slice(1:2) %>%
   pull(COMMON_NAME) %>%
-  tolower() %>%
+  str_to_title() %>%
   last
 
 abundantspeciesnames2kg <- catch %>%
-  filter(tolower(COMMON_NAME) == abundantspeciesnames2) %>%
+  filter(str_to_title(COMMON_NAME) == abundantspeciesnames2) %>%
   mutate(totalWgtkg = round(totalWgt/1000)) %>%
   pull(totalWgtkg) 
 
 abundantspeciesnames3 <- catch %>%
   slice(3:3) %>%
   pull(COMMON_NAME) %>%
-  tolower() %>%
+  str_to_title() %>%
   last
 
 abundantspeciesnames3kg <- catch %>%
-  filter(tolower(COMMON_NAME) == abundantspeciesnames3) %>%
+  filter(str_to_title(COMMON_NAME) == abundantspeciesnames3) %>%
   mutate(totalWgtkg = round(totalWgt/1000)) %>%
   pull(totalWgtkg) 
 
@@ -104,7 +104,7 @@ Samples were collected for DNA stock composition (322), otoliths (322), energy d
 lwspeciesnum <- nrow(lw)
 
 lwsalmon <- lw %>%
-  filter(str_extract(COMMON_NAME, "salmon") == "salmon")
+  filter(str_extract(COMMON_NAME, "Salmon") == "Salmon")
 
 bigsalmon <- lwsalmon %>%
   arrange(-meanLen) %>%
@@ -118,7 +118,7 @@ smlsalmon <- lwsalmon %>%
   arrange(meanLen) %>%
   slice(1:1)
 
-smlsalmonNam <- tolower(smlsalmon %>% pull(COMMON_NAME))
+smlsalmonNam <- str_to_title(smlsalmon %>% pull(COMMON_NAME))
 smlsalmonLen <- smlsalmon %>% pull(meanLen)
 smlsalmonWGT <- smlsalmon %>% pull(meanWGT)
 
@@ -133,27 +133,27 @@ totalstomachs <- sum(stomachdf$NumStomachs)
 totalstomachspecies <- nrow(stomachdf)
 
 salmonstomachs <- stomachdf %>%
-  filter(str_extract(COMMON_NAME, "salmon") == "salmon") %>%
+  filter(str_extract(COMMON_NAME, "Salmon") == "Salmon") %>%
   arrange(-PerEmpty)
 
 ckstomach <- stomachdf %>%
-  filter(COMMON_NAME == "Chinook salmon") %>%
+  filter(COMMON_NAME == "Chinook Salmon") %>%
   pull(PerEmpty)
 
 costomach <- stomachdf %>%
-  filter(COMMON_NAME == "Coho salmon") %>%
+  filter(COMMON_NAME == "Coho Salmon") %>%
   pull(PerEmpty)
 
 cmstomach <- stomachdf %>%
-  filter(COMMON_NAME == "Chum salmon") %>%
+  filter(COMMON_NAME == "Chum Salmon") %>%
   pull(PerEmpty)
 
 pkstomach <- stomachdf %>%
-  filter(COMMON_NAME == "Pink salmon") %>%
+  filter(COMMON_NAME == "Pink Salmon") %>%
   pull(PerEmpty)
 
 sestomach <- stomachdf %>%
-  filter(COMMON_NAME == "Sockeye salmon") %>%
+  filter(COMMON_NAME == "Sockeye Salmon") %>%
   pull(PerEmpty)
 
 ```
@@ -173,7 +173,7 @@ ctdmindepth <- min(ctdnum$CastDepth)
   
 ```
 
-CTD casts and water samples were completed at `r nrow(ctdnum)` sites with cast depths ranging from `r ctdmindepth` m to `r ctdmaxdepth` m (Appendix \@ref(app:appOcean)). Samples were collected for nutrients and chlorophyll, primarily at surface with some limited ligand sampling at depth during the rosette operations. The LARS winch system was used to launch the rosette with the 911 CTD for the first two stations (CS01, T01). Thereafter, a standalone Seabird 25 CTD was deployed. Oceanographic data from rosette and CTD casts, including water samples for nitrate, phosphate, silicate, and chl a, are being processed, analyzed, and will be archived online within the [Water Properties Data Inventory](https://www.waterproperties.ca). 
+CTD casts and water samples were completed at `r nrow(ctdnum)` sites with cast depths ranging from `r ctdmindepth` m to `r ctdmaxdepth` m (Appendix \@ref(app:appOcean)). Samples were collected for nutrients and chlorophyll, primarily at surface with some limited ligand sampling at depth during the CTD rosette operations. The LARS was used to launch the rosette with the Seabird 911 CTD for the first two stations (CS01, T01). Thereafter, a standalone Seabird 25 CTD was deployed. Oceanographic data from the CTD rosette and standalone CTD casts, including water samples for nitrate, phosphate, silicate, and chl a, are being processed, analyzed, and will be archived online within the [Water Properties Data Inventory](https://www.waterproperties.ca). 
 
 ## ZOOPLANKTON
 ```{r planktonresults}
@@ -188,7 +188,7 @@ planktonmin <- min(planktonvert$CastDepth)
 
 Vertical bongo tows were conducted at `r nrow(planktonvert)` stations to depths ranging from `r planktonmin` m to `r planktonmax` m (Appendix \@ref(app:appOcean)). Formalin-preserved zooplankton samples will be identified and enumerated at the Institute of Ocean Sciences (Sidney, BC). Data will be archived in the zooplankton database. Fractionated zooplankton samples are frozen at the Pacific Biological Station (Nanaimo, BC).
 
-In preparation for the 2022 Pan-Pacific High Seas Expedition, three MOCNESS and two oblique bongo tows were completed. Both techniques were deployed under calm sea conditions off the *`r vessel`*. The MOCNESS did not close nets between all depth strata in 2 of the 3 tows. 
+In preparation for the 2022 Pan-Pacific High Seas Expedition, three MOCNESS and two oblique bongo tows were completed. Both techniques were deployed under calm sea conditions off the *`r vessel`*. The MOCNESS did not close nets between all depth strata in 2 of the 3 tows. This failure to release the nets is being investigated. 
 
 ## ACOUSTIC DATA
 Acoustic data was collected throughout the survey with the drop keel deployed, for analysis at the Institute of Ocean Sciences, Fisheries and Oceans Canada (Sidney, BC).
