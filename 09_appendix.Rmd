@@ -73,9 +73,9 @@ csasdown::csas_table(bridge4,
 
 \newpage
 
-# CTD CASTS AND VERTICAL PLANKTON TOWS {#app:appOcean}  
+# CTD CASTS AND VERTICAL BONGO TOWS {#app:appOcean}  
   
-(ref:oceantable) CTD casts and plankton tow times and depths during the `r surveyName` from `r surveyDateRange` on the *`r vessel`*.
+(ref:oceantable) CTD casts and bongo tow times and depths during the `r surveyName` from `r surveyDateRange` on the *`r vessel`*.
 
 ```{r oceantable, results='asis'}
 
@@ -87,7 +87,7 @@ csas_table(
   caption = "(ref:oceantable)",
   format = "latex", font_size = 12,
   repeat_header = TRUE, repeat_header_text = "continued",
-  extra_header = c("", "", "CTD", "", "", "Plankton", "", ""),
+  extra_header = c("", "", "CTD", "", "", "BONGO", "", ""),
   col_names = c("Date", "Station",
                 "Start\nTime\n(PDT)", "Bottom\nDepth\n(m)","Gear\nDepth\n(m)",
                 "Start\nTime\n(PDT)", "Bottom\nDepth\n(m)","Gear\nDepth\n(m)"))
