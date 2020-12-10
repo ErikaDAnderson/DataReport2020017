@@ -9,7 +9,7 @@ After that, all subsequent sections will be turned into appendices. -->
 
 # NET SPECIFICATIONS {#app:appNet}
 
-(ref:offshorenet1) Net specifications (upper view) for the offshore NPAFC 1142 mid water trawl net used on the the `r surveyName` from `r surveyDateRange` on the *`r vessel`*.
+(ref:offshorenet1) Net specifications (upper view) for the offshore LFS 1142 trawl net used on the the `r surveyName` from `r surveyDateRange` on the *`r vessel`*.
 
 ```{r offshorenet1,fig.cap="(ref:offshorenet1)"}
 
@@ -18,7 +18,7 @@ knitr::include_graphics("knitr-figs-pdf/LFS1142net_upper_horizontal.png")
 
 ```
   
-(ref:offshorenet2) Net specifications (lower view) for the offshore NPAFC 1142 mid water trawl net used on the the `r surveyName` from `r surveyDateRange` on the *`r vessel`*.
+(ref:offshorenet2) Net specifications (lower view) for the offshore LFS 1142 trawl net used on the the `r surveyName` from `r surveyDateRange` on the *`r vessel`*.
 
 ```{r offshorenet2,fig.cap="(ref:offshorenet2)"}
 
@@ -27,7 +27,7 @@ knitr::include_graphics("knitr-figs-pdf/LFS1142net_lower_horizontal.png")
 
 ```
   
-(ref:offshorenet3) Net specifications (side view) for the offshore NPAFC 1142 mid water trawl net used on the the `r surveyName` from `r surveyDateRange` on the *`r vessel`*.
+(ref:offshorenet3) Net specifications (side view) for the offshore LFS 1142 trawl net used on the the `r surveyName` from `r surveyDateRange` on the *`r vessel`*.
 
 ```{r offshorenet3, fig.cap="(ref:offshorenet3)"}
 
@@ -35,7 +35,7 @@ knitr::include_graphics("knitr-figs-pdf/LFS1142net_side_horizontal.png")
 
 ```
   
-(ref:coastalnet) Net specifications (side view only) for the coastal NPAFC 7742 mid water trawl net the `r surveyName` from `r surveyDateRange` on the *`r vessel`*.
+(ref:coastalnet) Net specifications (side view only) for the coastal LFS 7742 trawl net the `r surveyName` from `r surveyDateRange` on the *`r vessel`*.
 
 ```{r coastalnet, fig.cap="(ref:coastalnet)"}
 
@@ -106,7 +106,7 @@ csasdown::csas_table(catch1,
                      font_size = 12,
                      format = "latex", landscape = TRUE,
                      repeat_header = TRUE, repeat_header_text = "continued",
-                     extra_header = c("Tow", as.character(1:11)),
+                     extra_header = c("Tow", as.character(5:15)),
                      ex_align = "r", ex_line_sep = 0) %>%
   row_spec(21, hline_after = T)
 
@@ -115,7 +115,7 @@ csasdown::csas_table(catch2,
                      font_size = 12,
                      format = "latex", landscape = TRUE,
                      repeat_header = TRUE, repeat_header_text = "continued",
-                     extra_header = c("Tow", as.character(12:22)),
+                     extra_header = c("Tow", as.character(16:26)),
                      ex_align = "r", ex_line_sep = 0) %>%
   row_spec(21, hline_after = T)
 
