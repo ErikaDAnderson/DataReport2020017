@@ -1,9 +1,9 @@
 # INTRODUCTION
 
-The Basin and Coastal Scale Interactions Program of Fisheries and Oceans conducted an ecosystem-based survey, targeting juvenile Pacific salmon (*Oncorhynchus* spp.) from `r surveyDateRange` on the *`r vessel`*. The main objectives of this surveys were:
+Fisheries and Oceans Canada conducted an ecosystem-based survey, targeting juvenile Pacific Salmon (*Oncorhynchus* spp.) from `r surveyDateRange` on the *`r vessel`*. The main objectives of this surveys were:
 
-1. to determine the abundance, condition, distribution, and genetic stock composition of juvenile salmon present from Queen Charlotte Strait to Dixon Entrance in the fall, and 
+1. to determine the abundance, condition, distribution, and genetic stock composition of juvenile Pacific Salmon present from Queen Charlotte Strait to Dixon Entrance in the fall, and 
 
-2. to optimize the new offshore LFS 1142 trawl net deployment and new oceanographic sampling protocols for the [2022 Pan-Pacific High Seas Expedition](https://yearofthesalmon.org/high-seas-expeditions/) on the *`r vessel`*. 
+2. to optimize the offshore LFS 1142 trawl net setup and deployment and oceanographic sampling protocols for the new fisheries research vessel, the *`r vessel`* in preparation for the [2022 Pan-Pacific High Seas Expedition](https://yearofthesalmon.org/high-seas-expeditions/) of the North Pacific Anadromous Fisheries Commission (NPAFC). 
 
-This survey supports research into linkages between oceanographic conditions, fish abundance and community composition, Pacific Salmon ocean ecology and forecasting adult returns. Survey data will be presented at the 2020 [State of the Pacific Ocean](https://dfo-mpo.gc.ca/oceans/publications/index-eng.html#soto-pac-tech) and support the Fraser River Sockeye Forecasting [@macdonald2020]. This data report documents the biological, oceanographic, and plankton data collected during the `r surveyName` from `r surveyDateRange`.  
+This survey supports research into linkages between oceanographic conditions, fish abundance and community composition, Pacific Salmon ocean ecology and forecasting adult returns. This data report documents the biological, oceanographic, zooplankton, and nekton data and samples collected during the `r surveyName` from `r surveyDateRange`.  
