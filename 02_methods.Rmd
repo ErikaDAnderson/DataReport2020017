@@ -26,10 +26,3 @@ At zooplankton stations (Figure \@ref(fig:mapplankton)), vertical tows were cond
 Two additional oblique bongo tows were completed at the offshore stations (CS01, T01). The vessel speed was controlled to allow a 45 degree wire angle to increase the volume of water sampled. Oblique zooplankton tows are a method under consideration for the 2022 Pan-Pacific High Seas Expedition.
 
 The MOCNESS nekton sampling gear was deployed at three stations (CS01, MT08, Mason53) from the starboard side of the vessel. The vessel speed was controlled to allow a 45 degree angle on the wire. A net was open during descent to 300-500 m, depending on the starting bottom depth. Five additional strata were sampled during ascent, with the depth strata depending on the maximum depth and acoustic signals.
-
-
-
-
-
-
-
