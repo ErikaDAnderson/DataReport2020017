@@ -192,5 +192,3 @@ In preparation for the 2022 Pan-Pacific High Seas Expedition, three MOCNESS and 
 
 ## ACOUSTIC DATA
 Acoustic data was collected throughout the survey with the drop keel deployed, for analysis at the Institute of Ocean Sciences, Fisheries and Oceans Canada (Sidney, BC).
-
-
