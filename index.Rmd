@@ -21,7 +21,6 @@ abstract: |
   There were 26 species sampled in 1741 kg of catch, with 25% salmon caught by weight. Overall, Opalescent Inshore Squid and Moon Jellies were the most abundant species. Lengths and weights were recorded for 17 species, including all 5 Pacific Salmon species (*Oncorhynchus* spp.). Juvenile Chum Salmon were the most abundant Pacific Salmon species with large catches, particularly in Hecate Strait, and only 2% containing empty stomachs. Pink Salmon were the most widespread species, whereas juvenile Sockeye Salmon were localized in northern Dixon Entrance. Both juvenile Pink and Sockeye Salmon were primarily feeding on euphausiids and amphipods. Juvenile Coho Salmon were less abundant and were caught in Dixon Entrance and Hecate Strait, to a lesser amount. Juvenile coho had 47% empty stomachs and the widest variety of prey in their stomach contents. Only three Chinook Salmon were caught. The only Chinook Salmon with stomach contents contained squid. 
   
   Biological samples for genetic stock composition and energy density are at the Pacific Biological Station for laboratory analysis. Associated information on the physical oceanography and plankton composition was collected from 21 stations, and will be analysed at the Institute for Ocean Sciences. 
-
   In addition, gear optimization occurred for the 2022 Pan-Pacific High Seas Expedition. The protocols for the offshore LFS 1142 trawl net, MOCNESS (Multiple Opening and Closing Net with Environmental Sensing System), oblique zooplankton tows, and CTD rosette deployment using the Launch and Recovery Systems (LARS) were tested.
 abstract_other: |
   Voici le résumé.
@@ -426,7 +425,7 @@ catch <- catch_orig %>%
   mutate(DISPLAY_COMMON = if_else(is.na(SPECIES_COMMON_NAME.y), as.character(SPECIES_COMMON_NAME.x), SPECIES_COMMON_NAME.y)) %>%
   mutate(DISPLAY_COMMON = str_remove_all(DISPLAY_COMMON, "[()](JUVENILES)[)]*"),
          DISPLAY_COMMON = str_remove(DISPLAY_COMMON, "[()](ADULTS)[)]*")) %>%
-    mutate(COMMON_NAME = paste0(str_sub(DISPLAY_COMMON, 1,1), str_sub(tolower(DISPLAY_COMMON),2)),
+    mutate(COMMON_NAME = str_to_title(DISPLAY_COMMON),
          SCIENTIFIC_NAME = paste0(str_sub(SPECIES_SCIENCE_NAME, 1,1), str_sub(tolower(SPECIES_SCIENCE_NAME),2))) %>%
   group_by(COMMON_NAME, SCIENTIFIC_NAME) %>%
   summarise(numTows = n(),
@@ -468,17 +467,17 @@ lw_weight <- lengthFreq %>%
 # join tables
 lw <- lw_length %>%
   full_join(., lw_weight, by = "COMMON_NAME") %>%
-  mutate(COMMON_NAME = paste0(str_sub(COMMON_NAME, 1,1), str_sub(tolower(COMMON_NAME),2)),
+  mutate(COMMON_NAME = str_to_title(COMMON_NAME),
          COMMON_NAME = case_when(
-           COMMON_NAME == "Opalescent squid" ~ "Opalescent inshore squid", 
-           COMMON_NAME == "Chinook" ~ "Chinook salmon",
-           COMMON_NAME == "Pink" ~ "Pink salmon",
-           COMMON_NAME == "Sockeye" ~ "Sockeye salmon",
-           COMMON_NAME == "Coho" ~ "Coho salmon",
-           COMMON_NAME == "Chum" ~ "Chum salmon",
+           COMMON_NAME == "Opalescent Squid" ~ "Opalescent Inshore Squid", 
+           COMMON_NAME == "Chinook" ~ "Chinook Salmon",
+           COMMON_NAME == "Pink" ~ "Pink Salmon",
+           COMMON_NAME == "Sockeye" ~ "Sockeye Salmon",
+           COMMON_NAME == "Coho" ~ "Coho Salmon",
+           COMMON_NAME == "Chum" ~ "Chum Salmon",
            COMMON_NAME == "Herring" ~ "Pacific Herring",
            COMMON_NAME == "Aequorea" ~ "Water Jelly",
-           COMMON_NAME == "Rock sole" ~ "Flatfish",
+           COMMON_NAME == "Rock Sole" ~ "Flatfish",
            TRUE ~ COMMON_NAME)
          ) %>%
   arrange(-lengthNum)
@@ -528,14 +527,14 @@ stomachdf <- stomachdf_orig %>%
   mutate(PerEmpty = round((NumEmpty/NumStomachs)*100),0) %>%
   left_join(., stomachTows, by = "SPECIES")  %>%
   arrange(-NumTows) %>%
-  mutate(COMMON_NAME = paste0(str_sub(SPECIES, 1,1), str_sub(tolower(SPECIES),2)),
+  mutate(COMMON_NAME = str_to_title(SPECIES),
          COMMON_NAME = case_when(
-           COMMON_NAME == "Opalescent squid" ~ "Opalescent inshore squid", 
-           COMMON_NAME == "Chinook" ~ "Chinook salmon",
-           COMMON_NAME == "Pink" ~ "Pink salmon",
-           COMMON_NAME == "Sockeye" ~ "Sockeye salmon",
-           COMMON_NAME == "Coho" ~ "Coho salmon",
-           COMMON_NAME == "Chum" ~ "Chum salmon",
+           COMMON_NAME == "Opalescent Squid" ~ "Opalescent Inshore Squid", 
+           COMMON_NAME == "Chinook" ~ "Chinook Salmon",
+           COMMON_NAME == "Pink" ~ "Pink Salmon",
+           COMMON_NAME == "Sockeye" ~ "Sockeye Salmon",
+           COMMON_NAME == "Coho" ~ "Coho Salmon",
+           COMMON_NAME == "Chum" ~ "Chum Salmon",
            COMMON_NAME == "Herring" ~ "Pacific Herring",
            COMMON_NAME == "Aequorea" ~ "Water Jelly",
            COMMON_NAME == "Rock sole" ~ "Flatfish",
@@ -575,7 +574,7 @@ prey <- preycode %>%
   mutate(DISPLAY_COMMON = str_remove_all(SPECIES_COMMON_NAME, "[()](JUVENILES)[)]*"),
          #DISPLAY_COMMON = str_remove(DISPLAY_COMMON, "[()](ADULTS)[)]*")
          ) %>%
-  mutate(COMMON_NAME = paste0(str_sub(DISPLAY_COMMON, 1,1), str_sub(tolower(DISPLAY_COMMON),2))) %>%
+  mutate(COMMON_NAME = str_to_title(DISPLAY_COMMON)) %>%
   select(COMMON_NAME, PreySpecies, AvgVolume, NumPrey) %>%
   left_join(., species, by = c("PreySpecies" = "SPECIES_CODE")) %>%
   mutate(PREY_NAME = case_when(
@@ -586,7 +585,7 @@ prey <- preycode %>%
     PreySpecies == "M004" ~ "Misc. Non-marine",
     TRUE ~ SPECIES_COMMON_NAME)) %>%
   select(COMMON_NAME, PREY_NAME, AvgVolume, NumPrey) %>%
-  mutate(PREY_NAME = paste0(str_sub(PREY_NAME, 1,1), str_sub(tolower(PREY_NAME),2))) %>%
+  mutate(PREY_NAME = str_to_title(PREY_NAME)) %>%
   arrange(COMMON_NAME, -AvgVolume)
 
 
@@ -739,7 +738,7 @@ catchApp <- catch_orig %>%
   mutate(DISPLAY_COMMON = if_else(is.na(SPECIES_COMMON_NAME.y), as.character(SPECIES_COMMON_NAME.x), SPECIES_COMMON_NAME.y)) %>%
   mutate(DISPLAY_COMMON = str_remove_all(DISPLAY_COMMON, "[()](JUVENILES)[)]*"),
          DISPLAY_COMMON = str_remove(DISPLAY_COMMON, "[()](ADULTS)[)]*")) %>%
-  mutate(COMMON_NAME = paste0(str_sub(DISPLAY_COMMON, 1,1), str_sub(tolower(DISPLAY_COMMON),2)),
+  mutate(COMMON_NAME = str_to_title(DISPLAY_COMMON),
          SCIENTIFIC_NAME = paste0(str_sub(SPECIES_SCIENCE_NAME, 1,1), str_sub(tolower(SPECIES_SCIENCE_NAME),2)),
          WT_KG = round(WT / 1000,2)) %>%
   left_join(., stations, by = "STATION_ID") %>%
