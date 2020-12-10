@@ -73,7 +73,7 @@ csasdown::csas_table(bridge4,
 
 \newpage
 
-# CTD CASTS AND VERTICAL BONGO TOWS {#app:appOcean}  
+# CTD CASTS AND ZOOPLANKTON TOWS {#app:appOcean}  
   
 (ref:oceantable) CTD casts and bongo tow times and depths during the `r surveyName` from `r surveyDateRange` on the *`r vessel`*.
 
