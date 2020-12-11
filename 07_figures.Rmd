@@ -70,7 +70,7 @@ events_mocness <- events %>%
 ```
 
 
-(ref:sharkphoto) Common Thresher Shark (*Alopias vulpinus*) captured during gear optimization of the offshore LFS 1142 trawl net (despite the open cod end). This 4.6 m shark was released alive (photo credit T. Zubkowski).
+(ref:sharkphoto) Common Thresher Shark (*Alopias vulpinus*) captured during gear optimization of the offshore LFS 1142 trawl net (despite the open cod end). This 4.6 m male shark was released alive (photo credit T. Zubkowski).
 
 ```{r sharkphoto, fig.pos="H", fig.cap = "(ref:sharkphoto)"}
 
