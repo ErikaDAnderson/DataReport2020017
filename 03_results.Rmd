@@ -96,7 +96,7 @@ Chum Salmon were abundant in the northern portion the survey area, with the high
 
 ## BIOLOGICAL SAMPLES
 
-Samples were collected for DNA stock composition (322), otoliths (322), energy density (259), stable isotope analysis (170), and coded wire tags (3). These biological samples are located at the Pacific Biological Station (Nanaimo, BC) awaiting laboratory analysis.
+Samples were collected for DNA stock composition (322), otoliths (322), energy density (259), stable isotope analysis (170), and coded wire tags (3). These biological samples are located at the Pacific Biological Station, Fisheries and Oceans Canada (Nanaimo, BC) awaiting laboratory analysis.
 
 ## LENGTH AND WEIGHT
 ```{r lengthandweight}
@@ -186,9 +186,9 @@ planktonmin <- min(planktonvert$CastDepth)
 
 ```
 
-Vertical bongo tows were conducted at `r nrow(planktonvert)` stations to depths ranging from `r planktonmin` m to `r planktonmax` m (Appendix \@ref(app:appOcean)). Formalin-preserved zooplankton samples will be identified and enumerated at the Institute of Ocean Sciences (Sidney, BC). Data will be archived in the zooplankton database. Fractionated zooplankton samples are frozen at the Pacific Biological Station (Nanaimo, BC).
+Vertical bongo tows were conducted at `r nrow(planktonvert)` stations to depths ranging from `r planktonmin` m to `r planktonmax` m (Appendix \@ref(app:appOcean)). Formalin-preserved zooplankton samples will be identified and enumerated at the Institute of Ocean Sciences, Fisheries and Oceans Canada (Sidney, BC). Data will be archived in the zooplankton database. Fractionated zooplankton samples are frozen at the Pacific Biological Station, Fisheries and Oceans Canada (Nanaimo, BC).
 
-In preparation for the 2022 Pan-Pacific High Seas Expedition, three MOCNESS and two oblique bongo tows were completed. Both techniques were deployed under calm sea conditions off the *`r vessel`*. The MOCNESS did not close nets between all depth strata in 2 of the 3 tows. This failure to release the nets is being investigated. 
+In preparation for the 2022 Pan-Pacific High Seas Expedition, three MOCNESS and two oblique bongo tows were completed. Both techniques were deployed under calm sea conditions off the *`r vessel`*. The MOCNESS did not close nets between all depth strata in the first two tows. This failure to release was likely due to the attachment point not being properly aligned. The attachment point was realigned, and all strata were successfully sampled in the subsequent tow.  
 
 ## ACOUSTIC DATA
 Acoustic data was collected throughout the survey with the drop keel deployed, for analysis at the Institute of Ocean Sciences, Fisheries and Oceans Canada (Sidney, BC).
