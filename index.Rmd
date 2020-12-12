@@ -424,7 +424,9 @@ catch <- catch_orig %>%
   left_join(., species, by = "SPECIES_CODE") %>%
   mutate(DISPLAY_COMMON = if_else(is.na(SPECIES_COMMON_NAME.y), as.character(SPECIES_COMMON_NAME.x), SPECIES_COMMON_NAME.y)) %>%
   mutate(DISPLAY_COMMON = str_remove_all(DISPLAY_COMMON, "[()](JUVENILES)[)]*"),
-         DISPLAY_COMMON = str_remove(DISPLAY_COMMON, "[()](ADULTS)[)]*")) %>%
+         DISPLAY_COMMON = str_remove(DISPLAY_COMMON, "[()](ADULTS)[)]*"),
+         DISPLAY_COMMON = if_else(DISPLAY_COMMON == "MOON JELLY", "MOON JELLYFISH", DISPLAY_COMMON),
+         DISPLAY_COMMON = if_else(DISPLAY_COMMON == "WATER JELLY", "WATER JELLYFISH", DISPLAY_COMMON)) %>%
     mutate(COMMON_NAME = str_to_title(DISPLAY_COMMON),
          SCIENTIFIC_NAME = paste0(str_sub(SPECIES_SCIENCE_NAME, 1,1), str_sub(tolower(SPECIES_SCIENCE_NAME),2))) %>%
   group_by(COMMON_NAME, SCIENTIFIC_NAME) %>%
@@ -539,7 +541,6 @@ stomachdf <- stomachdf_orig %>%
            COMMON_NAME == "Herring" ~ "Pacific Herring",
            COMMON_NAME == "Aequorea" ~ "Water Jellyfish",
            COMMON_NAME == "Rock sole" ~ "Flatfish",
-           COMMON_NAME == "Moon Jelly" ~ "Moon Jellyfish",
            TRUE ~ COMMON_NAME)) %>%
   select(COMMON_NAME, NumTows, NumStomachs, NumEmpty, PerEmpty)
 
@@ -739,7 +740,9 @@ catchApp <- catch_orig %>%
   left_join(., species, by = "SPECIES_CODE") %>%
   mutate(DISPLAY_COMMON = if_else(is.na(SPECIES_COMMON_NAME.y), as.character(SPECIES_COMMON_NAME.x), SPECIES_COMMON_NAME.y)) %>%
   mutate(DISPLAY_COMMON = str_remove_all(DISPLAY_COMMON, "[()](JUVENILES)[)]*"),
-         DISPLAY_COMMON = str_remove(DISPLAY_COMMON, "[()](ADULTS)[)]*")) %>%
+         DISPLAY_COMMON = str_remove(DISPLAY_COMMON, "[()](ADULTS)[)]*"),
+         DISPLAY_COMMON = if_else(DISPLAY_COMMON == "MOON JELLY", "MOON JELLYFISH", DISPLAY_COMMON),
+         DISPLAY_COMMON = if_else(DISPLAY_COMMON == "WATER JELLY", "WATER JELLYFISH", DISPLAY_COMMON)) %>%
   mutate(COMMON_NAME = str_to_title(DISPLAY_COMMON),
          SCIENTIFIC_NAME = paste0(str_sub(SPECIES_SCIENCE_NAME, 1,1), str_sub(tolower(SPECIES_SCIENCE_NAME),2)),
          WT_KG = round(WT / 1000,2)) %>%
