@@ -2,7 +2,5 @@
 
 # ACKNOWLEDGEMENTS
 
-We would like to acknowledge that we conducted scientific research in the following First Nations territories: Da'naxda'xw-Awaetlala, Gitga'at, Gwa'sala-Nakwaxda'xw, Gwawaenuk, Haida, Haisla, Kitasoo/Xai'xais, Kitkatla (Gitxaala), Kwakiutl, Kwikwasut'inuxw Haxwa'mis, 'Namgis, Nuxalk, Tlatlasikwala, Wuikinuxv.
-  
-We would like to thank Captain Duncan McCallum, and white crew of the *`r vessel`*. We appreciate the expertise of the following science staff who participated in the survey: Cameron Freshwater, Chelsea Stanley, Daniel Williams, and Cindy Wright.
+We would like to acknowledge that we conducted scientific research in the following First Nations territories: Da'naxda'xw-Awaetlala, Gitga'at, Gwa'sala-Nakwaxda'xw, Gwawaenuk, Haida, Haisla, Kitasoo/Xai'xais, Kitkatla (Gitxaala), Kwakiutl, Kwikwasut'inuxw Haxwa'mis, 'Namgis, Nuxalk, Tlatlasikwala, Wuikinuxv. We would like to thank Captain Duncan McCallum, and white crew of the *`r vessel`*. We appreciate the expertise of the following science staff who participated in the survey: Cameron Freshwater, Chelsea Stanley, Daniel Williams, and Cindy Wright.
 \newpage
