@@ -1,14 +1,14 @@
 ---
 title: "Ecosystem-Based Juvenile Pacific Salmon (*Oncorhynchus* spp.) Survey on the North Coast of British Columbia, October 6-16, 2020"
 year: 2021
-report_number: nnn
+report_number: 1331
 author: |
   Erika D. Anderson,
   Jackie R. King, and
   Tyler B. Zubkowski
 author_list: "Anderson, E.D., King, J.R. and Zubkowski, T.B."
 region: Pacific Region
-isbn: ""
+isbn: "978-0-660-37019-4"
 address: |
   Pacific Biological Station\
   Fisheries and Oceans Canada, 3190 Hammond Bay Road\
