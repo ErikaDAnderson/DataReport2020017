@@ -1,5 +1,3 @@
-[![Project Status: Inactive – The project has reached a stable, usable state but is no longer being actively developed; support/maintenance will be provided as time allows.](https://www.repostatus.org/badges/latest/inactive.svg)](https://www.repostatus.org/#inactive)
-
 # DataReport2020017
 Data Report for ecosystem-based juvenile salmon survey October 6-16, 2020 (2020-017)
 
